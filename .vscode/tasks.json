@@ -2,37 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Racket: Run Frontend",
-      "type": "shell",
-      "command": "racket frontend/main.rkt",
-      "problemMatcher": [],
-      "group": "build"
-    },
-    {
-      "label": "Racket: Run Backend Server",
-      "type": "shell",
-      "command": "racket backend/server.rkt",
-      "problemMatcher": [],
-      "group": "build"
-    },
-    {
       "label": "Racket: Run All Tests (root)",
       "type": "shell",
       "command": "raco test -x .",
-      "problemMatcher": [],
-      "group": "test"
-    },
-    {
-      "label": "Racket: Test Frontend",
-      "type": "shell",
-      "command": "raco test -x frontend",
-      "problemMatcher": [],
-      "group": "test"
-    },
-    {
-      "label": "Racket: Test Backend",
-      "type": "shell",
-      "command": "raco test -x backend",
       "problemMatcher": [],
       "group": "test"
     },
@@ -58,6 +30,20 @@
       "label": "Racket: Watch Tests (posix, needs entr)",
       "type": "shell",
       "command": "find . -type f -name '*.rkt' | entr -c raco test -x .",
+      "problemMatcher": []
+    },
+        {
+      "label": "Check Racket formatting",
+      "type": "shell",
+      "command": "raco format --check .",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Auto-format Racket files",
+      "type": "shell",
+      "command": "raco format -i .",
+      "group": "build",
       "problemMatcher": []
     }
   ]
