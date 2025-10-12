@@ -1,12 +1,18 @@
-#### Algorhythms
+### Algorhythms
 
-### Run Tests
+#### Run Tests
 ```bash
 - all: raco test tests/
 - individually: raco test tests/math/factorial.rkt
 ```
 
-### Cmds
-- `raco pkg install racket-format`
-- `raco format --check .`
-- To auto-format all files: `raco format -i .`
+#### Cmds
+
+##### Code Formatting
+To check and fix code style for all Racket files:
+
+```bash
+raco pkg install racket-format    # one-time setup
+raco format --check .            # check formatting
+raco format -i .                 # auto-format all files
+```
