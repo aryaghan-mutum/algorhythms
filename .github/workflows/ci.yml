@@ -1,0 +1,87 @@
+# name: Racket CI
+
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+#   workflow_dispatch:
+
+# jobs:
+#   test-and-docs:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+
+#       - name: Cache Racket pkg dir
+#         uses: actions/cache@v4
+#         with:
+#           path: ~/.racket
+#           key: racket-pkgs-${{ runner.os }}-${{ hashFiles('**/info.rkt') }}
+#           restore-keys: |
+#             racket-pkgs-${{ runner.os }}-
+
+#       - name: Install Racket
+#         uses: Bogdanp/setup-racket@v1
+#         with:
+#             version: '8.12'    # Pin version; update as needed
+#             variant: 'full'
+
+#       - name: Show versions
+#         run: |
+#           racket --version
+#           raco --version
+
+#       - name: Install project packages (if this repo is a collection)
+#         run: |
+#           # Attempts to install local packages recursively; ignore errors for already-installed.
+#           raco pkg install --auto --batch --skip-installed .
+
+#       - name: Run tests
+#         run: |
+#           raco test -x .
+
+#       - name: Build Scribble docs
+#         run: |
+#           if [ -d docs ]; then
+#             mkdir -p build/docs
+#             raco scribble --htmls --dest build/docs docs/index.scrbl
+#           else
+#             echo "No docs/ directory; skipping docs build."
+#           fi
+
+#       - name: Archive docs artifact
+#         if: success() && hashFiles('build/docs/**') != ''
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: site-docs
+#           path: build/docs
+#           if-no-files-found: ignore
+
+#   deploy-pages:
+#     # OPTIONAL: enable if you want GitHub Pages from docs. Requires Pages config in repo settings.
+#     if: github.ref == 'refs/heads/main'
+#     needs: test-and-docs
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: read
+#       pages: write
+#       id-token: write
+#     steps:
+#       - name: Download docs artifact
+#         uses: actions/download-artifact@v4
+#         with:
+#           name: site-docs
+#           path: site
+
+#       - name: Setup Pages
+#         uses: actions/configure-pages@v5
+
+#       - name: Upload Pages artifact
+#         uses: actions/upload-pages-artifact@v3
+#         with:
+#           path: site
+
+#       - name: Deploy to GitHub Pages
+#         uses: actions/deploy-pages@v4

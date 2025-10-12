@@ -1,0 +1,39 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // Basic run for backend server; uses an external terminal.
+      "name": "Racket: Backend Server",
+      "type": "pwa-node",
+      "request": "launch",
+      "runtimeExecutable": "racket",
+      "args": ["${workspaceFolder}/backend/server.rkt"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Racket: Frontend App",
+      "type": "pwa-node",
+      "request": "launch",
+      "runtimeExecutable": "racket",
+      "args": ["${workspaceFolder}/frontend/main.rkt"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Racket: Single Test File",
+      "type": "pwa-node",
+      "request": "launch",
+      "runtimeExecutable": "raco",
+      "args": ["test", "${file}"],
+      "console": "integratedTerminal"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Racket: Full Stack (Frontend + Backend)",
+      "configurations": [
+        "Racket: Backend Server",
+        "Racket: Frontend App"
+      ]
+    }
+  ]
+}

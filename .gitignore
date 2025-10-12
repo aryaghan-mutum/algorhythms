@@ -1,0 +1,23 @@
+# Racket backups & compiled
+*.bak
+compiled/
+**/compiled/
+*.zo
+
+# Build artifacts
+build/
+site/
+
+# Logs / temp
+*.log
+*.tmp
+
+# OS / editor
+.DS_Store
+Thumbs.db
+
+# Devcontainer local cache (optional)
+.racket-pkg-cache/
+
+# VS Code
+.history/

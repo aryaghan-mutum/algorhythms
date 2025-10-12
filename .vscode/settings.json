@@ -1,0 +1,55 @@
+{
+  // ---- Visibility / Noise Reduction ----
+  "files.exclude": {
+    "**/*.bak": true,
+    "**/compiled": true,
+    "**/*.zo": true,
+    "**/.DS_Store": true,
+    "**/.ipynb_checkpoints": true
+  },
+  "search.exclude": {
+    "**/*.bak": true,
+    "**/compiled": true
+  },
+  "files.watcherExclude": {
+    "**/compiled/**": true
+  },
+
+  // ---- Editor Basics ----
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.rulers": [80, 100],
+  "editor.renderWhitespace": "selection",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.eol": "\n",
+
+  // ---- Racket Specific Formatting & Language ----
+  "[racket]": {
+    "editor.defaultFormatter": "evzen-wybitul.magic-racket",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+
+  // Magic Racket (if supported / installed)
+  "racket.racketPath": "racket",           // Or absolute path
+  "racket.format.enable": true,
+  "racket.backgroundExpansion": true,
+  "racket.trace.enabled": false,
+
+  // ---- Quality / Assistance ----
+  "editor.inlineSuggest.enabled": true,
+  "errorLens.enabled": true,
+
+  // ---- Git Ergonomics ----
+  "git.autofetch": true,
+  "git.pruneOnFetch": true,
+  "git.confirmSync": false,
+
+  // ---- Task / Run Convenience ----
+  "task.quickOpen.history": 12,
+
+  // ---- Optional Spell Checker (off by default) ----
+  "codeSpellChecker.enabled": false
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Racket Workspace",
+  "image": "racket/racket:8.12-full",
+  "features": {
+    // Add common tools; remove if not needed
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "vscode",
+      "installZsh": true
+    }
+  },
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "editor.formatOnSave": true
+  },
+  "postCreateCommand": "raco pkg install --auto --batch --skip-installed . || true",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "evzen-wybitul.magic-racket",
+        "usernamehw.errorlens",
+        "eamodio.gitlens"
+      ]
+    }
+  },
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=${localWorkspaceFolder}/.racket-pkg-cache,target=/home/vscode/.racket/pkgs,type=bind"
+  ],
+  "forwardPorts": [8000, 8080],
+  "runArgs": [
+    "--cap-drop=ALL"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "Module Skeleton": {
+    "prefix": "rmod",
+    "body": [
+      "#lang racket",
+      "",
+      "(provide ${1:main})",
+      "",
+      "(define (${1:main} . args)",
+      "  (displayln \"${2:TODO}\")",
+      "  (void))"
+    ],
+    "description": "Basic exported function module"
+  },
+  "Web Server Boilerplate": {
+    "prefix": "rweb",
+    "body": [
+      "#lang racket",
+      "(require web-server/servlet",
+      "         web-server/servlet-env)",
+      "",
+      "(define (start req)",
+      "  (response/xexpr",
+      "    '(html (head (title \"Hello\"))",
+      "           (body (h1 \"Hello, World\")))))",
+      "",
+      "(serve/servlet start",
+      "  #:servlet-path \"/\"",
+      "  #:launch-browser? #f",
+      "  #:port ${1:8000})"
+    ],
+    "description": "Minimal web-server servlet"
+  },
+  "Test File Skeleton": {
+    "prefix": "rtest",
+    "body": [
+      "#lang racket",
+      "(require rackunit \"../lib/${1:module}.rkt\")",
+      "",
+      "(module+ test",
+      "  (test-case \"${2:description}\"",
+      "    (check-equal? (${3:function-under-test} ${4:input}) ${5:expected})))"
+    ],
+    "description": "RackUnit test scaffold"
+  }
+}
