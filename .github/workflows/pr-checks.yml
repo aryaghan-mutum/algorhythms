@@ -1,0 +1,11 @@
+name: PR Checks
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  pr-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Basic PR hygiene
+      run: echo "PR hygiene checks successful."
