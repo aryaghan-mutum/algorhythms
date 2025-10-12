@@ -5,7 +5,7 @@
 ; input: number
 ; output: list
 
-(define (range n)
+(define (rangex n)
   (range-aux n null))
 
 (define (range-aux n L)
@@ -14,7 +14,7 @@
 
 
 ;proof
-(range 10)
+(rangex 10)
 (range-aux (- 10 1) (cons 10 null))                                                                                          ;n = 9,  L = '(10)
 (range-aux (- 9 1) (cons 9 (cons 10 null)))                                                                                  ;n = 8,  L = '(9 10)
 (range-aux (- 8 1) (cons 8 (cons 9 (cons 10 null))))                                                                         ;n = 7,  L = '(8 9 10)
