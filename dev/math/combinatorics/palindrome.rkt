@@ -58,5 +58,3 @@ a.
     (or (null? s)
         (and (char=? (car s) (car r))
              (loop (cdr s) (cdr r))))))
-
-

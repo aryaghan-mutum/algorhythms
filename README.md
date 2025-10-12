@@ -16,3 +16,5 @@ raco pkg install racket-format    # one-time setup
 raco format --check .            # check formatting
 raco format -i .                 # auto-format all files
 ```
+
+test: `raco test tests/`
