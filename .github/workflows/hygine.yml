@@ -1,0 +1,15 @@
+name: Racket Hygiene
+on:
+  pull_request:
+    branches: [main, master]
+jobs:
+  fmt-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Racket
+      uses: Bogdanp/setup-racket@v1.12
+      with:
+        version: 'stable'
+    - name: Check formatting
+      run: raco fmt --check . || (echo "Please run raco fmt for code hygiene." && exit 1)
