@@ -1,15 +1,25 @@
 ### Algorhythms
 
-#### Run Tests
+A Racket library of algorithms and data structures.
+
+---
+
+#### Running Tests
+
+To run all tests:
 ```bash
-- all: raco test tests/
-- individually: raco test tests/math/factorial.rkt
+raco test tests/
+```
+To run an individual test file:
+```bash
+raco test tests/math/factorial.rkt
 ```
 
-#### Cmds
+---
 
-##### Code Formatting
-To check and fix code style for all Racket files:
+#### Code Formatting
+
+Check and fix code style for all Racket files:
 
 ```bash
 raco pkg install racket-format    # one-time setup
@@ -17,4 +27,19 @@ raco format --check .            # check formatting
 raco format -i .                 # auto-format all files
 ```
 
-test: `raco test tests/`
+---
+
+#### Package Management
+
+Remove the package:
+```bash
+raco pkg remove algorhythms
+```
+Install the package:
+```bash
+raco pkg install algorhythms
+```
+Update the package:
+```bash
+raco pkg update algorhythms
+```
