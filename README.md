@@ -43,3 +43,6 @@ Update the package:
 ```bash
 raco pkg update algorhythms
 ```
+#### Package
+`raco pkg show @aryaghan-mutum/algorhythms`
+`raco pkg show algorhythms`
