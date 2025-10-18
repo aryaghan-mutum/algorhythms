@@ -8,4 +8,4 @@
 (define pkg-desc "A collection of implementations for algorithms and data structures in Racket.")
 (define pkg-authors '("Anurag Muthyam"))
 (define license 'BSD-3-Clause)
-(define categories '(algorithms data-structures))
+(define categories '("algorithms" "data-structures"))
