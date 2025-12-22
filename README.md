@@ -1,6 +1,18 @@
 # Algorhythms
 
+[![CI](https://github.com/aryaghan-mutum/algorhythms/actions/workflows/ci.yml/badge.svg)](https://github.com/aryaghan-mutum/algorhythms/actions/workflows/ci.yml)
+[![Release](https://github.com/aryaghan-mutum/algorhythms/actions/workflows/release.yml/badge.svg)](https://github.com/aryaghan-mutum/algorhythms/actions/workflows/release.yml)
+[![License: BSD-3](https://img.shields.io/badge/License-BSD--3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Racket](https://img.shields.io/badge/Racket-%3E%3D8.14-blue)](https://racket-lang.org)
+[![Version](https://img.shields.io/badge/version-1.0.0-green)](https://github.com/aryaghan-mutum/algorhythms/releases)
+
 A Racket library of algorithms and data structures.
+
+📦 **Package**: [Racket Package Catalog](https://pkgs.racket-lang.org/package/algorhythms)
+
+📖 **Source**: [GitHub Repository](https://github.com/aryaghan-mutum/algorhythms)
+
+🔧 **CI/CD**: [GitHub Actions](https://github.com/aryaghan-mutum/algorhythms/actions)
 
 ---
 

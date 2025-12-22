@@ -2,7 +2,7 @@
 
 (define name "algorhythms")
 (define version "1.0.0")
-(define deps '("rackunit"))
+(define deps '("rackunit" "threading"))
 (define build-deps '("scribble-lib" "racket-doc"))
 (define pkg-desc "A collection of implementations for algorithms and data structures in Racket.")
 (define pkg-authors '("Anurag Muthyam"))
