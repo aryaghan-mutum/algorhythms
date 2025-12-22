@@ -20,6 +20,10 @@ jobs:
           variant: 'CS'
           version: '8.18'
 
+      - name: Install dependencies
+        run: |
+          raco pkg install --auto --batch threading rackunit
+
       - name: Install package
         run: |
           raco pkg install --auto --batch --name algorhythms
@@ -38,6 +42,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Validate PR title format
         run: |
@@ -52,6 +58,7 @@ jobs:
 
       - name: Check for info.rkt changes
         run: |
-          if git diff --name-only origin/${{ github.base_ref }}..HEAD | grep -q "info.rkt"; then
+          git fetch origin ${{ github.base_ref }} --depth=1 || true
+          if git diff --name-only origin/${{ github.base_ref }}...HEAD 2>/dev/null | grep -q "info.rkt"; then
             echo "📦 info.rkt was modified - version may have changed"
           fi
