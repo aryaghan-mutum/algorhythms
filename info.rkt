@@ -1,7 +1,7 @@
 #lang info
 
 (define name "algorhythms")
-(define version "1.0.0")
+(define version "0.2.0")
 (define deps '("rackunit" "threading"))
 (define build-deps '("scribble-lib" "racket-doc"))
 (define pkg-desc "A collection of implementations for algorithms and data structures in Racket.")
