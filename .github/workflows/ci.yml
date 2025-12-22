@@ -20,16 +20,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Configure git
-        run: |
-          git config --global url."https://github.com/".insteadOf git://github.com/
-          git config --global url."https://github.com/".insteadOf ssh://git@github.com/
 
       - name: Setup Racket
-        uses: Bogdanp/setup-racket@v1.11
+        uses: Bogdanp/setup-racket@v1.14
         with:
           architecture: 'x64'
           distribution: 'full'
@@ -58,16 +51,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Configure git
-        run: |
-          git config --global url."https://github.com/".insteadOf git://github.com/
-          git config --global url."https://github.com/".insteadOf ssh://git@github.com/
 
       - name: Setup Racket
-        uses: Bogdanp/setup-racket@v1.11
+        uses: Bogdanp/setup-racket@v1.14
         with:
           architecture: 'x64'
           distribution: 'full'
