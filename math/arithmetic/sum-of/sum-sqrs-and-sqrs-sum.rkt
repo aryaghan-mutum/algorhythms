@@ -5,7 +5,7 @@
 
 (require "./squares-of-sum.rkt")
 (require "./sum-of-squares.rkt")
-(require "../../../../../ralgory/higher-order-procedures/reduce.rkt")
+(require "../../../data-structures/hof/reduce.rkt")
 (provide difference)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

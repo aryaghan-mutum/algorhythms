@@ -52,7 +52,7 @@ map iterative approach:
   (λ (lst) (mapper (λ (x) (- x 1)) lst)))
 
 ;; double every element in a list
-(define add1-all
+(define add1-map
   (λ (lst) (mapper (λ (x) (+ x 1)) lst)))
 
 ;; double every element in a list

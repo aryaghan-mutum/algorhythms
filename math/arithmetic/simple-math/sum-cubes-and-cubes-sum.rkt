@@ -1,6 +1,6 @@
 #lang racket
 
-(require "../../hof/reduce.rkt")
+;; Using foldl instead of custom reduce
 
 ;; Anuurag Muthyam
 ;; Difference between cubes of sum and sum of cubes
@@ -12,10 +12,10 @@
   (define (cube n) (* n n n))
   
   (define (sum-of-cubes)
-    (reduce + (build-list n cube)))
+    (foldl + 0 (build-list n cube)))
   
   (define (cubes-of-sum)
-    (cube (reduce + (build-list n values))))
+    (cube (foldl + 0 (build-list n values))))
 
   (- (cubes-of-sum) (sum-of-cubes)))
     

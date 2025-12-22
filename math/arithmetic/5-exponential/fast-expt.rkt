@@ -1,4 +1,6 @@
-#lang racket 
+#lang racket
+
+(require racket/trace)
 
 ;; Author: Anurag Muthyam
 ;; Exponentitation

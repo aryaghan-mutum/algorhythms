@@ -1,10 +1,15 @@
 #lang racket
 
 (require threading)
-(require algorithms)
 
 (define (reduce fn lst)
   (and (not (empty? lst)) (foldl fn (first lst) (rest lst))))
+
+;; sliding window function
+(define (sliding n lst)
+  (if (< (length lst) n)
+      '()
+      (cons (take lst n) (sliding n (cdr lst)))))
 
 (define (pascal-triangle n)
   (if (= n 1)
@@ -21,7 +26,7 @@
 
 (define (pt-next-row row)
   (~> row
-      (sliding 2)
+      (sliding 2 _)
       (map (λ (x) (foldl + 0 x)) _)
       (append '(1) _ '(1))))
   

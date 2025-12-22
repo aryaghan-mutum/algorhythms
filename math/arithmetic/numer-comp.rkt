@@ -39,7 +39,11 @@
 
 (define (square n) (* n n))
 
+(define (square-map lst) (map square lst))
+
 (define (cube n) (* n n n))
+
+(define (cube-map lst) (map cube lst))
 
 (define (sum-of-squares x y) (+ (square x) (square y)))
 
@@ -47,11 +51,19 @@
 
 (define (double n) (* n 2))
 
+(define (double-map lst) (map double lst))
+
 (define (triple n) (* n 3))
+
+(define (triple-map lst) (map triple lst))
 
 (define (add1 n) (+ n 1))
 
+(define (add1-map lst) (map add1 lst))
+
 (define (sub1 n) (- n 1))
+
+(define (sub1-map lst) (map sub1 lst))
 
 (define (min a b) (if (< a b) a b))
 
@@ -59,10 +71,14 @@
 
 (define (abs n) (if (pos? n) n (- n)))
 
+(define (abs-map lst) (map abs lst))
+
 (define (reciprocal n)
   (if (0? n)
       (error "reciprocal/inverse of 0 is undefined")
       (/ 1 n)))
+
+(define (reciprocal-map lst) (map reciprocal lst))
 
 (define (0? n) (if (= n 0) #t #f))
 

@@ -11,7 +11,7 @@
          word?
          sentence?)
 
-(require "../macros/curry.rkt")
+;; Note: curry is available from racket/function
 
 (define en-vowels '(a e i o u))
 
@@ -27,7 +27,7 @@
 
 (define en-alphabets-length (lambda () (length en-alphabets)))
 
-(def-curry (en-vowel? letter)
+(define (en-vowel? letter)
   (define (vowel-helper letter lst)
     (cond ((empty? lst) #f)
           ((eq? letter (car lst)) #t)
@@ -35,31 +35,23 @@
                               (cdr lst)))))
   (vowel-helper letter en-vowels))
 
-(def-curry (en-consonent? letter)
+(define (en-consonent? letter)
   (not (en-vowel? letter)))
 
-// taken from Simply Scheme
-(def-curry (word? x)
-  (let ((number? number?)
-        (sumbol? symbol?)
-        (string? string?))
-    (or (symbol? x)
-        (number? x)
-        (string? x))))
+;; taken from Simply Scheme
+(define (word? x)
+  (or (symbol? x)
+      (number? x)
+      (string? x)))
 
-// taken from Simply Scheme
-(def-curry (sentence? x)
-  (let ((null? null?)
-        (pair? pair?)
-        (word? word?)
-        (car car)
-        (cdr cdr))
-    (define (list-of-words? l)
-      (cond ((null? l) #t)
-            ((pair? l)
-             (and (word? (car l)) (list-of-words? (cdr l))))
-            (else #f)))
-    list-of-words?))
+;; taken from Simply Scheme
+(define (sentence? x)
+  (define (list-of-words? l)
+    (cond ((null? l) #t)
+          ((pair? l)
+           (and (word? (car l)) (list-of-words? (cdr l))))
+          (else #f)))
+  (list-of-words? x))
     
 ;; TODO
 ; (define (vowels? lst)

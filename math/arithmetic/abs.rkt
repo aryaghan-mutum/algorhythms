@@ -74,7 +74,7 @@
   (if (empty? lst)
       '()
       (cons (absolute (car lst))
-            (absolute-lst (cdr lst)))))
+            (absolute-lst-rec (cdr lst)))))
 
 ;; absolute for each element in a list using imperative approach 
 (define (absolute-lst-imper lst)

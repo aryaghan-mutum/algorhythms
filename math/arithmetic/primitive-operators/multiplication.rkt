@@ -1,4 +1,4 @@
-;;; #lang racket
+#lang racket
 
 ;;; (define (multiply-all lst)
 ;;;   (if (empty? lst)

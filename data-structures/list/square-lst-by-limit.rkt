@@ -1,4 +1,4 @@
-;;; #lang racket
+#lang racket
 
 ;;; ;; Author: Anurag Muthyam
 ;;; ;; Email: anu.drumcoder@gmail.com

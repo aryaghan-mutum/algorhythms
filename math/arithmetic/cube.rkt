@@ -21,5 +21,9 @@
   (λ (lst)
     (map cube lst)))
 
+;; sum of cubes
+(define (sum-of-cubes lst)
+  (apply + (map cube lst)))
+
 
 

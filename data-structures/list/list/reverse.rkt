@@ -1,6 +1,6 @@
 #lang racket
 
-(require raclet/trace)
+(require racket/trace)
 
 ;; Author: Anurag Muthyam
 ;; Reverse the objects in a list

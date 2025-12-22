@@ -45,12 +45,12 @@ reduce the number of iteratons by multiply count with it self (* count count)
 
 ;; answer b
 (define (prime?? n)
-  (if (< n 2) #f (prime-iter n 2)))
+  (if (< n 2) #f (prime-iter-b n 2)))
 
-(define (prime-iter n count)
+(define (prime-iter-b n count)
   (cond ((= n count) #t)
         ((zero? (modulo n count)) #f)
         ((< n (* count count)) #t)
-        (else (prime-iter n (add1 count)))))
+        (else (prime-iter-b n (add1 count)))))
 
         

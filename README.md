@@ -1,45 +1,108 @@
-### Algorhythms
+# Algorhythms
 
 A Racket library of algorithms and data structures.
 
 ---
 
-#### Installation
-- Open a new Command Prompt (press Windows key, type cmd, hit Enter): `C:\Users\865aam64\Racket\racket.exe --version` or `C:\Users\865aam64\Racket\raco.exe --version`
+## Installation
 
-- Or, if you added Racket to your PATH, just: `racket --version` or `raco --version`
-
-#### Running Tests
-- Before pushing changes, test package locally: `raco setup` and `raco test .`
-- To run all tests: `raco test tests`
-- To run an individual test file: `raco test tests/encoding/morse-code-test.rkt`
-
-#### Code Formatting
-
-Check and fix code style for all Racket files:
-
+### From Package Catalog
 ```bash
-raco pkg install racket-format    # one-time setup
-raco format --check .            # check formatting
-raco format -i .                 # auto-format all files
+raco pkg install algorhythms
+```
+
+### From Source (Development)
+```bash
+git clone https://github.com/aryaghan-mutum/algorhythms.git
+cd algorhythms
+raco pkg install --link .
 ```
 
 ---
 
-#### Package Management
+## Quick Start
 
-Remove the package:
-```bash
-raco pkg remove algorhythms
+```racket
+#lang racket
+(require algorhythms)
+
+;; Use factorial
+(factorial 10)  ; => 3628800
+
+;; Morse code
+(encode-to-morse "SOS")  ; => "... --- ..."
 ```
-Install the package:
+
+---
+
+## Development Commands
+
+### Setup & Build
 ```bash
-raco pkg install algorhythms
+# Verify Racket installation
+racket --version
+raco --version
+
+# Build/compile the package
+raco setup --pkgs algorhythms
+
+# Clean compiled files
+raco setup --clean algorhythms
 ```
-Update the package:
+
+### Testing
 ```bash
+# Run all tests
+raco test .
+
+# Run tests in specific directory
+raco test tests/
+
+# Run a specific test file
+raco test tests/encoding/morse-code-test.rkt
+
+# Run tests with verbose output
+raco test -v .
+```
+
+### Code Formatting
+```bash
+# Install formatter (one-time)
+raco pkg install fmt
+
+# Check formatting
+raco fmt --check .
+
+# Auto-format all files
+raco fmt -i .
+```
+
+### Package Management
+```bash
+# Show package info
+raco pkg show algorhythms
+
+# Update package
 raco pkg update algorhythms
+
+# Remove package
+raco pkg remove algorhythms
+
+# Reinstall from local directory
+raco pkg install --link .
 ```
-#### Package
-`raco pkg show @aryaghan-mutum/algorhythms`
-`raco pkg show algorhythms`
+
+### Documentation
+```bash
+# Build documentation
+raco setup --doc-index algorhythms
+
+# Open docs in browser
+raco docs algorhythms
+```
+
+---
+
+## License
+
+MIT

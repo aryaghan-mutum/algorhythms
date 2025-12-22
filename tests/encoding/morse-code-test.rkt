@@ -1,6 +1,6 @@
 #lang racket
 
-(require rackunit "../../dev/encoding/morse-code.rkt")
+(require rackunit "../../encoding/morse-code.rkt")
 
 (define (test-encode)
   (check-equal? (encode-to-morse "A") ".-" "encode A")

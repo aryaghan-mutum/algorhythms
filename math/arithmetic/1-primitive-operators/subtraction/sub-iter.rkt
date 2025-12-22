@@ -1,5 +1,7 @@
 #lang racket
 
+(require racket/trace)
+
 ;; subtract two numbers using iterative process
 (define (- a b)
   (if (zero? b)

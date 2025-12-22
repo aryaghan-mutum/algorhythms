@@ -2,7 +2,7 @@
 
 ;Author: Anurag Muthyam
 
-(provide (trapezoid-area)
+(provide trapezoid-area)
          
 ;; area of trapezoid
 (define trapezoid-area

@@ -1,3 +1,5 @@
+#lang racket
+
 ;;Math
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -42,8 +44,9 @@
 ;; sum of the cubes
 (define (inc n) (+ n 1))
 (define (cube x) (* x x x))
-(define (sum-cubes a b)
-    (sum cube a inc b))
+;; sum-cubes-hof uses higher-order sum function
+;; (define (sum-cubes-hof a b)
+;;     (sum cube a inc b))
 
 ;; decrement the val x and incremen the val y until x = 0
 (define decrement-x-increment-y

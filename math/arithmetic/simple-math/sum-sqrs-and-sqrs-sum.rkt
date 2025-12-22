@@ -1,6 +1,6 @@
 #lang racket
 
-(require "../../hof/reduce.rkt")
+;; Using foldl instead of custom reduce
 
 ;; Anuurag Muthyam
 ;; Difference between squares of sum and sum of squares
@@ -14,11 +14,11 @@
 
 (define (sum-of-sqrs n)
   (define lst (build-list n sqr))
-  (reduce + lst))
+  (foldl + 0 lst))
 
 (define (sqrs-of-sum n)
   (define lst (build-list n values))
-  (sqr (reduce + lst)))
+  (sqr (foldl + 0 lst)))
 
 (define (sqr n) (* n n))
 
@@ -61,10 +61,10 @@
 (define (difference! n)
 
   (define (sum-of-sqrs!)
-    (reduce + (build-list n (lambda (x) (* x x)))))
+    (foldl + 0 (build-list n (lambda (x) (* x x)))))
   
   (define (sqrs-of-sum!)
-    (sqr (reduce + (build-list n values))))
+    (sqr (foldl + 0 (build-list n values))))
 
   (- (sqrs-of-sum!) (sum-of-sqrs!)))
     

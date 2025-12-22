@@ -1,11 +1,11 @@
 #lang racket
 
-(require "dev/math/combinatorics/factorial.rkt")
-(require "dev/encoding/morse-code.rkt")
+(require "math/combinatorics/factorial.rkt")
+(require "encoding/morse-code.rkt")
 
 (provide
-  (all-from-out "dev/math/combinatorics/factorial.rkt")
-  (all-from-out "dev/encoding/morse-code.rkt"))
+  (all-from-out "math/combinatorics/factorial.rkt")
+  (all-from-out "encoding/morse-code.rkt"))
 
 ;;TODO:
 ;;; > (string-append "foo" "bar" "baz")

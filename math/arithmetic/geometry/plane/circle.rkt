@@ -12,4 +12,4 @@
   (* rad angle))
 
 (define (area-arc-len rad angle)
-  (* 0.5 (sqr r) angle))
+  (* 0.5 (sqr rad) angle))

@@ -1,4 +1,4 @@
-;;; #lang racket
+#lang racket
 
 ;;; ; Generate Pythagorean triplet`
 ;;; ;;; create pythagorean triplets procedure that takes limit as arg and it must return N number of pythagorean triplets

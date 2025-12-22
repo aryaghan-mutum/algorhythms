@@ -1,9 +1,10 @@
 #lang racket
 
+;; Grid multiplication - Work in progress
+;; TODO: Complete implementation
 
-(writln "Method: Partial products algorithm or Partial products method.")
+(provide grid-method-mul)
+
 (define (grid-method-mul a b)
-  (grid-mul a b))
-
-(define (grid-mul a b)
-  (if (
+  ;; Placeholder - partial products algorithm
+  (* a b))

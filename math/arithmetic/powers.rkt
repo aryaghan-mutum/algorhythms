@@ -1,4 +1,4 @@
-;;; #lang racket
+#lang racket
 
 ;;; (require racket/trace)
 ;;; (define (cube n) (* n n n))

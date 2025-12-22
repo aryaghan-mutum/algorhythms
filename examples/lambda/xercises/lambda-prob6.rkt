@@ -28,7 +28,7 @@ b. ((((p6) sqr) cube) 2) create a function based on the function call and is thi
 
 
 ;; b answer:
-(define (p6)
+(define (p6-b)
   (lambda (f)
     (lambda (g)
       (lambda (x)
