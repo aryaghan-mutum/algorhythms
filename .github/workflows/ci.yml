@@ -21,6 +21,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Cache Racket packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.local/share/racket
+            ~/.cache/racket
+            ~/Library/Racket
+            ~\AppData\Roaming\Racket
+          key: ${{ runner.os }}-racket-${{ matrix.racket-version }}-${{ hashFiles('info.rkt') }}
+          restore-keys: |
+            ${{ runner.os }}-racket-${{ matrix.racket-version }}-
+
       - name: Setup Racket
         uses: Bogdanp/setup-racket@v1.14
         with:
@@ -45,12 +57,68 @@ jobs:
         run: |
           raco test --package algorhythms
 
+  coverage:
+    name: Code Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache Racket packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.local/share/racket
+            ~/.cache/racket
+          key: ${{ runner.os }}-racket-coverage-${{ hashFiles('info.rkt') }}
+          restore-keys: |
+            ${{ runner.os }}-racket-coverage-
+
+      - name: Setup Racket
+        uses: Bogdanp/setup-racket@v1.14
+        with:
+          architecture: 'x64'
+          distribution: 'full'
+          variant: 'CS'
+          version: '8.18'
+
+      - name: Install dependencies
+        run: |
+          raco pkg install --batch --auto --skip-installed threading cover
+
+      - name: Install package from source
+        run: |
+          raco pkg install --batch --no-docs --skip-installed --name algorhythms
+
+      - name: Run tests with coverage
+        run: |
+          raco cover -f coveralls -d coverage tests/
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage/coverage.json
+          fail_ci_if_error: false
+          verbose: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
   lint:
     name: Code Quality
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Cache Racket packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.local/share/racket
+            ~/.cache/racket
+          key: ${{ runner.os }}-racket-lint-${{ hashFiles('info.rkt') }}
+          restore-keys: |
+            ${{ runner.os }}-racket-lint-
 
       - name: Setup Racket
         uses: Bogdanp/setup-racket@v1.14
