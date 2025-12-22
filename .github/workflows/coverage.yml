@@ -29,13 +29,17 @@ jobs:
           variant: 'CS'
           version: '8.18'
 
+      - name: Install dependencies from catalog
+        run: |
+          raco pkg install --batch --auto --skip-installed threading
+
       - name: Install coverage tools
         run: |
-          raco pkg install --auto --batch --skip-installed cover cover-codecov
+          raco pkg install --batch --auto --skip-installed cover cover-codecov
 
       - name: Install package from source
         run: |
-          raco pkg install --auto --batch --skip-installed --name algorhythms
+          raco pkg install --batch --no-docs --skip-installed --name algorhythms
 
       - name: Generate coverage report
         run: |
