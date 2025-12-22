@@ -1,7 +1,7 @@
 #lang info
 
 (define name "algorhythms")
-(define version "0.1.0")
+(define version "1.0.0")
 (define deps '("rackunit"))
 (define build-deps '("scribble-lib" "racket-doc"))
 (define scribblings '(("docs/algorhythms.scrbl" (multi-page))))
