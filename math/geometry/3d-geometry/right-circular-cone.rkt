@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;; Author: Anurag Mthyam
 
@@ -6,5 +6,5 @@
 
 ;; volume of right circular cone
 (define right-circular-cone-volume
-  (λ (r h)
+  (lambda (r h)
     (* 1/3 pi (sqr r) h)))

@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;;; ;; Author: Anurag Muthyam
 ;;; ;; Email: anu.drumcoder@gmail.com
@@ -10,7 +10,7 @@
 ;;; (define (set lst)
 ;;;   (define the-set '())
 ;;;   (begin (for-each
-;;;           (λ (x)
+;;;           (lambda (x)
 ;;;             (if (member x the-set)
 ;;;                 #t
 ;;;                 (set! the-set (cons x the-set))))

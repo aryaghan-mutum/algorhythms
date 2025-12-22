@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 
 ;; get all the last elements from each sub list
@@ -32,7 +32,7 @@
 ;; letrec version 3
 (define (cdr-all-v3 lst)
   (letrec ((cdr-all-aux
-            (λ (lst rlst)
+            (lambda (lst rlst)
               (if (empty? lst)
                   (reverse rlst)
                   (cdr-all-aux (cdr lst)

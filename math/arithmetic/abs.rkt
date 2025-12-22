@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;; Author: Anurag Muthyam
 
@@ -11,42 +11,42 @@
 
 ;; version 1: absolute/modulus a number using cond
 (define absolute
-  (λ (n)
+  (lambda (n)
     (cond ((> n 0) n)
           ((= n 0) 0)
           ((< n 0) (- n)))))
 
 ;; version 2: absolute/modulus a number 
 (define absolute2
-  (λ (n)
+  (lambda (n)
     (if (< n 0)
         (- 0 n)
         n)))
 
 ;; version 3: absolute/modulus a number
 (define absolute3
-  (λ (n)
+  (lambda (n)
     (if (>= n 0)
         n
         (- 0 n))))
 
 ;; version 4: absolute/modulus a number
 (define absolute4
-  (λ (n)
+  (lambda (n)
     (if (not (< n 0))
         n
         (- 0 n))))
 
 ;; version 5: absolute/modulus a number
 (define absolute5
-  (λ (n)
+  (lambda (n)
     (if (or (> n 0) (= n 0))
         n
         (- 0 n))))
 
 ;; version 6: absolute/modulus a number
 (define absolute6
-  (λ (n)
+  (lambda (n)
     (if (zero? n)
         0
         (if (< n 0)
@@ -55,7 +55,7 @@
 
 ;; version 7: absolute/modulus a number
 (define absolute7
-  (λ (n)
+  (lambda (n)
     ((if (>= n 0) + -)
      0
      n)))
@@ -89,3 +89,11 @@
 (define (absolute-thread lst)
   (~> lst
       (map abs _)))  
+
+(define (abs-all lst)
+  (if (null? lst)
+      null
+      (cons (abs (car lst))
+            (abs-all (cdr lst)))))
+
+(abs-all '(1 -2 3 -4 5 -6))

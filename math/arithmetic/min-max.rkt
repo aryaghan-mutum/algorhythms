@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;; Author: Anurag Muthyam
 
@@ -7,15 +7,15 @@
 
 ;; get a mininum between two numbers 
 (define min
-  (λ (a b)
+  (lambda (a b)
     (if (< a b) a b)))
 
 ;; get a maximum between two numbers   
 (define max
-  (λ (a b)
+  (lambda (a b)
     (if (> a b) a b)))
 
 ;; get a minimumor maximum between two numbers base on the function
 (define min-max
-  (λ (a b f)
+  (lambda (a b f)
     (if (f a b) a b)))

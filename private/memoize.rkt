@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 
 #lang racket
@@ -7,7 +7,7 @@
 
 (define (memoize fn)
   (let ((cache '()))
-    (λ (x)
+    (lambda (x)
       (cond
         ((assq x cache) => cdr)
         (else

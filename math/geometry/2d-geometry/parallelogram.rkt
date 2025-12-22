@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;Author: Anurag Muthyam
 
@@ -9,17 +9,17 @@
 
 ;; area of a parallelogram
 (define parallelogram-area
-  (λ (base height) (* base height)))
+  (lambda (base height) (* base height)))
 
 ;; area of a parallelogram for each element in a list
 (define parallelogram-area-lst
-  (λ (lst) (map parallelogram-area lst)))
+  (lambda (lst) (map parallelogram-area lst)))
          
 ;; permiter of a perim-parallelogram
 (define parallelogram-perim
-  (λ (base height)
+  (lambda (base height)
     (+ (* 2 base) (* 2 height))))
 
 ;; permiter of a parallelogram for each element in a list
 (define parallelogram-perim-lst
-  (λ (lst) (map parallelogram-perim lst)))
+  (lambda (lst) (map parallelogram-perim lst)))

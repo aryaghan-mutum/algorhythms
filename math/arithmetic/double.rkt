@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;; Author: Anurag Muthyam
 
@@ -11,11 +11,11 @@
 
 ;; double a number 
 (define double
-  (λ (n) (* n 2)))
+  (lambda (n) (* n 2)))
 
 ;; double for each element in a list using map
 (define doble-map
-  (λ (lst)
+  (lambda (lst)
     (map double lst)))
 
 ;; double for each element in a list using iterative approach 

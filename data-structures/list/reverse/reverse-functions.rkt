@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 ;; https://github.com/aryaghan-mutum
 
@@ -24,7 +24,7 @@
 ;; reverse using letrec version 3
 (define (reverse-v3 lst)
   (letrec ((reverse-aux
-            (λ (lst rlst)
+            (lambda (lst rlst)
               (if (empty? lst)
                   rlst
                   (reverse-aux (cdr lst)

@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 ;; https://github.com/aryaghan-mutum
 
@@ -38,7 +38,7 @@
 ;; get a list of last two elements using letrec version 3
 (define (last-two-elems-v3 lst)
   (letrec ((last-two-elems-aux
-            (λ (lst)
+            (lambda (lst)
               (cond ((= (length lst) 0) (error "the list has 0 elems"))
                     ((= (length lst) 1) (error "the list has only 1 elem"))
                     ((> (length lst) 2) (last-two-elems-aux (cdr lst)))
@@ -92,7 +92,7 @@
 ;; get the list, except for the last element using letrec version 4
 (define (remove-last-v4 lst)
   (letrec ((remove-last-aux
-            (λ (lst rlst)
+            (lambda (lst rlst)
               (if (= (length lst) 1)
                   rlst
                   (remove-last-aux (cdr lst)

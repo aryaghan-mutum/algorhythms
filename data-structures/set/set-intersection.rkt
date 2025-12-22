@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 ;; https://github.com/aryaghan-mutum
 
@@ -30,7 +30,7 @@
 ;; get set intersection between two lists using letrec version 3
 (define (intersection-v3 lstx lsty)
   (letrec ((intersection-aux
-            (λ (lstx lsty rlst)
+            (lambda (lstx lsty rlst)
               (cond ((empty? lstx) rlst)
                     ((member (car lstx) lsty)
                      (intersection-aux (cdr lstx)

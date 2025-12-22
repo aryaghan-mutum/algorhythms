@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 ;; https://github.com/aryaghan-mutum
 
@@ -46,7 +46,7 @@
 ;; length using letrec version 6
 (define (length-v6 lst)
   (letrec ((length-aux
-            (λ (lst count)
+            (lambda (lst count)
               (if (empty? lst)
                   count
                   (length-aux (cdr lst)

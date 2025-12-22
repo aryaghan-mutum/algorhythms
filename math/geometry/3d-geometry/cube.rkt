@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;; Author: Anurag Mthyam
 
@@ -6,5 +6,5 @@
 
 ;; volume of cube 
 (define cube-volume
-  (λ (s) (* s s s)))
+  (lambda (s) (* s s s)))
 

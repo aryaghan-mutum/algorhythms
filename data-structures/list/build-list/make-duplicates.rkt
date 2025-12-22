@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 ;; https://github.com/aryaghan-mutum
 
@@ -39,7 +39,7 @@
 ;; get a list of duplicate elements using letrec version 3
 (define (make-duplicate-elems-v3 lst)
   (letrec ((make-dup-elems-aux
-            (λ (lst)
+            (lambda (lst)
               (if (empty? lst)
                   '()
                   (append (list (car lst) (car lst))

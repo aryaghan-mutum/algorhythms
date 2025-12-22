@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 ;; Taken from The Scheme Programming language by Kent Dybvig page 42
 
@@ -10,7 +10,7 @@
 ;; counter version 1
 (define counter-v1
   (let ((count 0))
-    (λ ()
+    (lambda ()
       (let ((x count))
         (set! count (add1 count))
     x))))
@@ -30,7 +30,7 @@
 
 (define (counter-v3)
   (let ((next 0))
-    (λ ()
+    (lambda ()
       (let ((v next))
         (set! next (add1 next))
         v))))

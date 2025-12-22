@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;; Author: Anurag Muthyam
 
@@ -8,7 +8,7 @@
 
 ;; cube a number
 (define cube
-  (λ (n)
+  (lambda (n)
     (* n n n)))
 
 (define (cube2 x)
@@ -18,7 +18,7 @@
 
 ;; cube for each element in a list using map
 (define cube-map
-  (λ (lst)
+  (lambda (lst)
     (map cube lst)))
 
 ;; sum of cubes

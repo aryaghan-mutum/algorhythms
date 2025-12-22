@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 (require threading)
 
@@ -27,6 +27,6 @@
 (define (pt-next-row row)
   (~> row
       (sliding 2 _)
-      (map (λ (x) (foldl + 0 x)) _)
+      (map (lambda (x) (foldl + 0 x)) _)
       (append '(1) _ '(1))))
   

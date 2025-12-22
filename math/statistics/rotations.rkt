@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 ;; https://github.com/aryaghan-mutum
 
@@ -16,7 +16,7 @@
 
 ;; Helper: convert list of digits to integer
 (define (list->int lst)
-  (foldl (λ (digit acc) (+ digit (* acc 10))) 0 lst))
+  (foldl (lambda (digit acc) (+ digit (* acc 10))) 0 lst))
 
 ;; Generate all rotations of a list
 (define (rotations lst)

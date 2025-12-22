@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;; Author: Anurag Muthyam
 
@@ -7,7 +7,7 @@
 
 ;; square a number
 (define square
-  (λ (n)
+  (lambda (n)
     (* n n)))
 
 (define (square2 x)
@@ -17,7 +17,7 @@
 
 ;; cube for each element in a list using map
 (define square-map
-  (λ (lst)
+  (lambda (lst)
     (map square lst)))
 
 

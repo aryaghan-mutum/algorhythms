@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 
 #lang racket
@@ -8,7 +8,7 @@
 ;; =================
 
 (define (safe-div x y)
-  (λ (safe err)
+  (lambda (safe err)
     (if (zero? y)
         (error 'safe-div "division by zero")
         (safe (/ x y)))))

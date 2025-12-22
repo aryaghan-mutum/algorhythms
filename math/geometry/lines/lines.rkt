@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;;; ;; Author: Anurag Muthyam
 ;;; ;; Email: anu.drumcoder@gmail.com
@@ -9,7 +9,7 @@
 
 ;;; ;; midpoint of a line segment using the Midpoint Formula.
 ;;; (define line-segment-midpoint
-;;;   (λ (pointa pointb)
+;;;   (lambda (pointa pointb)
 ;;;     (let* ((x1 (car pointa))
 ;;;           (y1 (cdr pointa))
 ;;;           (x2 (car pointb))
@@ -20,7 +20,7 @@
 
 ;;; ;; length of a line segment using the Distance Formula
 ;;; (define line-segment-length
-;;;   (λ (pointa pointb)
+;;;   (lambda (pointa pointb)
 ;;;     (let ((x1 (car pointa))
 ;;;           (y1 (cdr pointa))
 ;;;           (x2 (car pointb))

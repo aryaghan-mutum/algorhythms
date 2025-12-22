@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 ;; https://github.com/aryaghan-mutum
 
@@ -16,6 +16,6 @@
   (duplicates-aux fn lst '()))
 
 (check-equal? (duplicates-by-fn zero? '(0 1 0 3 12)) '(0 0))
-(check-equal? (duplicates-by-fn (λ (x) (= x 1)) '(0 1 0 3 1 12)) '(1 1))
-(check-equal? (duplicates-by-fn (λ (x) (= x 100)) '(0 1 0 3 1 12)) '())
-(check-equal? (duplicates-by-fn (λ (x) (= x 1.25)) '(0 1.25 0 3 1.25 12)) '(1.25 1.25))
+(check-equal? (duplicates-by-fn (lambda (x) (= x 1)) '(0 1 0 3 1 12)) '(1 1))
+(check-equal? (duplicates-by-fn (lambda (x) (= x 100)) '(0 1 0 3 1 12)) '())
+(check-equal? (duplicates-by-fn (lambda (x) (= x 1.25)) '(0 1.25 0 3 1.25 12)) '(1.25 1.25))

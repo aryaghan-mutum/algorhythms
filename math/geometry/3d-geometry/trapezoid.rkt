@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;Author: Anurag Muthyam
 
@@ -6,4 +6,4 @@
          
 ;; area of trapezoid
 (define trapezoid-area
-  (λ (a b h) (* 0.5 (+ a b) h)))
+  (lambda (a b h) (* 0.5 (+ a b) h)))

@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;; Author: Anurag Muthyam
 
@@ -11,11 +11,11 @@
 
 ;; sum a number 
 (define add1
-  (λ (n) (+ n 1)))
+  (lambda (n) (+ n 1)))
 
 ;; add1 for each element in a list using map
 (define add1-map
-  (λ (lst)
+  (lambda (lst)
     (map add1 lst)))
 
 ;; add1 for each element in a list using iterative approach 

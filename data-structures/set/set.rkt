@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 ;; https://github.com/aryaghan-mutum
 
@@ -10,7 +10,7 @@
 (define (set-v1 lst)
   (define the-set '())
   (begin (for-each
-          (λ (x)
+          (lambda (x)
             (if (member x the-set)
                 #t
                 (set! the-set (cons x the-set))))
@@ -29,7 +29,7 @@
     (cond ((null? lst) res)
           (else (let ((new-res
                        (call/cc
-                        (λ (k) (step (car lst) res k)))))
+                        (lambda (k) (step (car lst) res k)))))
               (cond ((list? new-res) (walk (cdr lst) new-res))
                     (else (walk (cdr lst) res)))))))
   (walk lst '()))

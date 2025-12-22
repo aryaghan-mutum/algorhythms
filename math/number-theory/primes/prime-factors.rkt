@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 ;; https://github.com/aryaghan-mutum
 
@@ -10,7 +10,7 @@
 
 ;; using append-map and factorize version 1
 (define (prime-factors-v1 n)
-  (append-map (λ (x) (make-list (second x) (car x))) (factorize n)))
+  (append-map (lambda (x) (make-list (second x) (car x))) (factorize n)))
 
 ;; using both recursive and iterative process version 2
 (define (prime-factors-v2 n)

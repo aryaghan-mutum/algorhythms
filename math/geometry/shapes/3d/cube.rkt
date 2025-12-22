@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;; Author: Anurag Muthyam
 
@@ -7,7 +7,7 @@
 
 ;; volume of cube
 (define cube-volume
-  (λ (s) (* s s s)))
+  (lambda (s) (* s s s)))
 
 ;; Tests
 (check-equal? (cube-volume 3) 27)

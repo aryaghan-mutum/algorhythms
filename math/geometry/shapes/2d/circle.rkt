@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;; Author: Anurag Muthyam
 
@@ -14,39 +14,39 @@
 
 ;; area of circle
 (define circle-area
-  (λ (r) (* pi (sqr r))))
+  (lambda (r) (* pi (sqr r))))
 
 ;; area of a circle for each element in a list
 (define circle-area-lst
-  (λ (lst) (map circle-area lst)))
+  (lambda (lst) (map circle-area lst)))
 
 ;; area of circle using threading
 (define circle-area-v2
-  (λ (r) (* pi (~> r sqr))))
+  (lambda (r) (* pi (~> r sqr))))
 
 ;; circumference of circle
 (define circle-circum
-  (λ (r) (* 2 pi r)))
+  (lambda (r) (* 2 pi r)))
 
 ;; circumference of circle for each element in a list
 (define circle-circum-lst
-  (λ (lst) (map circle-circum lst)))
+  (lambda (lst) (map circle-circum lst)))
 
 ;; arclength circular sector
 (define circle-arc-length
-  (λ (rad angle) (* rad angle)))
+  (lambda (rad angle) (* rad angle)))
 
 ;; arclength circular sector for each element in a list
 (define circle-arc-length-lst
-  (λ (lst) (map (λ (p) (circle-arc-length (car p) (cadr p))) lst)))
+  (lambda (lst) (map (lambda (p) (circle-arc-length (car p) (cadr p))) lst)))
 
 ;; area of a circular sector
 (define circle-arc-len
-  (λ (r angle) (* 0.5 (sqr r) angle)))
+  (lambda (r angle) (* 0.5 (sqr r) angle)))
 
 ;; area of a circular sector for each element in a list
 (define circle-arc-len-lst
-  (λ (lst) (map (λ (p) (circle-arc-len (car p) (cadr p))) lst)))
+  (lambda (lst) (map (lambda (p) (circle-arc-len (car p) (cadr p))) lst)))
 
 ;; Tests
 (check-= (circle-area 1) pi 0.001)

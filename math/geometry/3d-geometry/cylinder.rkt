@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;; Author: Anurag Muthyam
 
@@ -6,5 +6,5 @@
 
 ;; volume of cylindrical barrel
 (define cylindrical-barrel-volume
-  (λ (r h)
+  (lambda (r h)
     (* pi (sqr r) h)))

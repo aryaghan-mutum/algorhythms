@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 ;; https://github.com/aryaghan-mutum
 
@@ -38,7 +38,7 @@
 ;; letrec version 4
 (define (remove-v4 n lst)
   (letrec ((remove-aux
-            (λ (lst rlst)
+            (lambda (lst rlst)
               (cond ((empty? lst) (reverse rlst))
                     ((equal? n (car lst)) (remove-aux (cdr lst) rlst))
                     (else (remove-aux (cdr lst) (cons (car lst) rlst)))))))

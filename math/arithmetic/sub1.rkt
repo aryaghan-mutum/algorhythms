@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;; Author: Anurag Muthyam
 (provide sub1
@@ -9,11 +9,11 @@
 
 ;; subtract a number 
 (define sub1
-  (λ (n) (- n 1)))
+  (lambda (n) (- n 1)))
 
 ;; subtract for each element in a list using map
 (define sub1-map
-  (λ (lst)
+  (lambda (lst)
     (map sub1 lst)))
 
 ;; subtract for each element in a list using iterative approach 

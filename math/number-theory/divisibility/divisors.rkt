@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 
 #lang racket
@@ -62,7 +62,7 @@
 
 ;; using filter version 6
 (define (divisors-v6 n)
-  (filter (λ (i) (zero? (remainder n i))) (range 1 (add1 n))))
+  (filter (lambda (i) (zero? (remainder n i))) (range 1 (add1 n))))
 
 ;; get list of list divisors using map version 1
 (define (divisors-lst-v1 lst)

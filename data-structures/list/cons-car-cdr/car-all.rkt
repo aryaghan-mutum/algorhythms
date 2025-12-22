@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 
 ;; get all the first element from each sub list
@@ -33,7 +33,7 @@
 ;; letrec version 3
 (define (car-all-v3 lst)
   (letrec ((car-all-aux
-            (λ (lst rlst)
+            (lambda (lst rlst)
               (cond ((empty? lst) rlst)
                     (else
                      (car-all-aux (cdr lst)

@@ -1,4 +1,4 @@
-#lang racket
+﻿#lang racket
 
 ;; Author: Anurag Muthyam
 ;; Prime Factorization
@@ -28,6 +28,6 @@
   (if (null? lst)
       '()
       (let ([first-factor (car lst)])
-        (define-values (same rest) (partition (λ (x) (= x first-factor)) lst))
+        (define-values (same rest) (partition (lambda (x) (= x first-factor)) lst))
         (cons (cons first-factor (length same))
               (group-factors rest)))))

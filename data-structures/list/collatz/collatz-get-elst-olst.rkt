@@ -7,8 +7,8 @@
 
 (define (collatz-info elst olst total-nums)
   (let* ((elst-len (length elst))
-        (olst-len (length olst))
-        (total-len (+ elst-len olst-len)))
+         (olst-len (length olst))
+         (total-len (+ elst-len olst-len)))
     (list 'total-steps: total-nums
           'elst-len: elst-len
           'olst-len: olst-len

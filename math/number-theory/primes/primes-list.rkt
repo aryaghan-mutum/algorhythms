@@ -1,4 +1,4 @@
-;; Author: Anurag Muthyam
+﻿;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 ;; https://github.com/aryaghan-mutum
 
@@ -32,9 +32,9 @@
   (define (primes-list-iter lst rlst)
     (cond ((empty? lst) rlst)
           (else
-           (primes-list-iter (filter (λ (x) (not (zero? (remainder x (car lst))))) lst)
+           (primes-list-iter (filter (lambda (x) (not (zero? (remainder x (car lst))))) lst)
                              (cons (car lst) rlst)))))
-  (~> (primes-list-iter (build-list (sub1 n) (λ (x) (+ x 2))) '()) ;;(cdr (cdr (build-list (sub1 n) values)))
+  (~> (primes-list-iter (build-list (sub1 n) (lambda (x) (+ x 2))) '()) ;;(cdr (cdr (build-list (sub1 n) values)))
       (reverse _)))
 
 ;; using for loop and set! version 3

@@ -1,6 +1,7 @@
-#lang racket
+﻿#lang racket
 
-(define lst '(1 2 3 4 5))
+(provide my-foldr
+         foldr-iter)
 
 ;; Author: Anurag Muthyam
 ;; foldr implementation:
@@ -10,14 +11,11 @@
       start
       (fn (car lst) (my-foldr fn start (cdr lst)))))
 
-(my-foldr + 0 lst)    ;15
-(my-foldr + 1 lst)    ;16
-(my-foldr * 1 lst)    ;120
-
-
-        
-
-
-        
-      
+;; foldRight using let (iterative style)
+(define (foldr-iter fn init lst)
+  (let loop ((lst lst))
+    (if (empty? lst)
+        init
+        (fn (car lst)
+            (loop (cdr lst))))))
 
