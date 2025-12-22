@@ -7,7 +7,6 @@
          "add1.rkt"
          "cube.rkt"
          "double.rkt"
-         "fractions.rkt"
          "half.rkt"
          "min-max.rkt"
          "power.rkt"
@@ -21,7 +20,6 @@
          (all-from-out "add1.rkt")
          (all-from-out "cube.rkt")
          (all-from-out "double.rkt")
-         (all-from-out "fractions.rkt")
          (all-from-out "half.rkt")
          (all-from-out "min-max.rkt")
          (all-from-out "power.rkt")
