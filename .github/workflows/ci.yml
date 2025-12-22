@@ -23,6 +23,11 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Configure git
+        run: |
+          git config --global url."https://github.com/".insteadOf git://github.com/
+          git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+
       - name: Setup Racket
         uses: Bogdanp/setup-racket@v1.11
         with:
@@ -31,13 +36,9 @@ jobs:
           variant: ${{ matrix.racket-variant }}
           version: ${{ matrix.racket-version }}
 
-      - name: Install dependencies
+      - name: Install package from source
         run: |
-          raco pkg install --auto --batch threading rackunit
-
-      - name: Install package
-        run: |
-          raco pkg install --auto --batch --name algorhythms
+          raco pkg install --auto --batch --skip-installed --name algorhythms
 
       - name: Build package
         run: |
@@ -56,6 +57,11 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Configure git
+        run: |
+          git config --global url."https://github.com/".insteadOf git://github.com/
+          git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+
       - name: Setup Racket
         uses: Bogdanp/setup-racket@v1.11
         with:
@@ -64,13 +70,9 @@ jobs:
           variant: 'CS'
           version: '8.18'
 
-      - name: Install dependencies
+      - name: Install package from source
         run: |
-          raco pkg install --auto --batch threading rackunit
-
-      - name: Install package
-        run: |
-          raco pkg install --auto --batch --name algorhythms
+          raco pkg install --auto --batch --skip-installed --name algorhythms
 
       - name: Check syntax and compilation
         run: |
