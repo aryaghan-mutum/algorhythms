@@ -1,41 +1,18 @@
 ﻿#lang racket
 
 ;; Author: Anurag Muthyam
+;; Double: Functions for doubling numbers and lists
 
-(require threading)
 (provide double
-         doble-map
-         double-lst-iter
-         double-lst-rec
-         double-lst-imper)
+         double-list)
 
-;; double a number 
-(define double
-  (lambda (n) (* n 2)))
+;; Doubles a number
+;; double : number? -> number?
+(define (double n)
+  (* n 2))
 
-;; double for each element in a list using map
-(define doble-map
-  (lambda (lst)
-    (map double lst)))
-
-;; double for each element in a list using iterative approach 
-(define (double-lst-iter lst)
-  (define (double-lst-ter lst rlst)
-    (if (empty? lst)
-        (reverse rlst)
-        (double-lst-ter (cdr lst)
-                        (cons (double (car lst)) rlst))))
-   (double-lst-ter lst '()))    
-
-;; double for each element in a list using recursive approach 
-(define (double-lst-rec lst)
-  (if (empty? lst)
-      '()
-      (cons (double (car lst))
-            (double-lst-rec (cdr lst)))))
-
-;; double for each element in a list using imperative approach 
-(define (double-lst-imper lst)
-  (for/list ((i lst))
-    (double i)))
+;; Doubles each element in a list
+;; double-list : list? -> list?
+(define (double-list lst)
+  (map double lst))
 

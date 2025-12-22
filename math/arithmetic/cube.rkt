@@ -1,29 +1,26 @@
 ﻿#lang racket
 
 ;; Author: Anurag Muthyam
+;; Cube: Functions for cubing numbers
 
 (provide cube
-         cube-map
+         cube-list
          sum-of-cubes)
 
-;; cube a number
-(define cube
-  (lambda (n)
-    (* n n n)))
+;; Cubes a number (n³)
+;; cube : number? -> number?
+(define (cube n)
+  (* n n n))
 
-(define (cube2 x)
-  (if (not (number? x))
-      (error "bad arguments")
-      (* x x x)))
+;; Cubes each element in a list
+;; cube-list : list? -> list?
+(define (cube-list lst)
+  (map cube lst))
 
-;; cube for each element in a list using map
-(define cube-map
-  (lambda (lst)
-    (map cube lst)))
-
-;; sum of cubes
+;; Returns the sum of cubes for all elements in a list
+;; sum-of-cubes : list? -> number?
 (define (sum-of-cubes lst)
-  (apply + (map cube lst)))
+  (apply + (cube-list lst)))
 
 
 

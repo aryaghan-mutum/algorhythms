@@ -1,28 +1,29 @@
-
 #lang racket
 
 ;; Author: Anurag Muthyam
+;; Half: Functions for halving numbers
 
-(provide half)
+(provide half
+         halve
+         halve-list)
 
-;; takes a number and divides the number by 2 until the number becomes 0 or 1
-;; and returns the counter value 
+;; Counts how many times n can be halved until reaching 0 or 1
+;; half : number? -> number?
 (define (half n)
-  (define (dec-iter n count)
-    (cond ((or (= n 1) (= n 0)) count)
-          (else (dec-iter (round (/ n 2))
-                          (add1 count)))))
-    (dec-iter n 0))
+  (define (iter n count)
+    (if (or (= n 1) (= n 0))
+        count
+        (iter (round (/ n 2)) (add1 count))))
+  (iter n 0))
 
+;; Divides a number by 2
+;; halve : number? -> number?
+(define (halve n)
+  (/ n 2))
 
-;; what is wrong with this procedure?
-;; takes a number and divides the number by 2 until the number becomes 0 or 1
-;; and returns the counter value 
-(define (half2 n)
-  (define (dec-iter n count)
-    (cond ((or (= n 1) (= n 0)) count)
-          (else (dec-iter (/ n 2)
-                          (add1 count)))))
-    (dec-iter n 0))
+;; Halves each element in a list
+;; halve-list : list? -> list?
+(define (halve-list lst)
+  (map halve lst))
 
 

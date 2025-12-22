@@ -1,23 +1,25 @@
 ﻿#lang racket
 
 ;; Author: Anurag Muthyam
+;; Square: Functions for squaring numbers
 
 (provide square
-         square-map)
+         square-list
+         sum-of-squares)
 
-;; square a number
-(define square
-  (lambda (n)
-    (* n n)))
+;; Squares a number (n²)
+;; square : number? -> number?
+(define (square n)
+  (* n n))
 
-(define (square2 x)
-  (if (not (number? x))
-      (error "bad arguments")
-      (* x x)))
+;; Squares each element in a list
+;; square-list : list? -> list?
+(define (square-list lst)
+  (map square lst))
 
-;; cube for each element in a list using map
-(define square-map
-  (lambda (lst)
-    (map square lst)))
+;; Returns the sum of squares for all elements in a list
+;; sum-of-squares : list? -> number?
+(define (sum-of-squares lst)
+  (apply + (square-list lst)))
 
 

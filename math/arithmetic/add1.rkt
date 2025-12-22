@@ -1,42 +1,18 @@
 ﻿#lang racket
 
 ;; Author: Anurag Muthyam
+;; Increment: Functions for adding 1 to numbers
 
-(require threading)
-(provide add1
-         add1-map
-         add1-lst-iter
-         add1-lst-rec
-         add1-lst-imper)
+(provide increment
+         increment-list)
 
-;; sum a number 
-(define add1
-  (lambda (n) (+ n 1)))
+;; Increments a number by 1
+;; increment : number? -> number?
+(define (increment n)
+  (+ n 1))
 
-;; add1 for each element in a list using map
-(define add1-map
-  (lambda (lst)
-    (map add1 lst)))
-
-;; add1 for each element in a list using iterative approach 
-(define (add1-lst-iter lst)
-  (define (add1-lst-iter lst rlst)
-    (if (empty? lst)
-        (reverse rlst)
-        (add1-lst-iter (cdr lst)
-                       (cons (add1 (car lst)) rlst))))
-  (add1-lst-iter lst '()))
-
-;; add1 for each element in a list using recursive approach
-(define (add1-lst-rec lst)
-  (if (empty? lst)
-      '()
-      (cons (add1 (car lst))
-            (add1-lst-rec (cdr lst)))))
-
-
-;; add1 for each element in a list using imperative approach 
-(define (add1-lst-imper lst)
-  (for/list ((i lst))
-    (add1 i)))
+;; Increments each element in a list by 1
+;; increment-list : list? -> list?
+(define (increment-list lst)
+  (map increment lst))
 
