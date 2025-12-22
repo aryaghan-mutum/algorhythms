@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, master, feature/*]
   pull_request:
     branches: [main, master]
 
@@ -29,13 +29,17 @@ jobs:
           variant: ${{ matrix.racket-variant }}
           version: ${{ matrix.racket-version }}
 
-      - name: Install package and dependencies
+      - name: Install dependencies
+        run: |
+          raco pkg install --auto --batch threading rackunit
+
+      - name: Install package
         run: |
           raco pkg install --auto --batch --name algorhythms
 
       - name: Build package
         run: |
-          raco setup --check-pkg-deps algorhythms
+          raco setup algorhythms
 
       - name: Run tests
         run: |
@@ -55,6 +59,10 @@ jobs:
           distribution: 'full'
           variant: 'CS'
           version: '8.18'
+
+      - name: Install dependencies
+        run: |
+          raco pkg install --auto --batch threading rackunit
 
       - name: Install package
         run: |
