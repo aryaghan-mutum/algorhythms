@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master, feature/*]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-and-test:
+    name: Build & Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        racket-version: ['8.18']
+        racket-variant: ['CS']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Configure git
+        run: |
+          git config --global url."https://github.com/".insteadOf git://github.com/
+          git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+
+      - name: Setup Racket
+        uses: Bogdanp/setup-racket@v1.11
+        with:
+          architecture: 'x64'
+          distribution: 'full'
+          variant: ${{ matrix.racket-variant }}
+          version: ${{ matrix.racket-version }}
+
+      - name: Install dependencies from catalog
+        run: |
+          raco pkg install --batch --auto --skip-installed threading
+
+      - name: Install package from source
+        run: |
+          raco pkg install --batch --no-docs --skip-installed --name algorhythms
+
+      - name: Build package
+        run: |
+          raco setup algorhythms
+
+      - name: Run tests
+        run: |
+          raco test --package algorhythms
+
+  lint:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Configure git
+        run: |
+          git config --global url."https://github.com/".insteadOf git://github.com/
+          git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+
+      - name: Setup Racket
+        uses: Bogdanp/setup-racket@v1.11
+        with:
+          architecture: 'x64'
+          distribution: 'full'
+          variant: 'CS'
+          version: '8.18'
+
+      - name: Install dependencies from catalog
+        run: |
+          raco pkg install --batch --auto --skip-installed threading
+
+      - name: Install package from source
+        run: |
+          raco pkg install --batch --no-docs --skip-installed --name algorhythms
+
+      - name: Check syntax and compilation
+        run: |
+          raco setup algorhythms
+
+      - name: Verify package dependencies
+        run: |
+          raco pkg show algorhythms

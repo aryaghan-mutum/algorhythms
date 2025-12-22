@@ -1,0 +1,197 @@
+name: Release
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'info.rkt'
+  workflow_dispatch:
+    inputs:
+      force_release:
+        description: 'Force a new release even if version unchanged'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  check-version:
+    name: Check Version & Release
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+      should_release: ${{ steps.check_release.outputs.should_release }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Racket
+        uses: Bogdanp/setup-racket@v1.11
+        with:
+          architecture: 'x64'
+          distribution: 'full'
+          variant: 'CS'
+          version: '8.18'
+
+      - name: Extract version from info.rkt
+        id: get_version
+        run: |
+          VERSION=$(racket -e '(require "info.rkt") (displayln version)')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Detected version: $VERSION"
+
+      - name: Check if release should be created
+        id: check_release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FORCE_RELEASE: ${{ github.event.inputs.force_release }}
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+          TAG_NAME="v$VERSION"
+          
+          # Check if tag already exists
+          if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+            echo "Tag $TAG_NAME already exists"
+            if [ "$FORCE_RELEASE" = "true" ]; then
+              echo "Force release enabled, will create release"
+              echo "should_release=true" >> $GITHUB_OUTPUT
+            else
+              echo "should_release=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "Tag $TAG_NAME does not exist, will create release"
+            echo "should_release=true" >> $GITHUB_OUTPUT
+          fi
+
+  build:
+    name: Build Package
+    needs: check-version
+    if: needs.check-version.outputs.should_release == 'true'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Racket
+        uses: Bogdanp/setup-racket@v1.11
+        with:
+          architecture: 'x64'
+          distribution: 'full'
+          variant: 'CS'
+          version: '8.18'
+
+      - name: Install package
+        run: |
+          raco pkg install --auto --batch --name algorhythms
+
+      - name: Build and verify
+        run: |
+          raco setup algorhythms
+
+      - name: Run tests
+        run: |
+          raco test --package algorhythms
+
+      - name: Create release archive
+        run: |
+          VERSION="${{ needs.check-version.outputs.version }}"
+          mkdir -p release
+          # Create source archive excluding .git and compiled folders
+          tar --exclude='.git' --exclude='compiled' --exclude='doc' \
+              -czvf "release/algorhythms-${VERSION}.tar.gz" .
+          
+          # Create zip archive
+          zip -r "release/algorhythms-${VERSION}.zip" . \
+              -x ".git/*" -x "compiled/*" -x "doc/*" -x "release/*"
+
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifacts
+          path: release/
+          retention-days: 1
+
+  release:
+    name: Create GitHub Release
+    needs: [check-version, build]
+    if: needs.check-version.outputs.should_release == 'true'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download release artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: release-artifacts
+          path: release/
+
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          VERSION="${{ needs.check-version.outputs.version }}"
+          cat << EOF > release_notes.md
+          ## algorhythms v${VERSION}
+          
+          A collection of implementations for algorithms and data structures in Racket.
+          
+          ### Installation
+          
+          **Via Racket Package Manager:**
+          \`\`\`bash
+          raco pkg install algorhythms
+          \`\`\`
+          
+          **Manual Installation:**
+          1. Download the source archive
+          2. Extract to your Racket packages directory
+          3. Run \`raco setup algorhythms\`
+          
+          ### What's Included
+          
+          - **Data Structures**: Lists, Queues, Stacks, Sets, Higher-Order Functions
+          - **Mathematics**: Arithmetic, Algebra, Geometry, Trigonometry, Number Theory, Combinatorics, Statistics
+          - **Encoding**: Morse Code and other encoding utilities
+          - **Predicates**: Comparison, Logic, Numerical, String predicates
+          
+          ### Requirements
+          
+          - Racket 8.14 or later
+          - Dependencies: rackunit (for testing)
+          
+          ---
+          
+          **Full Changelog**: https://github.com/${{ github.repository }}/commits/v${VERSION}
+          EOF
+          
+          echo "Generated release notes for v${VERSION}"
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ needs.check-version.outputs.version }}"
+          TAG_NAME="v${VERSION}"
+          
+          # Create the tag if it doesn't exist
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if ! git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+            git tag -a "$TAG_NAME" -m "Release $TAG_NAME"
+            git push origin "$TAG_NAME"
+          fi
+          
+          # Create the release with assets
+          gh release create "$TAG_NAME" \
+            --title "algorhythms $TAG_NAME" \
+            --notes-file release_notes.md \
+            release/algorhythms-${VERSION}.tar.gz \
+            release/algorhythms-${VERSION}.zip

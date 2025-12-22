@@ -1,0 +1,56 @@
+name: Coverage
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  coverage:
+    name: Code Coverage
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Configure git
+        run: |
+          git config --global url."https://github.com/".insteadOf git://github.com/
+          git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+
+      - name: Setup Racket
+        uses: Bogdanp/setup-racket@v1.11
+        with:
+          architecture: 'x64'
+          distribution: 'full'
+          variant: 'CS'
+          version: '8.18'
+
+      - name: Install dependencies from catalog
+        run: |
+          raco pkg install --batch --auto --skip-installed threading
+
+      - name: Install coverage tools
+        run: |
+          raco pkg install --batch --auto --skip-installed cover cover-codecov
+
+      - name: Install package from source
+        run: |
+          raco pkg install --batch --no-docs --skip-installed --name algorhythms
+
+      - name: Generate coverage report
+        run: |
+          raco cover -f codecov -d coverage tests/
+        continue-on-error: true
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage/coverage.json
+          fail_ci_if_error: false
+          verbose: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

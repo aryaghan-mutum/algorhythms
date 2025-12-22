@@ -1,0 +1,53 @@
+﻿#lang racket
+
+;; Author: Anurag Muthyam
+
+(require rackunit threading)
+(provide circle-area
+         circle-area-lst
+         circle-circum
+         circle-circum-lst
+         circle-arc-length
+         circle-arc-length-lst
+         circle-arc-len
+         circle-arc-len-lst)
+
+;; area of circle
+(define circle-area
+  (lambda (r) (* pi (sqr r))))
+
+;; area of a circle for each element in a list
+(define circle-area-lst
+  (lambda (lst) (map circle-area lst)))
+
+;; area of circle using threading
+(define circle-area-v2
+  (lambda (r) (* pi (~> r sqr))))
+
+;; circumference of circle
+(define circle-circum
+  (lambda (r) (* 2 pi r)))
+
+;; circumference of circle for each element in a list
+(define circle-circum-lst
+  (lambda (lst) (map circle-circum lst)))
+
+;; arclength circular sector
+(define circle-arc-length
+  (lambda (rad angle) (* rad angle)))
+
+;; arclength circular sector for each element in a list
+(define circle-arc-length-lst
+  (lambda (lst) (map (lambda (p) (circle-arc-length (car p) (cadr p))) lst)))
+
+;; area of a circular sector
+(define circle-arc-len
+  (lambda (r angle) (* 0.5 (sqr r) angle)))
+
+;; area of a circular sector for each element in a list
+(define circle-arc-len-lst
+  (lambda (lst) (map (lambda (p) (circle-arc-len (car p) (cadr p))) lst)))
+
+;; Tests
+(check-= (circle-area 1) pi 0.001)
+(check-= (circle-circum 1) (* 2 pi) 0.001)
