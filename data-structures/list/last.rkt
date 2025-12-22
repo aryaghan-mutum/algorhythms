@@ -1,39 +1,39 @@
 #lang racket
 
-;;; ;; Author: Anurag Muthyam
-;;; ;; Email: anu.drumcoder@gmail.com
-;;; ;; https://github.com/aryaghan-mutum/racket-lists
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
+;; https://github.com/aryaghan-mutum/racket-lists
 
-;;; (provide last
-;;;          penultimate
-;;;          last-two-elems
-;;;          remove-last)
+(provide my-last
+         penultimate
+         last-two-elems
+         remove-last)
 
-;;; ;; get the last element from a list
-;;; (define (last lst)
-;;;   (if (empty? (cdr lst))
-;;;       (car lst)
-;;;       (last (cdr lst))))
+;; get the last element from a list
+(define (my-last lst)
+  (if (empty? (cdr lst))
+      (car lst)
+      (my-last (cdr lst))))
 
-;;; ;; get the last but one element from a list
-;;; (define (penultimate lst)
-;;;   (car (cdr (reverse lst))))
+;; get the last but one element from a list
+(define (penultimate lst)
+  (car (cdr (reverse lst))))
 
-;;; ;; get a list of last two elements
-;;; (define (last-two-elems lst)
-;;;   (cond ((= (length lst) 0) (error "the list has 0 elems"))
-;;;         ((= (length lst) 1) (error "the list has only 1 elem"))
-;;;         ((> (length lst) 2) (last-two-elems (cdr lst)))
-;;;         (else lst)))
+;; get a list of last two elements
+(define (last-two-elems lst)
+  (cond ((= (length lst) 0) (error "the list has 0 elems"))
+        ((= (length lst) 1) (error "the list has only 1 elem"))
+        ((> (length lst) 2) (last-two-elems (cdr lst)))
+        (else lst)))
 
-;;; ;; get the list, except for the last element
-;;; (define (remove-last lst)
-;;;   (define (remove-last-iter lst rlst)
-;;;     (if (= (length lst) 1)
-;;;       rlst
-;;;       (remove-last-iter (cdr lst)
-;;;                          (cons (car lst) rlst))))
-;;;   (reverse (remove-last-iter lst '())))
+;; get the list, except for the last element
+(define (remove-last lst)
+  (define (remove-last-iter lst rlst)
+    (if (= (length lst) 1)
+      rlst
+      (remove-last-iter (cdr lst)
+                         (cons (car lst) rlst))))
+  (reverse (remove-last-iter lst '())))
 
 
 ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

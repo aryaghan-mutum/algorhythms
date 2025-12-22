@@ -3,7 +3,7 @@
 ;; https://github.com/aryaghan-mutum
 
 #lang racket
-(require rackunit "../../hof/flatten.rkt")
+(require rackunit "../../hof/flatmap.rkt")
 (provide make-duplicate-elems-recur
          make-duplicate-elems-iter
          make-duplicate-elems-v3)

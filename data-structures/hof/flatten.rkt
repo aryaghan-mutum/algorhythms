@@ -4,7 +4,7 @@
 
 #lang racket
 (require rackunit)
-(provide flatten-v1 flatten-v2 flatten-v3 flatten-v4 flatmap)
+(provide flatten-v1 flatten-v2 flatten-v3 flatten-v4)
 
 ;; =================
 
