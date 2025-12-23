@@ -1,7 +1,14 @@
+;; Author: Anurag Muthyam
+;; flatmap - Flatten nested lists (also known as flat-map)
+
 #lang racket
+(require rackunit)
 
-(provide flatmap)
+(provide flatmap
+         flatmap-with-fn)
 
+;; Flatten nested lists into a single flat list
+;; (flatmap '(1 (2 3) ((4 5) 6))) => '(1 2 3 4 5 6)
 (define (flatmap lst)
   (reverse (flatmap-helper lst null)))
   
@@ -15,15 +22,23 @@
                           (flatmap-helper (car lst)
                                           rlst)))))
 
+;; Flatmap with function - apply fn to each element then flatten
+;; (flatmap-with-fn (lambda (x) (list x x)) '(1 2 3)) => '(1 1 2 2 3 3)
+(define (flatmap-with-fn fn lst)
+  (flatmap (map fn lst)))
 
-(define (flat-map lst)
-  (reverse (flat-map-helper lst null)))
+;; ============ Unit Tests ============
+
+(module+ test
+  (require rackunit)
   
-(define (flat-map-helper orig-lst new-lst)
-  (if (empty? orig-lst)
-      new-lst
-      (if (not (list? (car orig-lst)))
-          (flat-map-helper (cdr orig-lst)
-                           (cons (car orig-lst) new-lst))
-          (flat-map-helper (rest orig-lst)
-                           (flat-map-helper (car orig-lst) new-lst)))))
+  ;; flatmap tests
+  (check-equal? (flatmap '(1 (2 3) ((4 5) 6))) '(1 2 3 4 5 6))
+  (check-equal? (flatmap '((1 2) (3 4))) '(1 2 3 4))
+  (check-equal? (flatmap '()) '())
+  (check-equal? (flatmap '(1 2 3)) '(1 2 3))
+  (check-equal? (flatmap '((((1))))) '(1))
+  
+  ;; flatmap-with-fn tests
+  (check-equal? (flatmap-with-fn (lambda (x) (list x x)) '(1 2 3)) '(1 1 2 2 3 3))
+  (check-equal? (flatmap-with-fn (lambda (x) (list x (* x 10))) '(1 2)) '(1 10 2 20)))

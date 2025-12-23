@@ -1,6 +1,14 @@
-﻿#lang racket
+﻿;; Author: Anurag Muthyam
+;; reduce - Reduce a list to a single value
 
-(provide reduce)
+#lang racket
+(require rackunit)
+
+(provide reduce
+         reduce-v1
+         reduce-v2
+         reduce-v3
+         reduce-v4)
 
 (define (reduce fn lst)
   (and (not (empty? lst)) (foldl fn (first lst) (rest lst))))
@@ -35,3 +43,30 @@
                   init
                   (loop (fn init (car lst)) (cdr lst))))))
     (loop init lst)))
+
+;; ============ Unit Tests ============
+
+(module+ test
+  (require rackunit)
+  
+  ;; reduce tests
+  (check-equal? (reduce + '(1 2 3 4)) 10)
+  (check-equal? (reduce * '(1 2 3 4)) 24)
+  (check-equal? (reduce + '()) #f)
+  
+  ;; reduce-v1 tests
+  (check-equal? (reduce-v1 + 0 '(1 2 3 4)) 10)
+  (check-equal? (reduce-v1 * 1 '(1 2 3 4)) 24)
+  (check-equal? (reduce-v1 + 0 '()) 0)
+  
+  ;; reduce-v2 tests
+  (check-equal? (reduce-v2 + 0 '(1 2 3 4)) 10)
+  (check-equal? (reduce-v2 - 0 '(1 2 3)) -6)
+  
+  ;; reduce-v3 tests
+  (check-equal? (reduce-v3 + 0 '(1 2 3 4)) 10)
+  (check-equal? (reduce-v3 list '() '(1 2 3)) '(((() 1) 2) 3))
+  
+  ;; reduce-v4 tests
+  (check-equal? (reduce-v4 + 0 '(1 2 3 4)) 10)
+  (check-equal? (reduce-v4 * 1 '(2 3 4)) 24))
