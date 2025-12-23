@@ -3,8 +3,11 @@
 ;; https://github.com/aryaghan-mutum
 
 #lang racket
-(require rackunit)
-(provide bubble-sort-v1)
+(require rackunit racket/contract)
+
+(provide
+  (contract-out
+    [bubble-sort-v1 (-> (and/c list? (not/c empty?)) procedure? list?)]))
 
 ;; bubblesort version 1
 (define (bubble-sort-v1 lst fn)

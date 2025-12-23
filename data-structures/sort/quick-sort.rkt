@@ -3,8 +3,11 @@
 ;; https://github.com/aryaghan-mutum
 
 #lang racket
-(require rackunit)
-(provide quick-sort-v1)
+(require rackunit racket/contract)
+
+(provide
+  (contract-out
+    [quick-sort-v1 (-> list? procedure? list?)]))
 
 ;; quicksort using match, curry and let-values version 1
 (define (quick-sort-v1 lst fn)

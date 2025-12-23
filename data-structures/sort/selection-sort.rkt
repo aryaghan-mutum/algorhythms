@@ -3,8 +3,11 @@
 ;; https://github.com/aryaghan-mutum
 
 #lang racket
-(require rackunit)
-(provide selection-sort-v1)
+(require rackunit racket/contract)
+
+(provide
+  (contract-out
+    [selection-sort-v1 (-> list? list?)]))
 
 ;; selection sort version 1
 (define (selection-sort-v1 lst)

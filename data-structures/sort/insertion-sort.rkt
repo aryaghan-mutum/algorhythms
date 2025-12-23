@@ -3,8 +3,11 @@
 ;; https://github.com/aryaghan-mutum
 
 #lang racket
-(require rackunit)
-(provide insert-sort-v1)
+(require rackunit racket/contract)
+
+(provide
+  (contract-out
+    [insert-sort-v1 (-> list? list?)]))
 
 ;; insertion sort version 1
 (define (insert-sort-v1 lst)
