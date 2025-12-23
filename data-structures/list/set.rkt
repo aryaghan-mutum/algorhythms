@@ -2,20 +2,10 @@
 
 ;; Author: Anurag Muthyam
 
-(provide set)
+(provide list->set)
 
-;; set: get unique elements from a list using for-each and set!
-(define (set lst)
-  (define the-set '())
-  (begin (for-each
-          (lambda (x)
-            (if (member x the-set)
-                #t
-                (set! the-set (cons x the-set))))
-          lst)
-         (reverse the-set)))
-
-(define (set lst)
+;; list->set: get unique elements from a list using for-each and set!
+(define (list->set lst)
   (define the-set '())
   (begin (for-each
           (lambda (x)

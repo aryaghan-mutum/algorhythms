@@ -9,3 +9,7 @@
 (define pkg-authors '("Anurag Muthyam"))
 (define license 'BSD-3-Clause)
 (define categories '("algorithms" "data-structures"))
+
+;; Exclude folders from compilation and tests
+(define compile-omit-paths '("_others" "doc" "examples" "bin"))
+(define test-omit-paths '("_others" "doc" "examples" "scribblings" "bin"))

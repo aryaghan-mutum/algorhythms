@@ -2,6 +2,8 @@
 
 #lang racket
 
+(require "../../hof/flatmap.rkt")
+
 (provide make-duplicate-elems-recur
          make-duplicate-elems-iter
          make-duplicate-elems-v3)

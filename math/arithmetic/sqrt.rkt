@@ -1,5 +1,12 @@
 #lang racket
 
+(require racket/trace)
+
+(provide sqrt-root
+         half-interval-method
+         deriv
+         newton)
+
 ;; method 1:
 (define (sqrt-root x)
   
@@ -40,20 +47,10 @@
          ((and (negative? b-val) (positive? a-val)) (search fn b a))
          (else (error "values are not of opposite sign" a b)))))
 
-(trace half-interval-method)
-(half-interval-method sin 2.0 4)
-(half-interval-method (lambda (x) (- (* x x x) (* 2 x) 3))
-                      1
-                      2)
-         
-
 (define (deriv f dx)
   (lambda (x)
     (/ (- (f (+ x dx)) (f x))
        dx)))
-
-((deriv sqr 0.001) 5)
-
 
 (define (newton fn guess)
   (if (good-enough? guess fn)
@@ -67,5 +64,7 @@
 (define (good-enough? guess f)
   (< (abs (f guess)) 0.001))
 
-(newton (lambda (x) (- x (cos x))) 1)
-(newton sin 2.0)
+(module+ test
+  (require rackunit)
+  (check-equal? (sqrt-root 4) 2.0000000929222947)
+  (check-equal? (half-interval-method sin 2.0 4) 3.14111328125))

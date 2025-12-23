@@ -3,7 +3,7 @@
 #lang racket
 
 (require math racket/trace rackunit threading)
-(provide prime-factors-v1 prime-factors-v2)
+(provide prime-factors-v1 prime-factors-v2 prime-factors prime-factorization)
 
 ;; Reference: https://rosettacode.org/wiki/Prime_decomposition
 

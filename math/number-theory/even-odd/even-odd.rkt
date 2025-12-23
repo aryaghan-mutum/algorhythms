@@ -86,13 +86,3 @@
           (else (+ (fib (- n 1))
                    (fib (- n 2))))))
 
-;; get even nnumbers list
-(define (even-lst lst)
-  (nums-lst lst '() even?))
-
-(define (nums-lst xlst ylst f)
-  (cond ((empty? xlst) ylst)
-        ((f (car xlst))
-         (nums-lst (cdr xlst) (cons (car xlst) ylst) f))
-        (else (nums-lst (cdr xlst) ylst f))))
-

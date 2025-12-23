@@ -1,10 +1,10 @@
 #lang racket
 
 (require rackunit
-         "../../math/number-theory/primes.rkt"
+         "../../math/number-theory/primes/primes.rkt"
          "../../math/number-theory/gcd.rkt"
          "../../math/number-theory/lcm.rkt"
-         "../../math/number-theory/prime-factorization.rkt")
+         "../../math/number-theory/primes/prime-factors.rkt")
 
 ;; Prime tests
 (check-true (prime? 2) "2 is prime")
