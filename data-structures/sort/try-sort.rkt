@@ -1,9 +1,4 @@
-;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum
-
 #lang racket
-(provide try-sort)
 
 ;; taken from https://github.com/racket/racket/blob/master/racket/src/io/print/hash.rkt
 (define (try-sort keys)
@@ -30,3 +25,5 @@
          (sort keys bytes<?)
          keys)]
     [else keys]))
+
+(try-sort '(1.0 3 5 2 9))

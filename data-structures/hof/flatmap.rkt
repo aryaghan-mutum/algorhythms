@@ -12,8 +12,8 @@
           (flatmap-helper (cdr lst)
                           (cons (car lst) rlst))
           (flatmap-helper (cdr lst)
-                           (flatmap-helper (car lst)
-                                           rlst)))))
+                          (flatmap-helper (car lst)
+                                          rlst)))))
 
 
 (define (flat-map lst)

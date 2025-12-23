@@ -5,22 +5,21 @@
 
 (require racket/contract)
 
-;; Core modules - using aggregators for cleaner imports
-(require "math/math.rkt"
-         "data-structures/data-structures.rkt"
-         "encoding/morse-code.rkt"
-         "private/memoize.rkt"
-         "private/lazy.rkt")
+;; Core modules - using main.rkt aggregators
+(require "math/main.rkt"
+         "data-structures/main.rkt"
+         "encoding/main.rkt"
+         "private/main.rkt")
 
 (provide 
   ;; Math (includes arithmetic, algebra, combinatorics, geometry, number-theory, statistics, trigonometry)
-  (all-from-out "math/math.rkt")
+  (all-from-out "math/main.rkt")
   
-  ;; Data Structures (includes hof, sort, queue, stack)
-  (all-from-out "data-structures/data-structures.rkt")
+  ;; Data Structures (includes hof, sort, list, set, string, queue, stack)
+  (all-from-out "data-structures/main.rkt")
   
   ;; Encoding
-  (all-from-out "encoding/morse-code.rkt")
+  (all-from-out "encoding/main.rkt")
   
   ;; Utilities
   (contract-out

@@ -2,17 +2,6 @@
 
 ;; Author: Anurag Muthyam
 ;; Map procedure for (map sqr '(-2 -1 0 1 2 3 4'))
-#|
-map iterative approach:
-
->(map-helper #<procedure:sqr> '(-2 -1 0 1 2) '())
->(map-helper #<procedure:sqr> '(-1 0 1 2) '(4))
->(map-helper #<procedure:sqr> '(0 1 2) '(1 4))
->(map-helper #<procedure:sqr> '(1 2) '(0 1 4))
->(map-helper #<procedure:sqr> '(2) '(1 0 1 4))
->(map-helper #<procedure:sqr> '() '(4 1 0 1 4))
-<'(4 1 0 1 4)
-|#
 
 (provide mapper
          sqr-map
