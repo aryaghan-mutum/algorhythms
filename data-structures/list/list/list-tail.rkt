@@ -1,7 +1,5 @@
 #lang racket
 
-;'list tail
-
 (define list-tail
   (lambda (ls n)
     (if (= n 0)

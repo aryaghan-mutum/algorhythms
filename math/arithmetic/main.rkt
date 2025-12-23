@@ -13,7 +13,6 @@
          "reciprocal.rkt"
          "remainder.rkt"
          "square.rkt"
-         "sub1.rkt"
          "sum.rkt")
 
 (provide (all-from-out "abs.rkt")
@@ -26,5 +25,4 @@
          (all-from-out "reciprocal.rkt")
          (all-from-out "remainder.rkt")
          (all-from-out "square.rkt")
-         (all-from-out "sub1.rkt")
          (all-from-out "sum.rkt"))

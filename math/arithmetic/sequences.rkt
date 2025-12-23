@@ -1,6 +1,6 @@
 ﻿#lang racket
 
-;; Author: Anurag Mthyam
+;; Author: Anurag Muthyam
 ;; Sequences
 
 (provide simple-interest

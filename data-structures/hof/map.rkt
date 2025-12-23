@@ -1,7 +1,6 @@
 ﻿#lang racket
 
 ;; Author: Anurag Muthyam
-;; Map procedure for (map sqr '(-2 -1 0 1 2 3 4'))
 
 (provide mapper
          sqr-map
@@ -58,7 +57,7 @@
         (reverse rlst)
         (cdr-all-iter (cdr lst)
                       (cons (cdr (car lst)) rlst))))
-    (cdr-all-iter lst '()))  
+  (cdr-all-iter lst '()))  
 ;(cdr-all '((1 2) (3 4) (5 6)))
 
 
@@ -99,3 +98,9 @@
       '()
       (cons (fn (car lstx) (car lsty))
             (map-two-lists fn (cdr lstx) (cdr lsty)))))
+
+
+(define (my-map fn lst)
+  (if (empty? lst)
+      lst
+      (cons (fn (car lst)) (my-map fn (cdr lst)))))

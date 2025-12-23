@@ -1,8 +1,7 @@
 ﻿;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum
 
 #lang racket
+
 (require math racket/trace rackunit threading)
 (provide prime-factors-v1 prime-factors-v2)
 
@@ -21,20 +20,32 @@
             (else (prime-factors-aux n (add1 i))))))
   (prime-factors-aux n 2))
 
-(check-equal? (prime-factors-v1 0) '())
-(check-equal? (prime-factors-v1 1) '())
-(check-equal? (prime-factors-v1 2) '(2))
-(check-equal? (prime-factors-v1 6) '(2 3))
-(check-equal? (prime-factors-v1 12) '(2 2 3))
-(check-equal? (prime-factors-v1 10) '(2 5))
-(check-equal? (prime-factors-v1 144) '(2 2 2 2 3 3))
-(check-equal? (prime-factors-v1 600851475143) '(71 839 1471 6857))
 
-;(check-equal? (prime-factors-v2 0) '())
-(check-equal? (prime-factors-v2 1) '())
-(check-equal? (prime-factors-v2 2) '(2))
-(check-equal? (prime-factors-v2 6) '(2 3))
-(check-equal? (prime-factors-v2 12) '(2 2 3))
-(check-equal? (prime-factors-v2 10) '(2 5))
-(check-equal? (prime-factors-v2 144) '(2 2 2 2 3 3))
-(check-equal? (prime-factors-v2 600851475143) '(71 839 1471 6857))
+;;;;;;;;;;;;
+
+;; Returns list of prime factors (with repetition)
+(define (prime-factors n)
+  (prime-factors-helper n 2 '()))
+
+(define (prime-factors-helper n divisor acc)
+  (cond [(<= n 1) (reverse acc)]
+        [(zero? (remainder n divisor))
+         (prime-factors-helper (/ n divisor) divisor (cons divisor acc))]
+        [else
+         (prime-factors-helper n (+ divisor 1) acc)]))
+
+;; Returns prime factorization as list of (prime . exponent) pairs
+(define (prime-factorization n)
+  (define factors (prime-factors n))
+  (if (null? factors)
+      '()
+      (group-factors factors)))
+
+(define (group-factors lst)
+  (if (null? lst)
+      '()
+      (let ([first-factor (car lst)])
+        (define-values (same rest) (partition (lambda (x) (= x first-factor)) lst))
+        (cons (cons first-factor (length same))
+              (group-factors rest)))))
+

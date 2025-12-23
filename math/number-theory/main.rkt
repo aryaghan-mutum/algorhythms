@@ -5,7 +5,6 @@
 
 (require "primes.rkt"
          "fibonacci.rkt"
-         "gcd-lcm.rkt"
          "collatz.rkt"
          "modular-arithmetic.rkt"
          "numerical-predicates.rkt"
@@ -15,8 +14,7 @@
 
 (provide (all-from-out "primes.rkt")
          (all-from-out "fibonacci.rkt")
-         (all-from-out "gcd-lcm.rkt")
-         (all-from-out "collatz.rkt")
+          (all-from-out "collatz.rkt")
          (all-from-out "modular-arithmetic.rkt")
          (all-from-out "numerical-predicates.rkt")
          (all-from-out "palindrome-num.rkt")

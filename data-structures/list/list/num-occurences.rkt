@@ -7,6 +7,3 @@
              1
              0)
          (num-occurences n (cdr lst)))))
-
-
-(num-occurences 22 '(1 22 22 3))

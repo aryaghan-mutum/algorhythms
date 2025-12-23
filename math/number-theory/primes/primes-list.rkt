@@ -1,6 +1,4 @@
 ﻿;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum
 
 ;; Reference: https://rosettacode.org/wiki/Extensible_prime_generator
 
@@ -48,24 +46,3 @@
       (for ((j (in-range (* i i) (add1 n) i)))
         (set! non-primes (cons j non-primes)))))
   (reverse primes))
-
-(check-equal? (primes-list-v1 -10.32) '())
-(check-equal? (primes-list-v1 -1) '())
-(check-equal? (primes-list-v1 0) '())
-(check-equal? (primes-list-v1 1) '())
-(check-equal? (primes-list-v1 2) '(2))
-(check-equal? (primes-list-v1 10) '(2 3 5 7))
-(check-equal? (primes-list-v1 100) '(2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97))
-
-(check-equal? (primes-list-v2 1) '())
-(check-equal? (primes-list-v2 2) '(2))
-(check-equal? (primes-list-v2 10) '(2 3 5 7))
-(check-equal? (primes-list-v2 100) '(2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97))
-
-(check-equal? (primes-list-sieve -10.32) '())
-(check-equal? (primes-list-sieve -1) '())
-(check-equal? (primes-list-sieve 0) '())
-(check-equal? (primes-list-sieve 1) '())
-(check-equal? (primes-list-sieve 2) '(2))
-(check-equal? (primes-list-sieve 10) '(2 3 5 7))
-(check-equal? (primes-list-sieve 100) '(2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97))

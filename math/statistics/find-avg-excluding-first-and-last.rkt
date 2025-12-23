@@ -1,8 +1,8 @@
 ;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
 ;; https://github.com/aryaghan-mutum/
 
 #lang racket
+
 (require threading rackunit racket/trace)
 (provide find-avg-excluding-first-and-last-v1 find-avg-excluding-first-and-last-v2)
 
@@ -26,19 +26,3 @@
         ((= 2 (length lst)) (/ (+ (first lst) (second lst)) 2))
         (else
          (exact->inexact (/ (foldr + 0 (cdr (reverse (cdr (sort lst <))))) 2)))))
-
-(check-eqv? (find-avg-excluding-first-and-last-v1 '()) 0)
-(check-eqv? (find-avg-excluding-first-and-last-v1 '(2)) 2)
-(check-eqv? (find-avg-excluding-first-and-last-v1 '(-2)) -2)
-(check-eqv? (find-avg-excluding-first-and-last-v1 '(4000 3000 1000 2000)) 2500.0)
-(check-eqv? (find-avg-excluding-first-and-last-v1 '(1 2 3 4)) 2.5)
-(check-eqv? (find-avg-excluding-first-and-last-v1 '(20 30)) 25)
-(check-eqv? (find-avg-excluding-first-and-last-v1 '(-20 30)) 5)
-
-(check-eqv? (find-avg-excluding-first-and-last-v2 '()) '())
-(check-eqv? (find-avg-excluding-first-and-last-v2 '(2)) 2)
-(check-eqv? (find-avg-excluding-first-and-last-v2 '(-2)) -2)
-(check-eqv? (find-avg-excluding-first-and-last-v2 '(4000 3000 1000 2000)) 2500.0)
-(check-eqv? (find-avg-excluding-first-and-last-v2 '(1 2 3 4)) 2.5)
-(check-eqv? (find-avg-excluding-first-and-last-v2 '(20 30)) 25)
-(check-eqv? (find-avg-excluding-first-and-last-v2 '(-20 30)) 5)

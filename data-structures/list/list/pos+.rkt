@@ -10,8 +10,3 @@
   (if (empty? lst)
       '()
       (cons (+ (car lst) count) (recursive-pos+ (cdr lst) (+ count 1)))))
-
-(pos+ '(1 2 3 4))   ;'(1 3 5 7)
-(pos+ '(0 2 4 6))   ;'(1 3 5 7)
-(pos+ '(3 5 7 9))   ;'(3 6 9 12)
-

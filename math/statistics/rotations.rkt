@@ -1,10 +1,8 @@
 ﻿;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum
 
 #lang racket
-(require rackunit math)
 
+(require rackunit math)
 (provide rotations rotations-for-num)
 
 ;; Helper: convert integer to list of digits

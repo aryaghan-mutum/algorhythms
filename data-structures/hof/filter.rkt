@@ -1,15 +1,14 @@
-﻿#lang racket
+﻿;; Author: Anurag Muthyam
 
-;; Author: Anurag Muthyam
-;; Filter procedure 
+#lang racket
 
-(provide my-filter
+(provide filter
          filter-iter)
 
-(define (my-filter fn lst)
+(define (filter fn lst)
   (cond ((empty? lst) '())
-        ((fn (car lst)) (cons (car lst) (my-filter fn (cdr lst))))
-        (else (my-filter fn (cdr lst)))))
+        ((fn (car lst)) (cons (car lst) (filter fn (cdr lst))))
+        (else (filter fn (cdr lst)))))
 
 ;; filter using iterative process
 (define (filter-iter proc lst)

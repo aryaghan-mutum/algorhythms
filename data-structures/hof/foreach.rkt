@@ -1,6 +1,5 @@
 ﻿#lang racket
 
-
 (define (for-each! fn lst)
   (define (for-each-iter  lst acc)
     (if (empty? lst)
@@ -8,8 +7,6 @@
         (for-each-iter (cdr lst)
               (fn (car lst)))))
   (for-each-iter lst '()))
-
-
 
 ;; forEach using iterative process version 1
 (define (foreach-v1 fn lst)

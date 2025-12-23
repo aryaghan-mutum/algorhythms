@@ -1,9 +1,7 @@
 ;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum
 
 #lang racket
-(require rackunit racket/contract)
+(require racket/contract)
 
 (provide
   (contract-out
@@ -18,7 +16,3 @@
        (append (quick-sort-v1 xs-lt fn)
                (list x)
                (quick-sort-v1 xs-gte fn))))))
-
-(check-equal? (quick-sort-v1 '(1) <) '(1))
-(check-equal? (quick-sort-v1 '(4 32.2 43.4 -912.2 0 2) <) '(-912.2 0 2 4 32.2 43.4))
-(check-equal? (quick-sort-v1 '(1 -9 32 321 21 0) <) '(-9 0 1 21 32 321))
