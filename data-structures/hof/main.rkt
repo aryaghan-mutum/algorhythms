@@ -19,18 +19,30 @@
          "flip.rkt"
          "scan.rkt")
 
-(provide (all-from-out "map.rkt")
-         (all-from-out "filter.rkt")
-         (all-from-out "foldr.rkt")
-         (all-from-out "foldl.rkt")
-         (all-from-out "reduce.rkt")
-         (all-from-out "flatten.rkt")
-         (all-from-out "flatmap.rkt")
-         (all-from-out "foreach.rkt")
-         (all-from-out "take-while.rkt")
-         (all-from-out "partition.rkt")
-         (all-from-out "zip-with.rkt")
-         (all-from-out "compose.rkt")
-         (all-from-out "curry.rkt")
-         (all-from-out "flip.rkt")
-         (all-from-out "scan.rkt"))
+(provide 
+  ;; Core HOFs
+  mapper           ; map function over list
+  filter-custom    ; filter list by predicate
+  reduce           ; reduce list to single value
+  foldl-custom     ; left fold
+  foldr-custom     ; right fold
+  foreach          ; apply function to each element
+  flatmap          ; flatten nested lists
+  
+  ;; List transformations
+  take-while       ; take while predicate true
+  drop-while       ; drop while predicate true
+  partition-list   ; split list by predicate
+  zip-with         ; combine two lists with function
+  scan             ; intermediate accumulator values
+  
+  ;; Function utilities
+  compose-fns      ; compose functions (right to left)
+  pipe             ; pipe functions (left to right)
+  curry2           ; curry 2-arg function
+  partial          ; partial application
+  flip             ; flip argument order
+  constantly       ; constant function
+  
+  ;; Re-export flatten
+  (all-from-out "flatten.rkt"))
