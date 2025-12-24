@@ -40,7 +40,7 @@
 (define (expt-v1 base pow)
   (let ((acc 1))
     (if (zero? pow)
-          acc
+        acc
           (* base (expt-v1 base (sub1 pow))))))
 
 ;; preferred recursive process version 2
@@ -97,7 +97,7 @@
       (cond ((= n 0) a)
             ((even? n) (fast-expt-aux a (sqr b) (/ n 2)))
             (else (fast-expt-aux (* a b) b (- n 1)))))
-    (fast-expt-aux 1 b n))
+  (fast-expt-aux 1 b n))
 
 ;; problem :
 ;; 2^n and log(n) process comparison

@@ -1,8 +1,7 @@
 ;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum
 
 #lang racket
+
 (require rackunit threading)
 (provide set-move-elem-to-last)
 

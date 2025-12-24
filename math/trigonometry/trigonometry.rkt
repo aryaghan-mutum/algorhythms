@@ -1,8 +1,6 @@
 #lang racket
 
 ;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
-;; Trignometric Functions:
 
 (require "../combinatorics/factorial.rkt")
 

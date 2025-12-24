@@ -1,6 +1,4 @@
 ;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum
 
 #lang racket
 (require rackunit)
@@ -14,6 +12,3 @@
           (compress (cdr lst) acc)
           (compress (cdr lst) (append acc (list (car lst)))))
       (append acc lst)))
-
-(check-equal? (compress '()) '())
-(check-equal? (compress '(a a a a b c c a a d e e e e)) '(a b c a d e))

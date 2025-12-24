@@ -1,8 +1,7 @@
 ;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
 
 #lang racket
-(require rackunit threading racket/trace)
+(require threading racket/trace)
 (provide string-join-custom)
 
 (define (string-join-custom c lst)

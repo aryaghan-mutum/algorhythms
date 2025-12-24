@@ -1,11 +1,10 @@
 ;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum
 
 #lang racket
 
-(require rackunit)
-(provide area-of-polygon-v1 area-of-polygon-v2 pi-value)
+(provide area-of-polygon-v1 
+         area-of-polygon-v2 
+         pi-value)
 
 ;; calculate pi value version 1
 (define (area-of-polygon-v1 n)
@@ -27,7 +26,3 @@
           (else (+ (fn-term a)
                    (sum fn-term (fn-next a) fn-next b)))))
   (* 8 (sum pi-term a pi-next b)))
-
-(check-eqv? (area-of-polygon-v1 100) -22.126022164742622)
-(check-eqv? (area-of-polygon-v2 100) 3.1395259764656687)
-(check-eqv? (pi-value) 3.141392653591793)

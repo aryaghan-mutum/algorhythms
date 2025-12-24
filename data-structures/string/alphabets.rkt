@@ -11,8 +11,6 @@
          word?
          sentence?)
 
-;; Note: curry is available from racket/function
-
 (define en-vowels '(a e i o u))
 
 (define en-consonents '(b c d f g h j k l m n p q r s t v w x y z))
@@ -53,20 +51,18 @@
           (else #f)))
   (list-of-words? x))
     
-;; TODO
-; (define (vowels? lst)
-;   (vowels-helper lst '()))
+;; check if a given letter is a vowel
+(define (vowel? letter)
+  (let ((vlst '("a" "e" "i" "o" "u")))
+    (define (vowel-helper letter vlst)
+      (cond ((empty? vlst) #f)
+            ((equal? letter (car vlst)) #t)
+            (else (vowel-helper letter
+                                (cdr vlst)))))
+    (vowel-helper letter vlst)))
 
-; ;; TODO
-; (define (vowels-helper lst result)
-;   (if (empty? lst)
-;       '()
-;       (if (member? (car lst) vowels)
-;           result
-;           (vowels-helper (cdr lst)
-;                          (member? (car lst) vowels)))))
-
-; (vowels-helper '(a e i o h u j) '())
-
-(en-vowel? 'a)
-(en-vowel? 's)
+;; check if a given letter is a consonant
+(define (consonant? letter)
+  (if (or (integer? letter) (boolean? letter) (symbol? letter))
+      #f
+      (not (vowel? letter))))

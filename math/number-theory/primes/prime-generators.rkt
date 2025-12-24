@@ -1,6 +1,4 @@
 ;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum
 
 #lang racket
 (require math racket/trace rackunit threading)

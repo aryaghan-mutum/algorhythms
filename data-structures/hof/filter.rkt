@@ -1,21 +1,13 @@
-﻿#lang racket
+﻿;; Author: Anurag Muthyam
+;; filter - Filter elements from a list based on predicate
 
-;; Author: Anurag Muthyam
-;; Filter procedure 
+#lang racket
 
-(provide my-filter
-         filter-iter)
+(provide filter-custom)
 
-(define (my-filter fn lst)
+;; Filter elements that satisfy predicate fn
+;; (filter-custom even? '(1 2 3 4 5 6)) => '(2 4 6)
+(define (filter-custom fn lst)
   (cond ((empty? lst) '())
-        ((fn (car lst)) (cons (car lst) (my-filter fn (cdr lst))))
-        (else (my-filter fn (cdr lst)))))
-
-;; filter using iterative process
-(define (filter-iter proc lst)
-  (define (filter-loop lst rlst)
-    (cond ((empty? lst) rlst)
-          ((proc (car lst)) (filter-loop (cdr lst)
-                                         (cons (car lst) rlst)))
-          (else (filter-loop (cdr lst) rlst))))
-  (reverse (filter-loop lst '())))
+        ((fn (car lst)) (cons (car lst) (filter-custom fn (cdr lst))))
+        (else (filter-custom fn (cdr lst)))))

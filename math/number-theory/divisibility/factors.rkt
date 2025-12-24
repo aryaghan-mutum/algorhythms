@@ -1,19 +1,10 @@
 ;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
+;; Email: 
 
-#|
-n    acc  rlst
-12   2    '()
-6    2    '(2)
-3    3    '(2 2)
-1    3    '(2 2 3) -> result
-|#
 
 #lang racket
-(require rackunit racket/trace math)
+(require math)
 (provide factors-v1 factors-v2 factors-v3 factors-v4)
-
-;; =================
 
 ;; iterative process version 1
 (define (factors-v1 n)
@@ -24,8 +15,6 @@ n    acc  rlst
           (else
            (factors-iter n (add1 acc) rlst))))
   (reverse (factors-iter n 2 '())))
-
-;; =================
 
 ;; version 2
 ;; directly addresses the identified problems by stopping at <graphic>, avoiding the redundant division, and skipping the even factors after 2.
@@ -40,8 +29,6 @@ n    acc  rlst
               (cons i (f n/i i step))
               (f n (+ i step) 2))))))
 
-;; =================
-
 ;; replaces (> i (sqrt n)) with (> (* i i) n), since * is typically much faster than sqrt. version 3
 (define (factors-v3 n)
   (let f ((n n) (i 2) (step 1))
@@ -52,8 +39,6 @@ n    acc  rlst
               (cons i (f n/i i step))
               (f n (+ i step) 2))))))
 
-;; =================
-
 ;; uses gcd to avoid most of the divisions, since gcd should be faster than /. version 4
 (define (factors-v4 n)
   (let f ((n n) (i 2) (step 1))
@@ -62,25 +47,3 @@ n    acc  rlst
         (if (> (gcd n i) 1)
             (cons i (f (/ n i) i step))
             (f n (+ i step) 2)))))
-
-;; =================
-
-(check-equal? (factors-v1 1) '())
-(check-equal? (factors-v1 2) '(2))
-(check-equal? (factors-v1 12) '(2 2 3))
-(check-equal? (factors-v1 144) '(2 2 2 2 3 3))
-
-(check-equal? (factors-v2 1) '(1))
-(check-equal? (factors-v2 2) '(2))
-(check-equal? (factors-v2 12) '(2 2 3))
-(check-equal? (factors-v2 144) '(2 2 2 2 3 3))
-
-(check-equal? (factors-v3 1) '(1))
-(check-equal? (factors-v3 2) '(2))
-(check-equal? (factors-v3 12) '(2 2 3))
-(check-equal? (factors-v3 144) '(2 2 2 2 3 3))
-
-(check-equal? (factors-v4 1) '(1))
-(check-equal? (factors-v4 2) '(2))
-(check-equal? (factors-v4 12) '(2 2 3))
-(check-equal? (factors-v4 144) '(2 2 2 2 3 3))

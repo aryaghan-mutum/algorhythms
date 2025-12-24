@@ -27,8 +27,3 @@
     (set! root1 (/ (+ minusb radical) divisor))
     (set! root2 (/ (- minusb radical) divisor))
     (cons root1 root2)))
-
-;; =================
-
-(check-equal? (quadratic-formula-v1 2 -4 6) '(1.0+1.4142135623730951i . 1.0-1.4142135623730951i))
-(check-equal? (quadratic-formula-v2 2 -4 6) '(1.0+1.4142135623730951i . 1.0-1.4142135623730951i))

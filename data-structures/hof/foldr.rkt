@@ -1,21 +1,14 @@
-﻿#lang racket
+﻿;; Author: Anurag Muthyam
+;; foldr - Right fold implementation
 
-(provide my-foldr
-         foldr-iter)
+#lang racket
 
-;; Author: Anurag Muthyam
-;; foldr implementation:
+(provide foldr-custom)
 
-(define (my-foldr fn start lst)
+;; Right fold - processes list from right to left
+;; (foldr-custom - 0 '(1 2 3)) => 1 - (2 - (3 - 0)) = 2
+;; (foldr-custom cons '() '(1 2 3)) => '(1 2 3)
+(define (foldr-custom fn init lst)
   (if (empty? lst)
-      start
-      (fn (car lst) (my-foldr fn start (cdr lst)))))
-
-;; foldRight using let (iterative style)
-(define (foldr-iter fn init lst)
-  (let loop ((lst lst))
-    (if (empty? lst)
-        init
-        (fn (car lst)
-            (loop (cdr lst))))))
-
+      init
+      (fn (car lst) (foldr-custom fn init (cdr lst)))))

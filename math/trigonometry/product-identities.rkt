@@ -1,10 +1,6 @@
 ﻿#lang racket
 
 ;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum/racket-predicates
-
-;; Product Identities
 
 (require "./trigonometry.rkt")
 (provide sinx*cosy

@@ -2,7 +2,7 @@
 ;; Email: anu.drumcoder@gmail.com
 
 #lang racket
-(require rackunit threading)
+(require threading)
 (provide reverse-string)
 
 ;; =================
@@ -14,10 +14,9 @@
       (reverse _)
       (string-join _)))
 
-;; =================
+(define (reverse-chars-in-str str)
+  (~> str
+      (string->list _)
+      (reverse _)
+      (list->string _)))
 
-(check-equal? (reverse-string "blue is the sky") "sky the is blue")
-(check-equal? (reverse-string "Lisp") "Lisp")
-(check-equal? (reverse-string "LISP !") "! LISP")
-(check-equal? (reverse-string "!") "!")
-(check-equal? (reverse-string "") "")

@@ -15,8 +15,8 @@
   (if (= n 1)
       '(1)
       (pt-iter '((1 1)
-                     (1))
-                   (- n 2))))
+                 (1))
+                (- n 2))))
 
 (define (pt-iter acc n)
   (if (zero? n)

@@ -1,5 +1,4 @@
 ;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
 ;; Taken from The Scheme Programming language by Kent Dybvig page 42
 
 #lang racket

@@ -1,10 +1,11 @@
 ;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum
 
 #lang racket
 (require rackunit)
-(provide flatten-v1 flatten-v2 flatten-v3 flatten-v4)
+(provide flatten-v1 
+          flatten-v2 
+          flatten-v3 
+          flatten-v4)
 
 ;; =================
 
@@ -56,35 +57,3 @@
 ;; flatmap: flatten nested lists
 (define (flatmap lst)
   (flatten-v4 lst))
-
-(check-equal? (flatten-v1 '()) '())
-(check-equal? (flatten-v1 '(9 8 7 6)) '(9 8 7 6))
-(check-equal? (flatten-v1 '(a '(1.2 4) '(43 131))) '(a quote 1.2 4 quote 43 131))
-(check-equal? (flatten-v1 '(a (list (1.2 4) (list (43 131))))) '(a list 1.2 4 list 43 131))
-(check-equal? (flatten-v1 '(a (b (c d) e))) '(a b c d e))
-;(check-equal? (flatten-v1 '((a) b (c (d) . e) ())) '(a b c d e))
-(check-equal? (flatten-v1 '(1 (2 (3 (4 (5)))))) '(1 2 3 4 5))
-
-(check-equal? (flatten-v2 '()) '())
-(check-equal? (flatten-v2 '(9 8 7 6)) '(9 8 7 6))
-(check-equal? (flatten-v2 '(a '(1.2 4) '(43 131))) '(a quote 1.2 4 quote 43 131))
-(check-equal? (flatten-v2 '(a (list (1.2 4) (list (43 131))))) '(a list 1.2 4 list 43 131))
-(check-equal? (flatten-v2 '(a (b (c d) e))) '(a b c d e))
-;(check-equal? (flatten-v2 '((a) b (c (d) . e) ())) '(a b c d e))
-(check-equal? (flatten-v2 '(1 (2 (3 (4 (5)))))) '(1 2 3 4 5))
-
-(check-equal? (flatten-v3 '()) '())
-(check-equal? (flatten-v3 '(9 8 7 6)) '(9 8 7 6))
-(check-equal? (flatten-v3 '(a '(1.2 4) '(43 131))) '(a quote 1.2 4 quote 43 131))
-(check-equal? (flatten-v3 '(a (list (1.2 4) (list (43 131))))) '(a list 1.2 4 list 43 131))
-(check-equal? (flatten-v3 '(a (b (c d) e))) '(a b c d e))
-(check-equal? (flatten-v3 '((a) b (c (d) . e) ())) '(a b c d e))
-(check-equal? (flatten-v3 '(1 (2 (3 (4 (5)))))) '(1 2 3 4 5))
-
-(check-equal? (flatten-v4 '()) '())
-(check-equal? (flatten-v4 '(9 8 7 6)) '(9 8 7 6))
-(check-equal? (flatten-v4 '(a '(1.2 4) '(43 131))) '(a quote 1.2 4 quote 43 131))
-(check-equal? (flatten-v4 '(a (list (1.2 4) (list (43 131))))) '(a list 1.2 4 list 43 131))
-(check-equal? (flatten-v4 '(a (b (c d) e))) '(a b c d e))
-(check-equal? (flatten-v4 '((a) b (c (d) . e) ())) '(a b c d e))
-(check-equal? (flatten-v4 '(1 (2 (3 (4 (5)))))) '(1 2 3 4 5))

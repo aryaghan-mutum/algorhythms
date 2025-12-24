@@ -36,13 +36,4 @@
 
 (define (cosecant x)
   (/ (sine x)))
-
-(define n 30)
-(sin n)
-(cosine n)
-(tangent n)
-(cotangent n)
-(secant n)
-(cosecant n)
-
    

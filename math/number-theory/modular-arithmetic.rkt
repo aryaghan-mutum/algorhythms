@@ -1,7 +1,6 @@
 #lang racket
 
 ;; Author: Anurag Muthyam
-;; Modular Arithmetic
 
 (provide mod-exp
          mod-inverse)

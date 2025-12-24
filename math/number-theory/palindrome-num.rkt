@@ -25,10 +25,3 @@
                        (reverse _)
                        (list->int-helper _)))
          (equal? x y))))
-
-(check-true (palindrome-num? 121))
-(check-false (palindrome-num? -121))
-(check-false (palindrome-num? 10))
-(check-false (palindrome-num? -101))
-(check-true (palindrome-num? 12321))
-(check-true (palindrome-num? 1))

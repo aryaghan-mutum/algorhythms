@@ -1,9 +1,7 @@
-﻿#lang racket
-
-;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum/racket-predicates
+﻿;; Author: Anurag Muthyam
 ;; Double Angle Identities
+
+#lang racket
 
 (require "./trigonometry.rkt")
 (provide sin2x

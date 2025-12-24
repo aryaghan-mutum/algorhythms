@@ -1,6 +1,4 @@
 ;; Author: Anurag Muthyam
-;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum
 
 #lang racket
 
@@ -14,8 +12,6 @@
          even-v4?
          odd-v4?)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;; checks if a number is even (easiest way!) version 1
 (define (even-v1? n)
   (zero? (remainder n 2)))
@@ -23,8 +19,6 @@
 ;; checks if a number is odd (easiest way!) version 1
 (define (odd-v1? n)
   (not (zero? (remainder n 2))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; checks if a number is even version 2
 (define (even-v2? n)
@@ -34,8 +28,6 @@
 (define (odd-v2? n)
   (not (even-v2? n)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;; checks if a number is even version 3
 (define (even-v3? n)
   (not (odd-v3? n)))
@@ -43,8 +35,6 @@
 ;; checks if a number is odd version 3
 (define (odd-v3? n)
   (not (= (remainder n 2) 0)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; checks if a number is even version 4
 ;; even-v4? and odd-v4 doesn't work for negative numbers
@@ -58,36 +48,41 @@
   (and (not (zero? n))
       (even-v4? (sub1 n))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; get even nnumbers list
+(define (even-lst lst)
+  (nums-lst lst '() even?))
 
-(check-true (even-v1? 0))
-(check-true (even-v1? 2))
-(check-false (even-v1? 1))
+;; get odd nnumbers list
+(define (odd-lst lst)
+  (nums-lst lst '() odd?))
 
-(check-true (odd-v1? 1))
-(check-false (odd-v1? 0))
-(check-false (odd-v1? 2))
+;; helper function
+(define (nums-lst xlst ylst f)
+  (cond ((empty? xlst) ylst)
+        ((f (car xlst))
+         (nums-lst (cdr xlst) (cons (car xlst) ylst) f))
+        (else (nums-lst (cdr xlst) ylst f))))
 
-(check-true (even-v2? 0))
-(check-true (even-v2? 2))
-(check-false (even-v2? 1))
 
-(check-true (odd-v2? 1))
-(check-false (odd-v2? 0))
-(check-false (odd-v2? 2))
+;;;;
 
-(check-true (even-v3? 0))
-(check-true (even-v3? 2))
-(check-false (even-v3? 1))
 
-(check-true (odd-v3? 1))
-(check-false (odd-v3? 0))
-(check-false (odd-v3? 2))
+;; Generate all all the even numbers in a fib series
 
-(check-true (even-v4? 0))
-(check-true (even-v4? 2))
-(check-false (even-v4? 1))
+;; actual algorithm 
+(define (sum-fib-even-nums n)
+  (sum-fib-nums-helper (even-lst (build-list n fib)) 0))
 
-(check-true (odd-v4? 1))
-(check-false (odd-v4? 0))
-(check-false (odd-v4? 2))
+(define (sum-fib-nums-helper lst sum)
+  (if (empty? lst)
+      sum
+      (sum-fib-nums-helper (cdr lst)
+                           (+ sum (car lst)))))
+
+;; fib algorithm
+(define (fib n)
+    (cond ((= n 0) 0)
+          ((= n 1) 1)
+          (else (+ (fib (- n 1))
+                   (fib (- n 2))))))
+

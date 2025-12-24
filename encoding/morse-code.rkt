@@ -1,9 +1,11 @@
 #lang racket
 
-(provide encode-to-morse
-         decode-from-morse)
+(require racket/string racket/contract)
 
-(require racket/string)
+(provide
+  (contract-out
+    [encode-to-morse (-> string? string?)]
+    [decode-from-morse (-> string? string?)]))
 
 ;; Morse code table: character -> morse (strings)
 (define morse-code-table

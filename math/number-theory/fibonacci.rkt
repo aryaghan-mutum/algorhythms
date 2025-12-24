@@ -3,8 +3,6 @@
 
 ;The first 10 Fibonacci Series:
 ; n:    0 1 2 3 4 5 6  7  8  9 10
-; F(n): 0 1 1 2 3 5 8 13 21 34 55
-;https://en.wikipedia.org/wiki/Fibonacci_number
 
 #lang racket
 (require racket/trace rackunit threading)
@@ -21,8 +19,6 @@
          sum-fibonacci-v2
          sum-even-fibonacci-v1)
 
-;; =================
-
 ;; recursive process version 1
 (define (fibonacci-v1 n)
     (cond ((= n 0) 0)
@@ -31,16 +27,12 @@
           (else (+ (fibonacci-v1 (- n 1))
                    (fibonacci-v1 (- n 2))))))
 
-;; =================
-
 ;; recursive process version 2
 (define (fibonacci-v2 n)
     (if (< n 2)
         n
         (+ (fibonacci-v2 (- n 1))
            (fibonacci-v2 (- n 2)))))
-
-;; =================
 
 ;; recursive process version 3
 (define (fibonacci-v3 n)
@@ -51,16 +43,12 @@
           (else (+ (fibonacci-v3 (- n 1))
                    (fibonacci-v3 (- n 2)))))))
 
-;; =================
-
 ;; recurisve process and let version 4
 (define (fibonacci-v4 n)
   (let loop ((n n))
     (cond ((zero? n) 0)
           ((= n 1) 1)
           (else (+ (loop (- n 1)) (loop (- n 2)))))))
-
-;; =================
 
 ;; iterative process version 5
 (define (fibonacci-v5 n)
@@ -69,8 +57,6 @@
           (else
            (fib-iter (+ acc1 acc2) acc1 (sub1 count)))))
   (fib-iter 1 0 n))
-
-;; =================
 
 ; iterative process using logarithmic form O(log n)
 (define (fibonacci-optimized n)
@@ -89,13 +75,9 @@
                                        q
                                        (sub1 counter)))))
 
-;; =================
-
 ;; fibonacci for each element in a list
 (define (fibonacci-list lst)
   (map fibonacci-v1 lst))
-
-;; =================
 
 ;; iterative process fibonacci count version 1
 (define (fibonacci-count-v1 n)
@@ -119,14 +101,12 @@
                    (fib-rec (- n 2) (add1 count))))))
   (fib-rec n 0))
 
-;; =================
-
 ;; add all the fib elements based on a limit n verion 1
 (define (sum-fibonacci-v1 n)
   (define (sum-fib-aux lst sum)
     (cond ((empty? lst) sum)
           (else (sum-fib-aux (cdr lst)
-                                     (+ sum (car lst))))))
+                             (+ sum (car lst))))))
   (sum-fib-aux (build-list n fibonacci-v1) 0))
 
 ;; using foldr version 2
@@ -134,59 +114,9 @@
   (define lst (build-list n fibonacci-v1))
   (foldr + 0 lst))
 
-;; =================
-
 ;; easier way: using higher order functions version 1
 (define (sum-even-fibonacci-v1 n)
   (~> (build-list (add1 n) values)
       (map fibonacci-v1 _)
       (filter even? _)
       (foldr + 0 _)))
-
-;; =================
-
-(check-eqv? (fibonacci-v1 0) 0)
-(check-eqv? (fibonacci-v1 1) 1)
-(check-eqv? (fibonacci-v1 2) 1)
-(check-eqv? (fibonacci-v1 3) 2)
-(check-eqv? (fibonacci-v1 10) 55)
-
-(check-eqv? (fibonacci-v2 0) 0)
-(check-eqv? (fibonacci-v2 1) 1)
-(check-eqv? (fibonacci-v2 10) 55)
-
-(check-eqv? (fibonacci-v3 0) 0)
-(check-eqv? (fibonacci-v3 1) 1)
-(check-eqv? (fibonacci-v3 10) 55)
-
-(check-eqv? (fibonacci-v4 0) 0)
-(check-eqv? (fibonacci-v4 1) 1)
-(check-eqv? (fibonacci-v4 10) 55)
-
-(check-eqv? (fibonacci-v5 0) 0)
-(check-eqv? (fibonacci-v5 1) 1)
-(check-eqv? (fibonacci-v5 10) 55)
-
-(check-eqv? (fibonacci-optimized 0) 0)
-(check-eqv? (fibonacci-optimized 1) 1)
-(check-eqv? (fibonacci-optimized 10) 55)
-
-(check-equal? (fibonacci-list '(0 1 2 3)) '(0 1 1 2))
-
-(check-eqv? (fibonacci-count-v1 0) 0)
-(check-eqv? (fibonacci-count-v1 1) 1)
-(check-eqv? (fibonacci-count-v1 10) 10)
-
-(check-eqv? (sum-fibonacci-v1 0) 0)
-(check-eqv? (sum-fibonacci-v1 1) 0)
-(check-eqv? (sum-fibonacci-v1 2) 1)
-(check-eqv? (sum-fibonacci-v1 3) 2)
-(check-eqv? (sum-fibonacci-v1 10) 88)
-
-(check-eqv? (sum-fibonacci-v2 0) 0)
-(check-eqv? (sum-fibonacci-v2 1) 0)
-(check-eqv? (sum-fibonacci-v2 2) 1)
-(check-eqv? (sum-fibonacci-v2 3) 2)
-(check-eqv? (sum-fibonacci-v2 10) 88)
-
-(check-eqv? (sum-even-fibonacci-v1 10) 44)

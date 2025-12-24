@@ -3,7 +3,6 @@
 ;;; (require rackunit)
 
 ;;; ;; Author: Anurag Muthyam
-;;; ;; Email: anu.drumcoder@gmail.com
 ;;; ;; https://github.com/aryaghan-mutum/racket-lists
 
 ;;; ;; ints are represented as reverse lists of binary digits which are bitlists. Example:  (0 0 1) = 4
