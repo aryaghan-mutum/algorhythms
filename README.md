@@ -79,31 +79,34 @@ raco test tests/math/
 # Run a specific test file
 raco test tests/encoding/morse-code-test.rkt
 
-# Run tests with verbose output
-raco test -v tests/
+# Run tests with verbose output (shows per-file pass/fail counts)
+raco test tests/
 ```
 
 #### HTML Test Report
 
-Generate a full HTML report with a pass/fail summary for every test case:
+Racket 9.2 does not include a built-in HTML reporter. Use the included PowerShell script:
 
-```bash
-# Install the rackunit-html-output package (one-time)
-raco pkg install rackunit-html-output
+```powershell
+# Generate test-report.html in the project root and open it in the browser
+.\bin\test-report.ps1
 
-# Generate the report (creates report.html in the current directory)
-raco test --output html --output-file report.html tests/
+# Custom output path
+.\bin\test-report.ps1 -OutputFile my-report.html
 
-# Or use the built-in XML output and convert
-raco test --output-file results.xml tests/
+# Run against a specific subdirectory
+.\bin\test-report.ps1 -TestDir tests/math/
 ```
 
-> **Tip:** The simplest way to view a formatted pass/fail summary without extra packages is:
-> ```bash
-> raco test -v tests/ 2>&1 | Tee-Object results.txt
-> ```
-> Each passing test prints `success(es) 0 failure(s)` per file;
-> failures are listed with the test-case name and the `check-*` that failed.
+The script runs `raco test -v`, parses the per-file pass/fail counts, and writes a self-contained HTML file.
+The report opens automatically in your default browser after generation.
+
+**Plain text alternative** (no extra files):
+```powershell
+raco test tests/ 2>&1 | Tee-Object test-results.txt
+```
+Each test file prints `N success(es) 0 failure(s) 0 error(s)`.
+Failures are listed inline with the test-case name and the failing `check-*` call.
 
 ### Code Formatting
 ```bash
