@@ -14,7 +14,9 @@
          odd-num?
          square?
          prime-custom?
-         pythagoras-proof?)
+         pythagoras-proof?
+         even?
+         odd?)
 
 ;; check if a number is 0  
 (define (zero-num? n) (= n 0))

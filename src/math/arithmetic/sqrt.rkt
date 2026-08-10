@@ -1,8 +1,11 @@
 #lang racket
 
+;; Author: Anurag Muthyam
+
 (require racket/trace)
 
-(provide sqrt-root
+(provide sqrt
+         sqrt-root
          half-interval-method
          deriv
          newton)

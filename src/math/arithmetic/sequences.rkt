@@ -3,21 +3,8 @@
 ;; Author: Anurag Muthyam
 ;; Sequences
 
-(provide simple-interest
-         compound-interest
-         arithmetic-seq-sum
+(provide arithmetic-seq-sum
          geometric-seq-sum)
-         
-;; simple interest/future value 
-(define simple-interest
-  (lambda (principal time interest-rate)
-    (* principal (+ 1 (* interest-rate time)))))
-
-;; compound interest/future value 
-(define compound-interest
-  (lambda (principal time interest-rate)
-    (* principal
-       (expt (+ 1 interest-rate) time))))
 
 ;; arithmetic sequence sum of the first n terms
 (define arithmetic-seq-sum

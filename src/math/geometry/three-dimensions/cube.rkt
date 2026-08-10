@@ -2,7 +2,8 @@
 
 ;; Author: Anurag Mthyam
 
-(provide cube-volume)
+(provide cube-volume
+         (rename-out [cube-volume volume-cube]))
 
 ;; volume of cube 
 (define cube-volume

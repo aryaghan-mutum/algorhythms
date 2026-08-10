@@ -1,31 +1,17 @@
 #lang racket
 
 ;; Author: Anurag Muthyam
-;; Algebra: linear/quadratic equation solving, polynomial evaluation,
-;; and coefficient-list based factor/expand/simplify helpers.
-;;
-;; Polynomials are represented as a list of coefficients from the
-;; highest degree term to the constant term, e.g. '(1 -3 2) means x^2 - 3x + 2.
+;; Polynomial helpers. Polynomials are represented as a list of
+;; coefficients from the highest degree term to the constant term,
+;; e.g. '(1 -3 2) means x^2 - 3x + 2.
 
-(require (only-in "algebra/quadratic-formula.rkt" quadratic-formula))
-
-(provide solve-linear
-         solve-quadratic
-         evaluate-polynomial
+(provide evaluate-polynomial
          factor-expression
          expand-expression
          simplify-expression)
 
-;; solve-linear : number? number? -> number? (solves ax + b = 0 for x)
-(define (solve-linear a b)
-  (- (/ b a)))
-
-;; solve-quadratic : number? number? number? -> (cons number? number?)
-;; solves ax^2 + bx + c = 0, returns (cons root1 root2)
-(define solve-quadratic quadratic-formula)
-
 ;; evaluate-polynomial : (listof number?) number? -> number?
-;; evaluates a polynomial (highest-degree-first coefficients) at x via Horner's method
+;; evaluates a polynomial at x via Horner's method
 (define (evaluate-polynomial coeffs x)
   (foldl (lambda (c acc) (+ (* acc x) c)) 0 coeffs))
 
@@ -38,7 +24,7 @@
       (list common (map (lambda (c) (/ c common)) coeffs))))
 
 ;; expand-expression : (listof number?) (listof number?) -> (listof number?)
-;; multiplies two polynomials (highest-degree-first coefficients)
+;; multiplies two polynomials
 (define (expand-expression coeffs1 coeffs2)
   (define n1 (length coeffs1))
   (define n2 (length coeffs2))

@@ -7,10 +7,14 @@
          rackunit/text-ui
          "../../src/math/arithmetic/abs.rkt"
          "../../src/math/arithmetic/add1.rkt"
+         "../../src/math/arithmetic/average.rkt"
          "../../src/math/arithmetic/cube.rkt"
          "../../src/math/arithmetic/double.rkt"
          "../../src/math/arithmetic/half.rkt"
          (only-in "../../src/math/arithmetic/min-max.rkt" min max)
+         "../../src/math/arithmetic/operators.rkt"
+         "../../src/math/arithmetic/percentage.rkt"
+         "../../src/math/arithmetic/power.rkt"
          "../../src/math/arithmetic/reciprocal.rkt"
          "../../src/math/arithmetic/remainder.rkt"
          "../../src/math/arithmetic/square.rkt"
@@ -135,15 +139,13 @@
 
    (test-suite
     "sequences - valid"
-    (test-case "simple-interest computes P*(1+rt)" (check-equal? (simple-interest 1000 2 0.05) 1100.0))
-    (test-case "compound-interest computes P*(1+r)^t" (check-equal? (compound-interest 1000 2 0.05) 1102.5))
     (test-case "arithmetic-seq-sum of first n terms" (check-equal? (arithmetic-seq-sum 1 10 10) 55))
     (test-case "geometric-seq-sum of first n terms" (check-equal? (geometric-seq-sum 1 2 4) 15)))
 
    (test-suite
     "sequences - edge"
-    (test-case "simple-interest with 0 rate returns the principal" (check-equal? (simple-interest 500 3 0) 500))
-    (test-case "compound-interest with 0 time returns the principal" (check-equal? (compound-interest 500 0 0.05) 500)))
+    (test-case "geometric-seq-sum with a single term returns the first term"
+      (check-equal? (geometric-seq-sum 5 2 1) 5)))
 
    (test-suite
     "sqrt/newton - valid (author-verified values)"
@@ -186,7 +188,25 @@
     "separate-neg-and-pos - edge"
     (test-case "0 is treated as positive" (check-equal? (separate-neg-and-pos '(0 -1)) (list '(-1) '(0))))
     (test-case "an all-positive list has an empty negative half"
-      (check-equal? (neg-lst '(1 2 3)) '())))))
+      (check-equal? (neg-lst '(1 2 3)) '())))
+
+   (test-suite
+    "operators/percentage/average/power - valid"
+    (test-case "add" (check-equal? (add 2 3) 5))
+    (test-case "subtract" (check-equal? (subtract 5 2) 3))
+    (test-case "multiply" (check-equal? (multiply 2 3) 6))
+    (test-case "divide" (check-equal? (divide 6 2) 3))
+    (test-case "modulus" (check-equal? (modulus 7 3) 1))
+    (test-case "percentage" (check-equal? (percentage 25 200) 25/2))
+    (test-case "average" (check-equal? (average '(2 4 6)) 4))
+    (test-case "power" (check-equal? (power 2 5) 32))
+    (test-case "sqrt" (check-equal? (sqrt 16) 4)))
+
+   (test-suite
+    "operators/percentage/average/power - edge"
+    (test-case "divide by a negative denominator" (check-equal? (divide 6 -2) -3))
+    (test-case "average of a single-element list is that element" (check-equal? (average '(7)) 7))
+    (test-case "power to the zeroth returns 1" (check-equal? (power 5 0) 1)))))
 
 (run-tests arithmetic-tests)
 

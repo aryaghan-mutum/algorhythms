@@ -4,7 +4,8 @@
 
 #lang racket
 (require rackunit threading)
-(provide palindrome-num? int->list-helper list->int-helper)
+(provide palindrome-num? int->list-helper list->int-helper
+         (rename-out [palindrome-num? palindrome-number?]))
 
 ;; Helper: convert integer to list of digits
 (define (int->list-helper n)

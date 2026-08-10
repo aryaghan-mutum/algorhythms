@@ -2,7 +2,8 @@
 
 ;; Author: Anurag Muthyam
 
-(provide cylindrical-barrel-volume)
+(provide cylindrical-barrel-volume
+         (rename-out [cylindrical-barrel-volume volume-cylinder]))
 
 ;; volume of cylindrical barrel
 (define cylindrical-barrel-volume

@@ -5,10 +5,13 @@
 
 (require "abs.rkt"
          "add1.rkt"
+         "average.rkt"
          "cube.rkt"
          "double.rkt"
          "half.rkt"
          "min-max.rkt"
+         "operators.rkt"
+         "percentage.rkt"
          "power.rkt"
          "reciprocal.rkt"
          "remainder.rkt"
@@ -23,10 +26,13 @@
 
 (provide (all-from-out "abs.rkt")
          (all-from-out "add1.rkt")
+         (all-from-out "average.rkt")
          (all-from-out "cube.rkt")
          (all-from-out "double.rkt")
          (all-from-out "half.rkt")
          (all-from-out "min-max.rkt")
+         (all-from-out "operators.rkt")
+         (all-from-out "percentage.rkt")
          (all-from-out "power.rkt")
          (all-from-out "reciprocal.rkt")
          (all-from-out "remainder.rkt")

@@ -5,7 +5,8 @@
 
 (provide prime?
          primes-up-to
-         next-prime)
+         next-prime
+         (rename-out [prime? is-prime?]))
 
 ;; Check if n is prime
 (define (prime? n)

@@ -9,7 +9,9 @@
          circle-arc-length
          circle-arc-length-lst
          circle-arc-len
-         circle-arc-len-lst)
+         circle-arc-len-lst
+         (rename-out [circle-area area-circle]
+                     [circle-circum circumference-circle]))
          
 (require threading)
 

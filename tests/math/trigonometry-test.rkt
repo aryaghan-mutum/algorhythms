@@ -10,6 +10,8 @@
 (require rackunit
          rackunit/text-ui
          "../../src/math/trigonometry/trigonometry.rkt"
+         "../../src/math/trigonometry/degree-trig.rkt"
+         "../../src/math/trigonometry/hypotenuse.rkt"
          "../../src/math/trigonometry/double-angle-identities.rkt"
          "../../src/math/trigonometry/reciprocal-trigonometry.rkt"
          "../../src/math/trigonometry/product-identities.rkt"
@@ -83,6 +85,18 @@
     ;; return a boolean rather than assuming a specific #t/#f for arbitrary x.
     (test-case "sin-cos-identity? returns a boolean" (check-pred boolean? (sin-cos-identity? x)))
     (test-case "tan-sec-identity? returns a boolean" (check-pred boolean? (tan-sec-identity? x)))
-    (test-case "cot-cosec-identity? returns a boolean" (check-pred boolean? (cot-cosec-identity? x))))))
+    (test-case "cot-cosec-identity? returns a boolean" (check-pred boolean? (cot-cosec-identity? x))))
+
+   (test-suite
+    "degree-trig/hypotenuse - valid"
+    (test-case "sin-deg(30)" (check-within (sin-deg 30) 0.5 TOL))
+    (test-case "cos-deg(60)" (check-within (cos-deg 60) 0.5 TOL))
+    (test-case "tan-deg(45)" (check-within (tan-deg 45) 1.0 TOL))
+    (test-case "asin-deg(0.5)" (check-within (asin-deg 0.5) 30.0 TOL))
+    (test-case "acos-deg(0.5)" (check-within (acos-deg 0.5) 60.0 TOL))
+    (test-case "atan-deg(1)" (check-within (atan-deg 1) 45.0 TOL))
+    (test-case "degrees->radians(180) is pi" (check-within (degrees->radians 180) pi TOL))
+    (test-case "radians->degrees(pi) is 180" (check-within (radians->degrees pi) 180.0 TOL))
+    (test-case "hypotenuse of a 3-4-5 triangle" (check-equal? (hypotenuse 3 4) 5)))))
 
 (run-tests trigonometry-tests)

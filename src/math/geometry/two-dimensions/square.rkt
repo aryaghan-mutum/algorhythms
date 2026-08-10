@@ -5,7 +5,9 @@
 (provide sqr-area
          sqr-area-lst
          sqr-perim
-         sqr-perim-lst)
+         sqr-perim-lst
+         (rename-out [sqr-area area-square]
+                     [sqr-perim perimeter-square]))
 
 ;; area of square 
 (define sqr-area

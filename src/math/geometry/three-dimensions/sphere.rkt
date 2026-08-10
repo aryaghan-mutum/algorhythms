@@ -5,7 +5,8 @@
 (provide sphere-volume
          sphere-volume-lst
          sphere-area
-         sphere-area-lst)
+         sphere-area-lst
+         (rename-out [sphere-volume volume-sphere]))
 
 ;; volume of sphere
 (define sphere-volume

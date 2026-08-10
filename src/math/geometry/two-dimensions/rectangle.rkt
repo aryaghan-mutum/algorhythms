@@ -10,7 +10,9 @@
          rectangle-volume-lst
          rectangle-perm-lst
          rectangle-area-solid
-         rectangle-area-solid-lst)
+         rectangle-area-solid-lst
+         (rename-out [rectangle-area area-rectangle]
+                     [rectangle-perim perimeter-rectangle]))
          
 ;; area of rectangle
 (define rectangle-area

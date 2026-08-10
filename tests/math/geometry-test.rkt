@@ -121,6 +121,21 @@
 
    (test-suite
     "pi approximation - edge"
-    (test-case "area-of-polygon returns a real number" (check-pred real? (area-of-polygon 100))))))
+    (test-case "area-of-polygon returns a real number" (check-pred real? (area-of-polygon 100))))
+
+   (test-suite
+    "log.txt-spec aliases - valid"
+    (test-case "area-circle is an alias of circle-area" (check-equal? (area-circle 2) (circle-area 2)))
+    (test-case "circumference-circle is an alias of circle-circum" (check-equal? (circumference-circle 2) (circle-circum 2)))
+    (test-case "area-square is an alias of sqr-area" (check-equal? (area-square 5) (sqr-area 5)))
+    (test-case "perimeter-square is an alias of sqr-perim" (check-equal? (perimeter-square 5) (sqr-perim 5)))
+    (test-case "area-rectangle is an alias of rectangle-area" (check-equal? (area-rectangle 4 5) (rectangle-area 4 5)))
+    (test-case "perimeter-rectangle is an alias of rectangle-perim" (check-equal? (perimeter-rectangle 4 5) (rectangle-perim 4 5)))
+    (test-case "area-triangle is an alias of area-of-triangle" (check-equal? (area-triangle 4 3) (area-of-triangle 4 3)))
+    (test-case "perimeter-triangle sums the three sides" (check-equal? (perimeter-triangle 3 4 5) 12))
+    (test-case "volume-cube is an alias of cube-volume" (check-equal? (volume-cube 3) (cube-volume 3)))
+    (test-case "volume-sphere is an alias of sphere-volume" (check-equal? (volume-sphere 3) (sphere-volume 3)))
+    (test-case "volume-cylinder is an alias of cylindrical-barrel-volume" (check-equal? (volume-cylinder 2 5) (cylindrical-barrel-volume 2 5)))
+    (test-case "volume-cone is an alias of right-circular-cone-volume" (check-equal? (volume-cone 3 4) (right-circular-cone-volume 3 4))))))
 
 (run-tests geometry-tests)

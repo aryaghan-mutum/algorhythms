@@ -6,7 +6,9 @@
 (require rackunit
          rackunit/text-ui
          "../../src/math/algebra/expt.rkt"
+         "../../src/math/algebra/polynomial.rkt"
          "../../src/math/algebra/quadratic-formula.rkt"
+         "../../src/math/algebra/solve-linear.rkt"
          "../../src/math/algebra/matrices.rkt")
 
 (define algebra-tests
@@ -39,6 +41,21 @@
     "quadratic-formula - edge"
     (test-case "a perfect-square discriminant gives a repeated root"
       (check-equal? (quadratic-formula 1 -2 1) (cons 1 1))))
+
+   (test-suite
+    "solve-linear/solve-quadratic/polynomial - valid"
+    (test-case "solve-linear solves 2x-8=0" (check-equal? (solve-linear 2 -8) 4))
+    (test-case "solve-quadratic is an alias of quadratic-formula"
+      (check-equal? (solve-quadratic 1 -3 2) (cons 2 1)))
+    (test-case "evaluate-polynomial via Horner's method"
+      (check-equal? (evaluate-polynomial '(1 -3 2) 5) 12))
+    (test-case "factor-expression factors out the gcd"
+      (check-equal? (factor-expression '(6 9 12)) (list 3 '(2 3 4))))
+    (test-case "expand-expression multiplies two polynomials"
+      (check-equal? (expand-expression '(1 2) '(1 3)) '(1 5 6)))
+    (test-case "simplify-expression combines like terms and drops zeros"
+      (check-equal? (simplify-expression '((2 . 3) (1 . 2) (2 . -1) (0 . 0)))
+                    '((2 . 2) (1 . 2)))))
 
    (test-suite
     "matrices - valid"

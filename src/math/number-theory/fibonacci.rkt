@@ -11,7 +11,8 @@
          fibonacci-count-v1
          fibonacci-count-v2
          sum-fibonacci-v2
-         sum-even-fibonacci-v1)
+         sum-even-fibonacci-v1
+         (rename-out [fibonacci-optimized fibonacci]))
 
 ;; Alternative implementations kept for reference (commented out) --
 ;; fibonacci-optimized below is the active implementation: O(log n) via matrix exponentiation.

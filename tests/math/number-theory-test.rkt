@@ -14,6 +14,7 @@
          "../../src/math/number-theory/modular-arithmetic.rkt"
          "../../src/math/number-theory/numerical-predicates.rkt"
          "../../src/math/number-theory/palindrome-num.rkt"
+         "../../src/math/number-theory/reverse-number.rkt"
          "../../src/math/number-theory/pythagorean-triplets.rkt"
          "../../src/math/number-theory/even-odd/even-nums-list.rkt"
          "../../src/math/number-theory/even-odd/numbers-list.rkt"
@@ -156,7 +157,17 @@
    (test-suite
     "divisibility - invalid"
     (test-case "safe-div raises an error dividing by zero"
-      (check-exn exn:fail? (lambda () ((safe-div 10 0) (lambda (r) r) (lambda (e) e))))))))
+      (check-exn exn:fail? (lambda () ((safe-div 10 0) (lambda (r) r) (lambda (e) e))))))
+
+   (test-suite
+    "reverse-number/log.txt-spec aliases - valid"
+    (test-case "reverse-number reverses the digits" (check-equal? (reverse-number 123) 321))
+    (test-case "is-prime? is an alias of prime?" (check-equal? (is-prime? 17) (prime? 17)))
+    (test-case "gcd matches gcd-euclidean" (check-equal? (gcd 12 18) (gcd-euclidean 12 18)))
+    (test-case "lcm matches lcm-custom" (check-equal? (lcm 4 6) (lcm-custom 4 6)))
+    (test-case "fibonacci is an alias of fibonacci-optimized" (check-equal? (fibonacci 10) (fibonacci-optimized 10)))
+    (test-case "palindrome-number? is an alias of palindrome-num?" (check-true (palindrome-number? 121)))
+    (test-case "built-in even?/odd? are re-exported" (check-true (even? 4)) (check-true (odd? 3))))))
 
 (run-tests number-theory-tests)
 

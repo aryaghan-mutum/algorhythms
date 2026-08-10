@@ -3,7 +3,8 @@
 
 #lang racket
 (require rackunit racket/trace threading)
-(provide quadratic-formula)
+(provide quadratic-formula
+         (rename-out [quadratic-formula solve-quadratic]))
 
 ;; using let*
 (define (quadratic-formula a b c)

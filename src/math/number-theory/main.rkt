@@ -9,6 +9,7 @@
          "modular-arithmetic.rkt"
          "numerical-predicates.rkt"
          "palindrome-num.rkt"
+         "reverse-number.rkt"
          "gcd.rkt"
          "lcm.rkt"
          "pythagorean-triplets.rkt")
@@ -19,6 +20,7 @@
          (all-from-out "modular-arithmetic.rkt")
          (all-from-out "numerical-predicates.rkt")
          (all-from-out "palindrome-num.rkt")
+         (all-from-out "reverse-number.rkt")
          (all-from-out "gcd.rkt")
          (all-from-out "lcm.rkt")
          (all-from-out "pythagorean-triplets.rkt"))

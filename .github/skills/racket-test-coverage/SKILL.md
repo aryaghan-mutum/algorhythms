@@ -29,15 +29,24 @@ description: >
 
 These are established conventions for this repository — do not deviate:
 
-1. **One test file per module, not per function.** Test files mirror the
+1. **One subfolder per topic, one small file per function/concept, never
+   one flat file per topic.** `src/math/<topic>/` (e.g. `arithmetic/`,
+   `algebra/`, `matrix/`, `financial/`) holds many small `.rkt` files (a
+   handful of closely related functions each), aggregated by that folder's
+   `main.rkt`. Do NOT create a single `src/math/<topic>.rkt` dumping every
+   function for a topic — that pattern was tried and reverted because it
+   doesn't scale and creates a second, parallel structure to the existing
+   subfolders. When a brand-new topic needs adding (no existing subfolder),
+   create a new subfolder following this same pattern, not a flat file.
+2. **One test file per module, not per function.** Test files mirror the
    `main.rkt` aggregation boundary (e.g. all of `src/math/combinatorics/*.rkt`
    is covered by a single `tests/math/combinatorics-test.rkt`). Never create
    a `<function>-test.rkt` file for a single function.
-2. **Style: `test-suite` / `test-case` + `rackunit/text-ui`.** Every test
+3. **Style: `test-suite` / `test-case` + `rackunit/text-ui`.** Every test
    file defines one top-level `test-suite`, with nested `test-suite`s
    grouped by function and then by category (`- valid`, `- edge`,
    `- invalid`), and ends with `(run-tests <name>-tests)`.
-3. **Every test file starts with this exact author header** (after the
+4. **Every test file starts with this exact author header** (after the
    `#lang racket` line, before requires):
    ```racket
    #lang racket
@@ -50,12 +59,12 @@ These are established conventions for this repository — do not deviate:
    (`check-within`) only for floating-point/approximation functions
    (trigonometry, sqrt, pi-approximation); use exact `check-equal?`
    everywhere else.
-5. **Tests never live in `src/`.** Any `check-equal?`/`check-true`/etc. call
+6. **Tests never live in `src/`.** Any `check-equal?`/`check-true`/etc. call
    found at the top level of a file under `src/` is a violation — move it
    into the corresponding `tests/` file (merge into the existing suite,
    don't create a new one) and delete it from source. `src/` files may
    `(require rackunit)` only if they use contracts, never to run assertions.
-6. **One canonical function per concept — no `-v1`/`-v2`/`-vN` survivors.**
+7. **One canonical function per concept — no `-v1`/`-v2`/`-vN` survivors.**
    When a file has multiple implementations of the same behavior (same
    inputs → same outputs, just different style/algorithm), pick the best one
    (most idiomatic/efficient/correct), give it a clean professional name with
@@ -65,7 +74,7 @@ These are established conventions for this repository — do not deviate:
    semantics) they are NOT duplicates — keep both under distinct descriptive
    names (e.g. `range-exclusive-end` / `range-inclusive-end`), never force
    them into one.
-7. **File names must be professional too**, not exercise/scratch-style
+8. **File names must be professional too**, not exercise/scratch-style
    (e.g. prefer `find-shortest-list.rkt` over `prob3.rkt`). Rename files
    (via `git mv`) when the name doesn't describe what the module does, and
    update every `require` that points at the old path.

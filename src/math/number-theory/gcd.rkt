@@ -3,7 +3,8 @@
 ;; Author: Anurag Muthyam
 ;; Greatest Common Divisor (GCD) / Greatest Common Factor (GCF)
 
-(provide gcd-euclidean)
+(provide gcd-euclidean
+         gcd)
 
 ;; Alternative implementations kept for reference (commented out) --
 ;; gcd-euclidean below is the active implementation (modulo-based, correct for negatives).

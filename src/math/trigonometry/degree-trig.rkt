@@ -1,8 +1,7 @@
 #lang racket
 
 ;; Author: Anurag Muthyam
-;; Trigonometry: degree-based sin/cos/tan (and inverses), degree<->radian
-;; conversion, and the Pythagorean hypotenuse.
+;; Degree-based trigonometric functions and degree<->radian conversion.
 
 (provide sin-deg
          cos-deg
@@ -11,8 +10,7 @@
          acos-deg
          atan-deg
          degrees->radians
-         radians->degrees
-         hypotenuse)
+         radians->degrees)
 
 ;; degrees->radians : number? -> number?
 (define (degrees->radians degrees)
@@ -39,6 +37,3 @@
 
 ;; atan-deg : number? -> number? (arctangent, result in degrees)
 (define (atan-deg x) (radians->degrees (atan x)))
-
-;; hypotenuse : number? number? -> number? (length of a right triangle's hypotenuse)
-(define (hypotenuse a b) (sqrt (+ (sqr a) (sqr b))))
