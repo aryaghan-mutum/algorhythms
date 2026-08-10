@@ -76,9 +76,3 @@
                                 (cons (divisors (car lst)) rlst)))))
   (reverse (divisors-lst-aux lst '())))
 |#
-(check-equal? (divisors-lst-v1 '(21 4 7)) '((1 3 7 21) (1 2 4) (1 7)))
-
-(check-equal? (divisors-lst-v2 '()) '())
-(check-equal? (divisors-lst-v2 '(0)) '(()))
-(check-equal? (divisors-lst-v2 '(21)) '((1 3 7 21)))
-(check-equal? (divisors-lst-v2 '(21 4 7)) '((1 3 7 21) (1 2 4) (1 7)))

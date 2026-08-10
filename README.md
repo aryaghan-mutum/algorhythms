@@ -67,18 +67,43 @@ raco setup --clean algorhythms
 
 ### Testing
 ```bash
-# Run all tests
+# Run all tests (tests/ folder only — fast, no src/ files)
+raco test tests/
+
+# Run tests across the full repo (slower — also validates src/ files have no stray top-level code)
 raco test .
 
-# Run tests in specific directory
-raco test tests/
+# Run tests in a specific subdirectory
+raco test tests/math/
 
 # Run a specific test file
 raco test tests/encoding/morse-code-test.rkt
 
 # Run tests with verbose output
-raco test -v .
+raco test -v tests/
 ```
+
+#### HTML Test Report
+
+Generate a full HTML report with a pass/fail summary for every test case:
+
+```bash
+# Install the rackunit-html-output package (one-time)
+raco pkg install rackunit-html-output
+
+# Generate the report (creates report.html in the current directory)
+raco test --output html --output-file report.html tests/
+
+# Or use the built-in XML output and convert
+raco test --output-file results.xml tests/
+```
+
+> **Tip:** The simplest way to view a formatted pass/fail summary without extra packages is:
+> ```bash
+> raco test -v tests/ 2>&1 | Tee-Object results.txt
+> ```
+> Each passing test prints `success(es) 0 failure(s)` per file;
+> failures are listed with the test-case name and the `check-*` that failed.
 
 ### Code Formatting
 ```bash
