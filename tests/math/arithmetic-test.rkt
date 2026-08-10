@@ -5,22 +5,22 @@
 
 (require rackunit
          rackunit/text-ui
-         "../../math/arithmetic/abs.rkt"
-         "../../math/arithmetic/add1.rkt"
-         "../../math/arithmetic/cube.rkt"
-         "../../math/arithmetic/double.rkt"
-         "../../math/arithmetic/half.rkt"
-         (only-in "../../math/arithmetic/min-max.rkt" min max)
-         "../../math/arithmetic/reciprocal.rkt"
-         "../../math/arithmetic/remainder.rkt"
-         "../../math/arithmetic/square.rkt"
-         "../../math/arithmetic/sum.rkt"
-         "../../math/arithmetic/rational-nums.rkt"
-         "../../math/arithmetic/sequences.rkt"
-         "../../math/arithmetic/sqrt.rkt"
-         "../../math/arithmetic/squares-list-by-limit.rkt"
-         "../../math/arithmetic/separate-neg-and-pos.rkt"
-         "../../math/arithmetic/generate-list-of-squares.rkt")
+         "../../src/math/arithmetic/abs.rkt"
+         "../../src/math/arithmetic/add1.rkt"
+         "../../src/math/arithmetic/cube.rkt"
+         "../../src/math/arithmetic/double.rkt"
+         "../../src/math/arithmetic/half.rkt"
+         (only-in "../../src/math/arithmetic/min-max.rkt" min max)
+         "../../src/math/arithmetic/reciprocal.rkt"
+         "../../src/math/arithmetic/remainder.rkt"
+         "../../src/math/arithmetic/square.rkt"
+         "../../src/math/arithmetic/sum.rkt"
+         "../../src/math/arithmetic/rational-nums.rkt"
+         "../../src/math/arithmetic/sequences.rkt"
+         "../../src/math/arithmetic/sqrt.rkt"
+         "../../src/math/arithmetic/squares-list-by-limit.rkt"
+         "../../src/math/arithmetic/separate-neg-and-pos.rkt"
+         "../../src/math/arithmetic/generate-list-of-squares.rkt")
 
 (define arithmetic-tests
   (test-suite

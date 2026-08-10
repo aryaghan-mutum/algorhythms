@@ -3,7 +3,7 @@
 
 #lang racket
 (require threading)
-(provide reverse-string)
+(provide reverse-string reverse-chars-in-str)
 
 ;; =================
 

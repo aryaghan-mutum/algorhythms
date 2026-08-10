@@ -5,7 +5,7 @@
 
 (require rackunit
          rackunit/text-ui
-         "../../math/logarithms/logarithms.rkt")
+         "../../src/math/logarithms/logarithms.rkt")
 
 (define logarithms-tests
   (test-suite

@@ -23,7 +23,7 @@
 ;; double angle identity for sec(2x)
 (define sec2x
   (lambda (x y)
-    (/ (sqr secant x)
+    (/ (sqr (secant x))
        (- 2 (sqr (secant x))))))
 
 ;; double angle identity for cosec(2x)

@@ -21,7 +21,7 @@
 ;; sum and difference identity for cos(x+y)
 (define cos-of-x+y
   (lambda (x y)
-    (+ (* (cosine x) (cosine y))
+    (- (* (cosine x) (cosine y))
        (* (sine x) (sine y)))))
 
 ;; sum and difference identity for tan(x+y)
@@ -45,5 +45,5 @@
 ;; sum and difference identity for tan(x-y)
 (define tan-of-x-y
   (lambda (x y)
-    (/ (* (tangent x) (tangent y))
+    (/ (- (tangent x) (tangent y))
        (+ 1 (* (tangent x) (tangent y))))))

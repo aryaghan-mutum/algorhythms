@@ -1,6 +1,6 @@
 #lang scribble/manual
 
-@require[@for-label[racket/base algorhythms]]
+@require[@for-label[algorhythms]]
 
 @title{Algorhythms}
 @author{Anurag Muthyam}

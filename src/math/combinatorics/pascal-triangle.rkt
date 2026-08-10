@@ -2,6 +2,8 @@
 
 (require threading)
 
+(provide pascal-triangle)
+
 (define (reduce fn lst)
   (and (not (empty? lst)) (foldl fn (first lst) (rest lst))))
 

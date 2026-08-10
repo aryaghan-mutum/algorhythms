@@ -5,7 +5,7 @@
 
 (require rackunit
          rackunit/text-ui
-         "../../math/statistics/find-avg-excluding-first-and-last.rkt")
+         "../../src/math/statistics/find-avg-excluding-first-and-last.rkt")
 
 ;; Note: both v1 and v2 divide the trimmed sum by 2 unconditionally, so they
 ;; are only correct where exactly 0, 1, 2, or 4 elements remain after

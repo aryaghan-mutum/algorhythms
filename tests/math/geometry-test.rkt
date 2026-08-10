@@ -5,13 +5,13 @@
 
 (require rackunit
          rackunit/text-ui
-         "../../math/geometry/geometry.rkt"
-         "../../math/geometry/pythagoras.rkt"
-         "../../math/geometry/angles.rkt"
-         "../../math/geometry/two-dimensions/main.rkt"
-         "../../math/geometry/three-dimensions/main.rkt"
-         "../../math/geometry/lines/main.rkt"
-         "../../math/geometry/pi/main.rkt")
+         "../../src/math/geometry/geometry.rkt"
+         "../../src/math/geometry/pythagoras.rkt"
+         "../../src/math/geometry/angles.rkt"
+         "../../src/math/geometry/two-dimensions/main.rkt"
+         "../../src/math/geometry/three-dimensions/main.rkt"
+         "../../src/math/geometry/lines/main.rkt"
+         "../../src/math/geometry/pi/main.rkt")
 
 (define geometry-tests
   (test-suite
@@ -121,6 +121,6 @@
 
    (test-suite
     "pi approximation - edge"
-    (test-case "area-of-polygon-v1 returns a real number" (check-pred real? (area-of-polygon-v1 100)))))))
+    (test-case "area-of-polygon-v1 returns a real number" (check-pred real? (area-of-polygon-v1 100))))))
 
 (run-tests geometry-tests)

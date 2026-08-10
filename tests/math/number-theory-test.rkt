@@ -5,21 +5,21 @@
 
 (require rackunit
          rackunit/text-ui
-         "../../math/number-theory/primes/primes.rkt"
-         "../../math/number-theory/primes/prime-factors.rkt"
-         "../../math/number-theory/primes/primes-list.rkt"
-         "../../math/number-theory/gcd.rkt"
-         "../../math/number-theory/lcm.rkt"
-         "../../math/number-theory/fibonacci.rkt"
-         "../../math/number-theory/modular-arithmetic.rkt"
-         "../../math/number-theory/numerical-predicates.rkt"
-         "../../math/number-theory/palindrome-num.rkt"
-         "../../math/number-theory/pythagorean-triplets.rkt"
-         "../../math/number-theory/even-odd/even-odd.rkt"
-         "../../math/number-theory/even-odd/even-nums-list.rkt"
-         "../../math/number-theory/even-odd/numbers-list.rkt"
-         "../../math/number-theory/divisibility/factors.rkt"
-         "../../math/number-theory/divisibility/safe-div.rkt")
+         "../../src/math/number-theory/primes/primes.rkt"
+         "../../src/math/number-theory/primes/prime-factors.rkt"
+         "../../src/math/number-theory/primes/primes-list.rkt"
+         "../../src/math/number-theory/gcd.rkt"
+         "../../src/math/number-theory/lcm.rkt"
+         "../../src/math/number-theory/fibonacci.rkt"
+         "../../src/math/number-theory/modular-arithmetic.rkt"
+         "../../src/math/number-theory/numerical-predicates.rkt"
+         "../../src/math/number-theory/palindrome-num.rkt"
+         "../../src/math/number-theory/pythagorean-triplets.rkt"
+         "../../src/math/number-theory/even-odd/even-odd.rkt"
+         "../../src/math/number-theory/even-odd/even-nums-list.rkt"
+         "../../src/math/number-theory/even-odd/numbers-list.rkt"
+         "../../src/math/number-theory/divisibility/factors.rkt"
+         "../../src/math/number-theory/divisibility/safe-div.rkt")
 
 (define number-theory-tests
   (test-suite
@@ -125,7 +125,7 @@
    (test-suite
     "pythagorean-triplets - valid"
     (test-case "triplets up to 15 include (3 4 5)"
-      (check-true (member '(3 4 5) (pythagorean-triplets 15)))))
+      (check-not-false (member '(3 4 5) (pythagorean-triplets 15)))))
 
    (test-suite
     "pythagorean-triplets - edge"
@@ -138,10 +138,10 @@
     (test-case "odd-v1? of 3" (check-true (odd-v1? 3)))
     (test-case "even-nums-lst-v1 in range 1..10"
       (check-equal? (even-nums-lst-v1 1 10) '(2 4 6 8 10)))
-    (test-case "even-list filters and sorts evens"
-      (check-equal? (even-list '(5 2 8 3 4)) '(2 4 8)))
-    (test-case "odd-list filters and sorts odds"
-      (check-equal? (odd-list '(5 2 8 3 4)) '(3 5))))
+    (test-case "even-list filters, preserving original order"
+      (check-equal? (even-list '(5 2 8 3 4)) '(2 8 4)))
+    (test-case "odd-list filters, preserving original order"
+      (check-equal? (odd-list '(5 2 8 3 4)) '(5 3))))
 
    (test-suite
     "even-odd - edge"

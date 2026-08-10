@@ -4,10 +4,10 @@
 ;; Email: anu.drumcoder@gmail.com
 
 (require rackunit
-         "../../data-structures/list/length.rkt"
-         "../../data-structures/list/last.rkt"
-         "../../data-structures/list/nth.rkt"
-         "../../data-structures/list/switch-elems.rkt")
+         "../../src/data-structures/list/length.rkt"
+         "../../src/data-structures/list/last.rkt"
+         "../../src/data-structures/list/nth.rkt"
+         "../../src/data-structures/list/switch-elems.rkt")
 
 ;; Length tests
 (check-equal? (my-length '(1 2 3 4 5)) 5 "length of 5 elements")

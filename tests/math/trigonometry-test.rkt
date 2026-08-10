@@ -9,13 +9,13 @@
 
 (require rackunit
          rackunit/text-ui
-         "../../math/trigonometry/trigonometry.rkt"
-         "../../math/trigonometry/double-angle-identities.rkt"
-         "../../math/trigonometry/reciprocal-trigonometry.rkt"
-         "../../math/trigonometry/product-identities.rkt"
-         "../../math/trigonometry/sum-and-difference-identities.rkt"
-         "../../math/trigonometry/sum-to-product-identities.rkt"
-         "../../math/trigonometry/trigonometry-identities.rkt")
+         "../../src/math/trigonometry/trigonometry.rkt"
+         "../../src/math/trigonometry/double-angle-identities.rkt"
+         "../../src/math/trigonometry/reciprocal-trigonometry.rkt"
+         "../../src/math/trigonometry/product-identities.rkt"
+         "../../src/math/trigonometry/sum-and-difference-identities.rkt"
+         "../../src/math/trigonometry/sum-to-product-identities.rkt"
+         "../../src/math/trigonometry/trigonometry-identities.rkt")
 
 (define TOL 0.01)
 (define x (/ pi 6))   ; 30 degrees, avoids all singularities below

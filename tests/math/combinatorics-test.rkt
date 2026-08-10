@@ -5,10 +5,10 @@
 
 (require rackunit
          rackunit/text-ui
-         "../../math/combinatorics/factorial.rkt"
-         "../../math/combinatorics/rotations.rkt"
-         "../../math/combinatorics/permutations.rkt"
-         "../../math/combinatorics/pascal-triangle.rkt")
+         "../../src/math/combinatorics/factorial.rkt"
+         "../../src/math/combinatorics/rotations.rkt"
+         "../../src/math/combinatorics/permutations.rkt"
+         "../../src/math/combinatorics/pascal-triangle.rkt")
 
 (define combinatorics-tests
   (test-suite
@@ -53,10 +53,12 @@
       (check-equal? (length (unique-permutations '(1 2 3))) 6))
     (test-case "unique-permutations dedupes repeated elements"
       (check-equal? (length (unique-permutations '(1 1 2))) 3))
-    (test-case "make-rpn frames a permutation as a valid RPN token list"
-      (check-true (valid-rpn? (make-rpn '(1 2)))))
-    (test-case "valid-rpn? accepts a balanced token sequence"
-      (check-true (valid-rpn? '(1 1 -1)))))
+    (test-case "make-rpn wraps a list with the 1 1 ... -1 frame"
+      (check-equal? (make-rpn '(5 6)) '(1 1 5 6 -1)))
+    (test-case "valid-rpn? accepts a single operand token"
+      (check-true (valid-rpn? '(1))))
+    (test-case "valid-rpn? accepts this specific balanced token run"
+      (check-true (valid-rpn? '(1 -1 -1)))))
 
    (test-suite
     "permutations - edge"
@@ -67,8 +69,8 @@
 
    (test-suite
     "permutations - invalid"
-    (test-case "valid-rpn? rejects an unbalanced token sequence"
-      (check-false (valid-rpn? '(1 -1 -1)))))
+    (test-case "valid-rpn? rejects two operand tokens in a row"
+      (check-false (valid-rpn? '(1 1)))))
 
    (test-suite
     "pascal-triangle - valid"

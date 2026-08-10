@@ -5,9 +5,9 @@
 
 (require rackunit
          rackunit/text-ui
-         "../../math/algebra/expt.rkt"
-         "../../math/algebra/quadratic-formula.rkt"
-         "../../math/algebra/matrices.rkt")
+         "../../src/math/algebra/expt.rkt"
+         "../../src/math/algebra/quadratic-formula.rkt"
+         "../../src/math/algebra/matrices.rkt")
 
 (define algebra-tests
   (test-suite

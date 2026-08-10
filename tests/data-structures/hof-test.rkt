@@ -6,7 +6,7 @@
 
 (require rackunit
          rackunit/text-ui
-         "../../data-structures/hof/main.rkt")
+         "../../src/data-structures/hof/main.rkt")
 
 (define hof-tests
   (test-suite
@@ -167,10 +167,9 @@
    ;; ========== counter tests (relocated from math/statistics) ==========
    (test-suite
     "counter"
-    (let ([c (counter-v1)])
-      (check-equal? (c) 0)
-      (check-equal? (c) 1)
-      (check-equal? (c) 2))
+    (check-equal? (counter-v1) 0)
+    (check-equal? (counter-v1) 1)
+    (check-equal? (counter-v1) 2)
     (let ([c (counter-v3)])
       (check-equal? (c) 0)
       (check-equal? (c) 1))
