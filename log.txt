@@ -1,0 +1,206 @@
+math
+│
+├── arithmetic.rkt
+├── algebra.rkt
+├── geometry.rkt
+├── trigonometry.rkt
+├── statistics.rkt
+├── number-theory.rkt
+├── matrix.rkt
+├── financial.rkt
+├── constants.rkt
+└── main.rkt
+
+a {
+    text-decoration: none;
+    color: #464feb;
+}
+tr th, tr td {
+    border: 1px solid #e6e6e6;
+}
+tr th {
+    background-color: #f5f5f5;
+}
+
+### arithmetic.rkt:
+add
+subtract
+multiply
+divide
+modulus
+
+square
+cube
+power
+sqrt
+
+absolute
+percentage
+average
+
+algebra.rkt:
+solve-linear
+solve-quadratic
+evaluate-polynomial
+
+factor-expression
+expand-expression
+simplify-expression
+
+a {
+    text-decoration: none;
+    color: #464feb;
+}
+tr th, tr td {
+    border: 1px solid #e6e6e6;
+}
+tr th {
+    background-color: #f5f5f5;
+}
+
+### geometry.rkt:
+area-circle
+circumference-circle
+
+area-square
+perimeter-square
+
+area-rectangle
+perimeter-rectangle
+
+area-triangle
+perimeter-triangle
+
+volume-cube
+volume-sphere
+volume-cylinder
+volume-cone
+
+a {
+    text-decoration: none;
+    color: #464feb;
+}
+tr th, tr td {
+    border: 1px solid #e6e6e6;
+}
+tr th {
+    background-color: #f5f5f5;
+}
+
+### trigonometry.rkt:
+sin-deg
+cos-deg
+tan-deg
+
+asin-deg
+acos-deg
+atan-deg
+
+degrees->radians
+radians->degrees
+
+hypotenuse
+
+a {
+    text-decoration: none;
+    color: #464feb;
+}
+tr th, tr td {
+    border: 1px solid #e6e6e6;
+}
+tr th {
+    background-color: #f5f5f5;
+}
+
+### statistics.rkt:
+mean
+median
+mode
+
+variance
+standard-deviation
+
+minimum
+maximum
+range
+
+percentile
+quartile
+
+a {
+    text-decoration: none;
+    color: #464feb;
+}
+tr th, tr td {
+    border: 1px solid #e6e6e6;
+}
+tr th {
+    background-color: #f5f5f5;
+}
+
+### number-theory.rkt:
+is-prime?
+
+gcd
+lcm
+
+factorial
+fibonacci
+
+prime-factors
+
+even?
+odd?
+
+palindrome-number?
+reverse-number
+
+a {
+    text-decoration: none;
+    color: #464feb;
+}
+tr th, tr td {
+    border: 1px solid #e6e6e6;
+}
+tr th {
+    background-color: #f5f5f5;
+}
+
+### matrix.rkt:
+matrix-add
+matrix-subtract
+
+matrix-multiply
+
+matrix-transpose
+
+matrix-determinant
+
+matrix-inverse
+
+identity-matrix
+
+a {
+    text-decoration: none;
+    color: #464feb;
+}
+tr th, tr td {
+    border: 1px solid #e6e6e6;
+}
+tr th {
+    background-color: #f5f5f5;
+}
+
+### financial.rkt:
+simple-interest
+compound-interest
+
+roi
+
+emi
+
+future-value
+present-value
+
+npv
+irr

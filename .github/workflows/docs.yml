@@ -35,7 +35,7 @@ jobs:
 
       - name: Install package
         run: |
-          raco pkg install --batch --no-docs --skip-installed --name algorhythms
+          raco pkg install --batch --no-docs --skip-installed --link .
 
       - name: Build documentation
         run: |

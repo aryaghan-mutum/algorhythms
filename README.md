@@ -67,18 +67,47 @@ raco setup --clean algorhythms
 
 ### Testing
 ```bash
-# Run all tests
+# Run all tests (tests/ folder only — fast, no src/ files)
+raco test tests/
+
+# Run tests across the full repo (slower — also validates src/ files have no stray top-level code)
 raco test .
 
-# Run tests in specific directory
-raco test tests/
+# Run tests in a specific subdirectory
+raco test tests/math/
 
 # Run a specific test file
 raco test tests/encoding/morse-code-test.rkt
 
-# Run tests with verbose output
-raco test -v .
+# Run tests with verbose output (shows per-file pass/fail counts)
+raco test tests/
 ```
+
+#### HTML Test Report
+
+Racket 9.2 does not include a built-in HTML reporter. Use the included PowerShell script:
+
+```powershell
+# Generate reports/test-report.html and open it in the browser
+.\scripts\test-report.ps1
+
+# Custom output path
+.\scripts\test-report.ps1 -OutputFile reports/my-report.html
+
+# Run against a specific subdirectory
+.\scripts\test-report.ps1 -TestDir tests/math/
+```
+
+The report is written to **`reports/test-report.html`** (the `reports/` folder is created automatically).
+The `reports/` folder is tracked in git via `.gitkeep`; generated HTML/TXT files inside it are gitignored.
+The report opens automatically in your default browser after generation.
+
+**Plain text alternative** (no extra files):
+```powershell
+raco test tests/ 2>&1 | Tee-Object reports/test-results.txt
+```
+Each test file prints `N success(es) 0 failure(s) 0 error(s)`.
+Failures are listed inline with the test-case name and the failing `check-*` call.
 
 ### Code Formatting
 ```bash
