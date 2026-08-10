@@ -8,6 +8,11 @@ compiled/
 build/
 site/
 
+# Generated docs (raco setup / raco scribble rewrites these on every build)
+doc/*.js
+doc/*.css
+doc/algorhythms/
+
 # Logs / temp
 *.log
 *.tmp
