@@ -23,4 +23,4 @@
 (define cot-cosec-identity?
   (lambda (x)
     (= (+ 1 (sqr (cotangent x)))
-       (+ (sqr (cosecant x)) 1))))
+       (sqr (cosecant x)))))

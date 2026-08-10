@@ -15,7 +15,9 @@
          "range.rkt"
          "make-list.rkt"
          "remove-elem.rkt"
-         "occurrences.rkt")
+         "occurrences.rkt"
+         "nth.rkt"
+         "switch-elems.rkt")
 
 (provide (all-from-out "length.rkt")
          (all-from-out "last.rkt")
@@ -29,4 +31,6 @@
          (all-from-out "range.rkt")
          (all-from-out "make-list.rkt")
          (all-from-out "remove-elem.rkt")
-         (all-from-out "occurrences.rkt"))
+         (all-from-out "occurrences.rkt")
+         (all-from-out "nth.rkt")
+         (all-from-out "switch-elems.rkt"))

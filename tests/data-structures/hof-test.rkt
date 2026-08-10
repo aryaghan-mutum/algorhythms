@@ -2,6 +2,7 @@
 
 ;; HOF Unit Tests
 ;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
 
 (require rackunit
          rackunit/text-ui
@@ -144,7 +145,38 @@
     "constantly"
     (check-equal? ((constantly 42) 'anything) 42)
     (check-equal? ((constantly 'x) 1 2 3) 'x)
-    (check-equal? (mapper (constantly 0) '(1 2 3)) '(0 0 0)))))
+    (check-equal? (mapper (constantly 0) '(1 2 3)) '(0 0 0)))
+
+   ;; ========== complement tests (relocated from math/statistics) ==========
+   (test-suite
+    "complement"
+    (check-false ((complement-v1 even?) 4))
+    (check-true ((complement-v1 even?) 3))
+    (check-false (complement-v2 even? 4))
+    (check-true (complement-v2 even? 3))
+    (check-false ((complement-v3 even?) 4))
+    (check-true ((complement-v3 even?) 3)))
+
+   ;; ========== identity tests (relocated from math/statistics) ==========
+   (test-suite
+    "identity"
+    (check-equal? (identity 5) 5)
+    (check-equal? (identity '(1 2 3)) '(1 2 3))
+    (check-equal? (identity '()) '()))
+
+   ;; ========== counter tests (relocated from math/statistics) ==========
+   (test-suite
+    "counter"
+    (let ([c (counter-v1)])
+      (check-equal? (c) 0)
+      (check-equal? (c) 1)
+      (check-equal? (c) 2))
+    (let ([c (counter-v3)])
+      (check-equal? (c) 0)
+      (check-equal? (c) 1))
+    (let ([c1 (counter-v3)] [c2 (counter-v3)])
+      (c1) (c1)
+      (check-equal? (c2) 0 "independent counters do not share state")))))
 
 ;; Run tests
 (run-tests hof-tests 'verbose)

@@ -8,7 +8,7 @@
 ;; area of cone 
 (define cone-area
   (lambda (rad slant-height)
-    (pi * rad * slant-height)))
+    (* pi rad slant-height)))
 
 ;; cone/pyramid volume  
 (define cone-volume

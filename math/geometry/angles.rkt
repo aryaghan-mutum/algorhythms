@@ -14,7 +14,7 @@
 ;; converts degrees to radians
 (define angle-to-radians
   (lambda (angle)
-    (* angle (/ pi angle))))
+    (* angle (/ pi 180))))
 
 ;; angle of reflection
 (define angle-reflect

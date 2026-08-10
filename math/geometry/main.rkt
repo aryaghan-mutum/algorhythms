@@ -10,7 +10,9 @@
          "plane-geometry.rkt"
          "solid-geometry.rkt"
          "two-dimensions/main.rkt"
-         "three-dimensions/main.rkt")
+         "three-dimensions/main.rkt"
+         "lines/main.rkt"
+         "pi/main.rkt")
 
 (provide (all-from-out "geometry.rkt")
          (all-from-out "pythagoras.rkt")
@@ -19,4 +21,6 @@
          (all-from-out "plane-geometry.rkt")
          (all-from-out "solid-geometry.rkt")
          (all-from-out "two-dimensions/main.rkt")
-         (all-from-out "three-dimensions/main.rkt"))
+         (all-from-out "three-dimensions/main.rkt")
+         (all-from-out "lines/main.rkt")
+         (all-from-out "pi/main.rkt"))

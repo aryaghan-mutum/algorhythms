@@ -4,6 +4,7 @@
 #lang racket
 (require rackunit racket/trace threading)
 
+(provide counter-v1 counter-v2 counter-v3)
 
 ;; counter version 1
 (define counter-v1

@@ -3,6 +3,6 @@
 ;; Logarithms Module
 ;; Re-exports all logarithm functions
 
-(require "log-custom.rkt")
+(require "logarithms.rkt")
 
-(provide (all-from-out "log-custom.rkt"))
+(provide (all-from-out "logarithms.rkt"))

@@ -27,11 +27,11 @@
 
 ;; tan θ = Opposite Side/Adjacent Side
 (define (tangent x)
-  (/ (cosine x) (sine x)))
+  (/ (sine x) (cosine x)))
 
 ;; cot θ = Adjacent Side/Opposite Side
 (define (cotangent x)
-  (/ (sine x) (cosine x)))
+  (/ (cosine x) (sine x)))
 
 ;; sec θ = Hypotenuse/Adjacent Side
 (define (secant x)

@@ -17,7 +17,10 @@
          "compose.rkt"
          "curry.rkt"
          "flip.rkt"
-         "scan.rkt")
+         "scan.rkt"
+         "complement.rkt"
+         "identity.rkt"
+         "counter.rkt")
 
 (provide 
   ;; Core HOFs
@@ -43,6 +46,13 @@
   partial          ; partial application
   flip             ; flip argument order
   constantly       ; constant function
-  
+
+  ;; Predicate utilities
+  complement-v1 complement-v2 complement-v3 ; negate a predicate
+  identity         ; return argument unchanged
+
+  ;; Stateful counters
+  counter-v1 counter-v2 counter-v3 ; closure-based counter factories
+
   ;; Re-export flatten
   (all-from-out "flatten.rkt"))

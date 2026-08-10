@@ -2,7 +2,7 @@
 
 #lang racket
 
-(require rackunit math)
+(require rackunit "../number-theory/primes/primes.rkt")
 (provide rotations rotations-for-num)
 
 ;; Helper: convert integer to list of digits
@@ -37,5 +37,6 @@
                                 (cons (car lst) rlst)))
         (else (rotations-for-num-aux (cdr lst)
                                      rlst))))
+
 
 (check-equal? (rotations '(1 2 3)) '((1 2 3) (2 3 1) (3 1 2)))

@@ -3,6 +3,7 @@
 #lang racket
 
 (require threading)
+(provide separate-neg-and-pos neg-lst pos-lst)
 
 ;; get a nested lists of negative and positive numbers
 (define (separate-neg-and-pos lst)

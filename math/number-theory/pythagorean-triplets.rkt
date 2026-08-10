@@ -1,10 +1,13 @@
 #lang racket
 
-;; Generate Pythagorean triplet`
-;; create pythagorean triplets procedure that takes limit as arg and it must return N number of pythagorean triplets
-;; do it in best, worst cases
+;; Author: Anurag Muthyam
 
-(define (pyth-triples-geenrator limit)
+;; Generate Pythagorean triplets
+
+(provide pythagorean-triplets)
+
+;; all Pythagorean triplets (x y z) with x < y < z < limit
+(define (pythagorean-triplets limit)
   (for*/list ((x (in-range 1 limit))
               (y (in-range x limit))
               (z (in-range y limit))

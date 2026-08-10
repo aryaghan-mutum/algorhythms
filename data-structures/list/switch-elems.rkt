@@ -2,6 +2,8 @@
 
 ;; Author: Anurag Muthyam
 
+(provide switch-1st-and-3rd-elems)
+
 ;; input: '(without 'hello 'bag 'world)
 ;; output: '(bag 'hello 'without 'world)
 

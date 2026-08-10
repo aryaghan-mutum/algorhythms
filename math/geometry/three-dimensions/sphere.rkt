@@ -17,7 +17,7 @@
 
 ;; area of sphere 
 (define sphere-area
-  (lambda (r) (* 4 * pi (sqr r))))
+  (lambda (r) (* 4 pi (sqr r))))
 
 ;; area of sphere for each elemement in a list
 (define sphere-area-lst
