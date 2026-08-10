@@ -50,28 +50,26 @@
 
    (test-suite
     "gcd/lcm - valid"
-    (test-case "gcd-custom(12, 8) is 4" (check-equal? (gcd-custom 12 8) 4))
-    (test-case "gcd-custom of coprimes is 1" (check-equal? (gcd-custom 17 13) 1))
     (test-case "gcd-euclidean(12, 8) is 4" (check-equal? (gcd-euclidean 12 8) 4))
+    (test-case "gcd-euclidean of coprimes is 1" (check-equal? (gcd-euclidean 17 13) 1))
     (test-case "lcm-custom(4, 6) is 12" (check-equal? (lcm-custom 4 6) 12))
     (test-case "lcm-custom of coprimes is their product" (check-equal? (lcm-custom 3 5) 15)))
 
    (test-suite
     "gcd/lcm - edge"
-    (test-case "gcd-custom(a, 0) is a" (check-equal? (gcd-custom 100 0) 100))
+    (test-case "gcd-euclidean(a, 0) is a" (check-equal? (gcd-euclidean 100 0) 100))
     (test-case "lcm-custom(a, 0) is 0" (check-equal? (lcm-custom 5 0) 0)))
 
    (test-suite
     "fibonacci - valid"
-    (test-case "fibonacci-v1(10) is 55" (check-equal? (fibonacci-v1 10) 55))
-    (test-case "fibonacci-v5(10) matches fibonacci-v1(10)" (check-equal? (fibonacci-v5 10) (fibonacci-v1 10)))
+    (test-case "fibonacci-optimized(10) is 55" (check-equal? (fibonacci-optimized 10) 55))
     (test-case "fibonacci-optimized(20) is 6765" (check-equal? (fibonacci-optimized 20) 6765))
-    (test-case "sum-fibonacci-v1(5) sums F(0..4)" (check-equal? (sum-fibonacci-v1 5) 7)))
+    (test-case "sum-fibonacci-v2(5) sums F(0..4)" (check-equal? (sum-fibonacci-v2 5) 7)))
 
    (test-suite
     "fibonacci - edge"
-    (test-case "fibonacci-v1(0) is 0" (check-equal? (fibonacci-v1 0) 0))
-    (test-case "fibonacci-v1(1) is 1" (check-equal? (fibonacci-v1 1) 1)))
+    (test-case "fibonacci-optimized(0) is 0" (check-equal? (fibonacci-optimized 0) 0))
+    (test-case "fibonacci-optimized(1) is 1" (check-equal? (fibonacci-optimized 1) 1)))
 
    (test-suite
     "modular-arithmetic - valid"
@@ -136,8 +134,8 @@
     "even-odd - valid"
     (test-case "even-v1? of 4" (check-true (even-v1? 4)))
     (test-case "odd-v1? of 3" (check-true (odd-v1? 3)))
-    (test-case "even-nums-lst-v1 in range 1..10"
-      (check-equal? (even-nums-lst-v1 1 10) '(2 4 6 8 10)))
+    (test-case "even-nums-lst-v2 in range 1..10"
+      (check-equal? (even-nums-lst-v2 1 10) '(2 4 6 8 10)))
     (test-case "even-list filters, preserving original order"
       (check-equal? (even-list '(5 2 8 3 4)) '(2 8 4)))
     (test-case "odd-list filters, preserving original order"
@@ -146,15 +144,13 @@
    (test-suite
     "even-odd - edge"
     (test-case "even-v1? of 0" (check-true (even-v1? 0)))
-    (test-case "even-nums-lst-v1 with no evens in range"
-      (check-equal? (even-nums-lst-v1 1 1) '())))
+    (test-case "even-nums-lst-v2 with no evens in range"
+      (check-equal? (even-nums-lst-v2 1 1) '())))
 
    (test-suite
     "divisibility - valid"
-    (test-case "factors-v1 of 12 is its prime factorization with repetition"
-      (check-equal? (factors-v1 12) '(2 2 3)))
-    (test-case "factors-v2 matches factors-v1 for 28"
-      (check-equal? (factors-v2 28) (factors-v1 28)))
+    (test-case "factors-v4 of 12 is its prime factorization with repetition"
+      (check-equal? (factors-v4 12) '(2 2 3)))
     (test-case "safe-div computes normally for non-zero divisor"
       (check-equal? ((safe-div 10 2) (lambda (r) r) (lambda (e) e)) 5)))
 

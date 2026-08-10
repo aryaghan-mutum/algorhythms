@@ -4,12 +4,7 @@
 
 #lang racket
 
-(provide sum-list-v1 
-         sum-list-v2 
-         sum-list-v3 
-         sum-list-v4 
-         sum-list-v5 
-         sum-list-v6 
+(provide sum-list-v6
          sum)
 
 (define (sum n s)
@@ -17,6 +12,9 @@
       s
       (sum (sub1 n) (+ s n))))
 
+;; Alternative implementations kept for reference (commented out) --
+;; sum-list-v6 below is the active implementation (idiomatic, uses the built-in +).
+#|
 (define (sum-list-v1 lst)
   (cond ((empty? lst) 0)
         (else (+ (car lst) (sum-list-v1 (cdr lst))))))
@@ -38,6 +36,7 @@
 
 (define (sum-list-v5 lst)
   (foldr + 0 lst))
+|#
 
 (define (sum-list-v6 lst)
   (apply + lst))

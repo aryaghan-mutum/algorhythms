@@ -3,9 +3,7 @@
 
 #lang racket
 (require rackunit racket/trace threading)
-(provide quadratic-formula-v1 quadratic-formula-v2)
-
-;; =================
+(provide quadratic-formula-v1)
 
 ;; using let*
 (define (quadratic-formula-v1 a b c)
@@ -16,8 +14,9 @@
          (root2 (/ (- minusb radical) divisor)))
     (cons root1 root2)))
 
-;; =================
-
+;; Alternative implementation kept for reference (commented out) --
+;; quadratic-formula-v1 above is the active implementation (functional, no mutation).
+#|
 ;; using set!
 (define (quadratic-formula-v2 a b c)
   (let ((root1 0) (root2 0) (minusb 0) (radical 0) (divisor 0))
@@ -27,3 +26,4 @@
     (set! root1 (/ (+ minusb radical) divisor))
     (set! root2 (/ (- minusb radical) divisor))
     (cons root1 root2)))
+|#

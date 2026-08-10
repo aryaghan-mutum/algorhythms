@@ -150,12 +150,8 @@
    ;; ========== complement tests (relocated from math/statistics) ==========
    (test-suite
     "complement"
-    (check-false ((complement-v1 even?) 4))
-    (check-true ((complement-v1 even?) 3))
-    (check-false (complement-v2 even? 4))
-    (check-true (complement-v2 even? 3))
-    (check-false ((complement-v3 even?) 4))
-    (check-true ((complement-v3 even?) 3)))
+    (check-false ((complement even?) 4))
+    (check-true ((complement even?) 3)))
 
    ;; ========== identity tests (relocated from math/statistics) ==========
    (test-suite
@@ -167,13 +163,10 @@
    ;; ========== counter tests (relocated from math/statistics) ==========
    (test-suite
     "counter"
-    (check-equal? (counter-v1) 0)
-    (check-equal? (counter-v1) 1)
-    (check-equal? (counter-v1) 2)
-    (let ([c (counter-v3)])
+    (let ([c (make-counter)])
       (check-equal? (c) 0)
       (check-equal? (c) 1))
-    (let ([c1 (counter-v3)] [c2 (counter-v3)])
+    (let ([c1 (make-counter)] [c2 (make-counter)])
       (c1) (c1)
       (check-equal? (c2) 0 "independent counters do not share state")))))
 

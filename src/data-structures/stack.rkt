@@ -3,7 +3,7 @@
 
 #lang racket
 (require rackunit racket/trace threading)
-(provide stack stack-v2)
+(provide stack)
 
 ;; =================
 
@@ -16,8 +16,9 @@
             ((eqv? msg 'pop!) (set! lst (cdr lst)))
             (else "oops")))))
 
-;; =================
-
+;; Alternative implementation kept for reference (commented out) --
+;; stack above is the active implementation.
+#|
 (define (stack-v2)
   (let ((lst '()))
     (lambda (msg . args)
@@ -27,3 +28,4 @@
         ((top) (car lst))
         ((pop!) (set! lst (cdr lst)))
         (else "oops")))))
+|#

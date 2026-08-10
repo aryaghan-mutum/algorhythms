@@ -4,9 +4,15 @@
 
 #lang racket
 (require rackunit racket/trace)
-(provide car-all-v1 car-all-v2 car-all-v3 car-all-v4)
+(provide car-all)
 
-;; iterative process version 1
+;; get first elements in each sublist using map
+(define (car-all lst)
+  (map car lst))
+
+;; Alternative implementations kept for reference (commented out) --
+;; car-all above is the active implementation (most concise, uses built-in map).
+#|
 (define (car-all-v1 lst)
   (define (car-all-iter lst rlst)
     (cond ((empty? lst) rlst)
@@ -15,7 +21,6 @@
                          (cons (car (car lst)) rlst)))))
   (reverse (car-all-iter lst '())))
 
-;; let version 2
 (define (car-all-v2 lst)
   (let loop ((lst lst) (rlst '()))
     (cond ((empty? lst) (reverse rlst))
@@ -23,7 +28,6 @@
            (loop (cdr lst)
                  (cons (car (car lst)) rlst))))))
 
-;; letrec version 3
 (define (car-all-v3 lst)
   (letrec ((car-all-aux
             (lambda (lst rlst)
@@ -32,7 +36,4 @@
                      (car-all-aux (cdr lst)
                                   (cons (car (car lst)) rlst)))))))
     (reverse (car-all-aux lst '()))))
-
-;; get first elements in each sublist using map version 1
-(define (car-all-v4 lst)
-  (map car lst))
+|#

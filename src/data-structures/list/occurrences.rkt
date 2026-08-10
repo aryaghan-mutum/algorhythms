@@ -4,8 +4,11 @@
 
 #lang racket
 (require rackunit)
-(provide num-occurences-v1 num-occurences-v2 num-occurences-v3 occurences)
+(provide occurences)
 
+;; Alternative implementations kept for reference (commented out) --
+;; occurences below is the active implementation (uses equal?, works for any element type).
+#|
 ;; get a total number of occurences of an element in a list version 1
 (define (num-occurences-v1 n lst)
   (if (empty? lst)
@@ -32,6 +35,7 @@
   (cond ((empty? lst) count)
         ((= (car lst) n) (num-occurences-v3-aux n (cdr lst) (add1 count)))
         (else (num-occurences-v3-aux n (cdr lst) count))))
+|#
 
 ;; (optimized): get a total number of occurences of ANY element type in a list using (count) version 4
 (define (occurences n lst)
@@ -43,30 +47,10 @@
 
 (define lst '(1 2 3 3 3 3 2 2 4 3 4))
 
-(check-eqv? (num-occurences-v1 1 '()) 0)
-(check-eqv? (num-occurences-v1 99 lst) 0)
-(check-eqv? (num-occurences-v1 1 lst) 1)
-(check-eqv? (num-occurences-v1 2 lst) 3)
-(check-eqv? (num-occurences-v1 3 lst) 5)
-(check-eqv? (num-occurences-v1 4 lst) 2)
-
-(check-eqv? (num-occurences-v2 1 '()) 0)
-(check-eqv? (num-occurences-v2 99 lst) 0)
-(check-eqv? (num-occurences-v2 1 lst) 1)
-(check-eqv? (num-occurences-v2 2 lst) 3)
-(check-eqv? (num-occurences-v2 3 lst) 5)
-(check-eqv? (num-occurences-v2 4 lst) 2)
-
-(check-eqv? (num-occurences-v3 1 '()) 0)
-(check-eqv? (num-occurences-v3 99 lst) 0)
-(check-eqv? (num-occurences-v3 1 lst) 1)
-(check-eqv? (num-occurences-v3 2 lst) 3)
-(check-eqv? (num-occurences-v3 3 lst) 5)
-(check-eqv? (num-occurences-v3 4 lst) 2)
-
 (check-eqv? (occurences 1 '()) 0)
 (check-eqv? (occurences 99 lst) 0)
 (check-eqv? (occurences 1 lst) 1)
 (check-eqv? (occurences 2 lst) 3)
 (check-eqv? (occurences 3 lst) 5)
+(check-eqv? (occurences 4 lst) 2)
 (check-eqv? (occurences 4 lst) 2)

@@ -3,28 +3,24 @@
 
 #lang racket
 (require rackunit racket/trace threading)
-(provide shorter-list-v1 shorter-list-v2 shorter-list-v3 shorter-list-v4)
+(provide shorter-list)
 
-;; =================
-
-;; using length and define-values version 1
-(define (shorter-list-v1 lstx lsty)
-  (define-values (l1 l2) (values (length lstx) (length lsty)))
-  (cond ((< l1 l2) lstx)
-        ((> l1 l2) lsty)
-        (else lstx)))
-
-;; =================
-
-;; using length and let version 2
-(define (shorter-list-v2 lstx lsty)
+;; using length and let
+(define (shorter-list lstx lsty)
   (let ((l1 (length lstx))
         (l2 (length lsty)))
     (cond ((< l1 l2) lstx)
           ((> l1 l2) lsty)
           (else lstx))))
 
-;; =================
+;; Alternative implementations kept for reference (commented out) --
+;; shorter-list above is the active implementation.
+#|
+(define (shorter-list-v1 lstx lsty)
+  (define-values (l1 l2) (values (length lstx) (length lsty)))
+  (cond ((< l1 l2) lstx)
+        ((> l1 l2) lsty)
+        (else lstx)))
 
 ;; without using length version 3
 (define (shorter-list-v3 lstx lsty)
@@ -37,8 +33,6 @@
                              rlsty))))
   (shorter-aux lstx lsty lstx lsty))
 
-;; =================
-
 ;; using and, or version 4
 (define (shorter-list-v4 lstx lsty)
   (define (shorter? lstx lsty)
@@ -48,25 +42,4 @@
   (if (shorter? lstx lsty)
       lstx
       lsty))
-
-;; =================
-
-(check-equal? (shorter-list-v1 '() '()) '())
-(check-equal? (shorter-list-v1 '(a b c) '(a b c d)) '(a b c))
-(check-equal? (shorter-list-v1 '(a b c) '(a b c)) '(a b c))
-(check-equal? (shorter-list-v1 '(a b c d) '(a b c)) '(a b c))
-
-(check-equal? (shorter-list-v2 '() '()) '())
-(check-equal? (shorter-list-v2 '(a b c) '(a b c d)) '(a b c))
-(check-equal? (shorter-list-v2 '(a b c) '(a b c)) '(a b c))
-(check-equal? (shorter-list-v2 '(a b c d) '(a b c)) '(a b c))
-
-(check-equal? (shorter-list-v3 '() '()) '())
-(check-equal? (shorter-list-v3 '(a b c) '(a b c d)) '(a b c))
-(check-equal? (shorter-list-v3 '(a b c) '(a b c)) '(a b c))
-(check-equal? (shorter-list-v3 '(a b c d) '(a b c)) '(a b c))
-
-(check-equal? (shorter-list-v4 '() '()) '())
-(check-equal? (shorter-list-v4 '(a b c) '(a b c d)) '(a b c))
-(check-equal? (shorter-list-v4 '(a b c) '(a b c)) '(a b c))
-(check-equal? (shorter-list-v4 '(a b c d) '(a b c)) '(a b c))
+|#

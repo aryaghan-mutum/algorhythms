@@ -4,8 +4,11 @@
 
 #lang racket
 (require racket/trace rackunit threading)
-(provide primes-list-v1 primes-list-v2 primes-list-sieve)
+(provide primes-list-sieve)
 
+;; Alternative implementations kept for reference (commented out) --
+;; primes-list-sieve below is the active implementation (true Sieve of Eratosthenes).
+#|
 ;; using loop version 1
 ;; taken and modified from https://stackoverflow.com/questions/48639863/finding-primes-up-to-a-certain-number-in-racket
 (define (primes-list-v1 n)
@@ -34,6 +37,7 @@
                              (cons (car lst) rlst)))))
   (~> (primes-list-iter (build-list (sub1 n) (lambda (x) (+ x 2))) '()) ;;(cdr (cdr (build-list (sub1 n) values)))
       (reverse _)))
+|#
 
 ;; using for loop and set! version 3
 ;; taken from https://rosettacode.org/wiki/Sieve_of_Eratosthenes#Racket

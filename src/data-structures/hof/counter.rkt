@@ -4,9 +4,12 @@
 #lang racket
 (require rackunit racket/trace threading)
 
-(provide counter-v1 counter-v2 counter-v3)
+(provide make-counter)
 
-;; counter version 1
+;; Alternative implementations kept for reference (commented out) --
+;; make-counter below is the active implementation (closure factory, no shared/global state).
+#|
+;; counter version 1: single shared closure, not a factory
 (define counter-v1
   (let ((count 0))
     (lambda ()
@@ -14,20 +17,19 @@
         (set! count (add1 count))
     x))))
 
-;; not preffered -> because the var: next is in the top level
+;; discouraged: uses a module-level mutable variable instead of a closure.
 (define next 0)
 
 (define (counter-v2)
   (let ((v next))
     (set! next (add1 next))
     v))
+|#
 
-(define (counter-v3)
+;; Creates a new independent counter starting at 0
+(define (make-counter)
   (let ((next 0))
     (lambda ()
       (let ((v next))
         (set! next (add1 next))
         v))))
-
-(define count1 (counter-v3))
-(define count2 (counter-v3))

@@ -6,19 +6,16 @@
 
 #lang racket
 (require racket/trace rackunit threading)
-(provide fibonacci-v1
-         fibonacci-v2
-         fibonacci-v3
-         fibonacci-v4
-         fibonacci-v5
-         fibonacci-optimized
+(provide fibonacci-optimized
          fibonacci-list
          fibonacci-count-v1
          fibonacci-count-v2
-         sum-fibonacci-v1
          sum-fibonacci-v2
          sum-even-fibonacci-v1)
 
+;; Alternative implementations kept for reference (commented out) --
+;; fibonacci-optimized below is the active implementation: O(log n) via matrix exponentiation.
+#|
 ;; recursive process version 1
 (define (fibonacci-v1 n)
     (cond ((= n 0) 0)
@@ -57,6 +54,7 @@
           (else
            (fib-iter (+ acc1 acc2) acc1 (sub1 count)))))
   (fib-iter 1 0 n))
+|#
 
 ; iterative process using logarithmic form O(log n)
 (define (fibonacci-optimized n)
@@ -77,7 +75,7 @@
 
 ;; fibonacci for each element in a list
 (define (fibonacci-list lst)
-  (map fibonacci-v1 lst))
+  (map fibonacci-optimized lst))
 
 ;; iterative process fibonacci count version 1
 (define (fibonacci-count-v1 n)
@@ -101,22 +99,24 @@
                    (fib-rec (- n 2) (add1 count))))))
   (fib-rec n 0))
 
+#|
 ;; add all the fib elements based on a limit n verion 1
 (define (sum-fibonacci-v1 n)
   (define (sum-fib-aux lst sum)
     (cond ((empty? lst) sum)
           (else (sum-fib-aux (cdr lst)
                              (+ sum (car lst))))))
-  (sum-fib-aux (build-list n fibonacci-v1) 0))
+  (sum-fib-aux (build-list n fibonacci-optimized) 0))
+|#
 
 ;; using foldr version 2
 (define (sum-fibonacci-v2 n)
-  (define lst (build-list n fibonacci-v1))
+  (define lst (build-list n fibonacci-optimized))
   (foldr + 0 lst))
 
 ;; easier way: using higher order functions version 1
 (define (sum-even-fibonacci-v1 n)
   (~> (build-list (add1 n) values)
-      (map fibonacci-v1 _)
+      (map fibonacci-optimized _)
       (filter even? _)
       (foldr + 0 _)))

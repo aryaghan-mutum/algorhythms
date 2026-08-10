@@ -2,14 +2,17 @@
 
 #lang racket
 
-(provide area-of-polygon-v1 
-         area-of-polygon-v2 
+(provide area-of-polygon-v2
          pi-value)
 
+;; Alternative implementation kept for reference (commented out) --
+;; area-of-polygon-v2 below is the active implementation (correctly uses radians).
+#|
 ;; calculate pi value version 1
 (define (area-of-polygon-v1 n)
   (define-values (angle div) (values (sin (/ 360 n)) (/ n 2)))
   (* div angle))
+|#
 
 ;; calculate pi value version 2
 (define (area-of-polygon-v2 n)

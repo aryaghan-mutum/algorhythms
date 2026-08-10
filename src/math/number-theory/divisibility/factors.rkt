@@ -4,8 +4,11 @@
 
 #lang racket
 (require math)
-(provide factors-v1 factors-v2 factors-v3 factors-v4)
+(provide factors-v4)
 
+;; Alternative implementations kept for reference (commented out) --
+;; factors-v4 below is the active implementation (uses gcd to minimize divisions).
+#|
 ;; iterative process version 1
 (define (factors-v1 n)
   (define (factors-iter n acc rlst)
@@ -38,6 +41,7 @@
           (if (integer? n/i)
               (cons i (f n/i i step))
               (f n (+ i step) 2))))))
+|#
 
 ;; uses gcd to avoid most of the divisions, since gcd should be faster than /. version 4
 (define (factors-v4 n)

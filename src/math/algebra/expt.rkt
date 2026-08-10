@@ -23,18 +23,14 @@
 
 #lang racket
 (require racket/trace rackunit)
-(provide expt-v1
-         expt-v2
-         expt-v3
-         expt-v4
-         expt-v5
-         expt-v6
-         fast-expt-v7
-         fast-expt-v8
+(provide fast-expt-v8
          expt-log
          half-exponential
          log-reach-to-num)
 
+;; Alternative implementations kept for reference (commented out).
+;; fast-expt-v8 below is the active implementation: O(log n), iterative, no bugs.
+#|
 ;; note: won't work when pow is negative number
 ;; recursive process version 1
 (define (expt-v1 base pow)
@@ -90,6 +86,7 @@
   (cond ((= n 0) 1)
         ((even? n) (sqr (fast-expt-v7 b (/ n 2))))
         (else (* b (fast-expt-v7 b (- n 1))))))
+|#
 
 ;; iterative process fast-expt version 8
 (define (fast-expt-v8 b n)
@@ -136,26 +133,6 @@
                      ex
                      (add1 count)
                      (log count)))))
-
-(check-eqv? (expt-v1 2 0) 1)
-(check-eqv? (expt-v1 2 1) 2)
-(check-eqv? (expt-v1 2 3) 8)
-
-(check-eqv? (expt-v4 2 0) 1)
-(check-eqv? (expt-v4 2 1) 2)
-(check-eqv? (expt-v4 2 3) 8)
-
-(check-eqv? (expt-v5 2 0) 1)
-(check-eqv? (expt-v5 2 1) 2)
-(check-eqv? (expt-v5 2 3) 8)
-
-(check-eqv? (expt-v6 2 0) 1)
-(check-eqv? (expt-v6 2 1) 2)
-(check-eqv? (expt-v6 2 3) 8)
-
-(check-eqv? (fast-expt-v7 2 0) 1)
-(check-eqv? (fast-expt-v7 2 1) 2)
-(check-eqv? (fast-expt-v7 2 3) 8)
 
 (check-eqv? (fast-expt-v8 2 0) 1)
 (check-eqv? (fast-expt-v8 2 1) 2)

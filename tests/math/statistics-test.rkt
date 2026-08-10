@@ -7,10 +7,10 @@
          rackunit/text-ui
          "../../src/math/statistics/find-avg-excluding-first-and-last.rkt")
 
-;; Note: both v1 and v2 divide the trimmed sum by 2 unconditionally, so they
-;; are only correct where exactly 0, 1, 2, or 4 elements remain after
-;; trimming the min/max (v1 additionally special-cases exactly 3 elements).
-;; That is a pre-existing limitation of the implementation, not this test.
+;; Note: find-avg-excluding-first-and-last-v1 divides the trimmed sum by 2
+;; unconditionally, so it is only correct where exactly 0, 1, 2, 3, or 4
+;; elements remain after trimming the min/max. That is a pre-existing
+;; limitation of the implementation, not this test.
 (define statistics-tests
   (test-suite
    "statistics"
@@ -29,20 +29,6 @@
     (test-case "single element returns that element"
       (check-equal? (find-avg-excluding-first-and-last-v1 '(9)) 9))
     (test-case "two elements returns their average"
-      (check-equal? (find-avg-excluding-first-and-last-v1 '(4 2)) 3)))
-
-   (test-suite
-    "find-avg-excluding-first-and-last-v2 - valid"
-    (test-case "4 elements averages the two middle values"
-      (check-equal? (find-avg-excluding-first-and-last-v2 '(4 1 3 2)) 2.5)))
-
-   (test-suite
-    "find-avg-excluding-first-and-last-v2 - edge"
-    (test-case "empty list returns an empty list"
-      (check-equal? (find-avg-excluding-first-and-last-v2 '()) '()))
-    (test-case "single element returns that element"
-      (check-equal? (find-avg-excluding-first-and-last-v2 '(9)) 9))
-    (test-case "two elements returns their average"
-      (check-equal? (find-avg-excluding-first-and-last-v2 '(4 2)) 3)))))
+      (check-equal? (find-avg-excluding-first-and-last-v1 '(4 2)) 3)))))
 
 (run-tests statistics-tests)

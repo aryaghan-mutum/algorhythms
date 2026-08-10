@@ -121,6 +121,6 @@
 
    (test-suite
     "pi approximation - edge"
-    (test-case "area-of-polygon-v1 returns a real number" (check-pred real? (area-of-polygon-v1 100))))))
+    (test-case "area-of-polygon-v2 returns a real number" (check-pred real? (area-of-polygon-v2 100))))))
 
 (run-tests geometry-tests)

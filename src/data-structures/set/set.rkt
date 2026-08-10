@@ -2,10 +2,10 @@
 
 #lang racket
 
-(provide set-v1 set-v2)
+(provide unique-elements)
 
 ;; set: get unique elements from a list using for-each and set!
-(define (set-v1 lst)
+(define (unique-elements lst)
   (define the-set '())
   (begin (for-each
           (lambda (x)
@@ -15,6 +15,9 @@
           lst)
          (reverse the-set)))
 
+;; Alternative implementation kept for reference (commented out) --
+;; unique-elements above is the active implementation (simpler than the call/cc version).
+#|
 ;; set: get unique elements from a list using call/cc
 (define (set-v2 lst)
 
@@ -31,3 +34,4 @@
                  (cond ((list? new-res) (walk (cdr lst) new-res))
                        (else (walk (cdr lst) res)))))))
   (walk lst '()))
+|#

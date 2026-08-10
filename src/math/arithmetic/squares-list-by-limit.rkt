@@ -1,9 +1,8 @@
 ;; Author: Anurag Muthyam
 
 #lang racket
-
 (require racket/trace rackunit threading)
-(provide squares-list-v1 squares-list-v2 squares-list-v3 squares-list-v4)
+(provide squares-list-v1 squares-list-v4)
 
 ;; generates a list of squares
 ;; only works for n >= 0. Doesn't work when n < 0
@@ -13,6 +12,9 @@
   (~> (build-list n values)
       (map sqr _)))
 
+;; Alternative implementations kept for reference (commented out) --
+;; squares-list-v1 above is the active implementation for the fixed [0,n) case.
+#|
 ;; using iterative process and without using map version 2
 (define (squares-list-v2 n)
   (define (squares-list-iter lst rlst)
@@ -29,6 +31,7 @@
             (else (cons (sqr i)
                         (squares-list-recur (add1 i))))))
     (squares-list-recur 0))
+|#
 
 ;; using iterative process and range. Allows negative numbers also version 3
 (define (squares-list-v4 start end)

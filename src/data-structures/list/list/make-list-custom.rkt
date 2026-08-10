@@ -4,13 +4,16 @@
 
 #lang racket
 
-(provide make-list-v1 make-list-v2 make-list-v3 make-list-v4)
+(provide make-list-custom)
 
-;; for/list based on index/position version 1
-(define (make-list-v1 n lst)
+;; for/list based on index/position
+(define (make-list-custom n lst)
   (for/list ((n n))
     lst))
 
+;; Alternative implementations kept for reference (commented out) --
+;; make-list-custom above is the active implementation (most idiomatic, uses for/list).
+#|
 (define (make-list-v2 n lst)
   (cond ((zero? n) '())
         (else
@@ -29,3 +32,4 @@
            (make-list-iter (sub1 n)
                            (cons lst rlst)))))
   (make-list-iter n '()))
+|#

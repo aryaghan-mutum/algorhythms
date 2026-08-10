@@ -3,14 +3,17 @@
 ;; Author: Anurag Muthyam
 ;; Greatest Common Divisor (GCD) / Greatest Common Factor (GCF)
 
-(provide gcd-custom
-         gcd-euclidean)
+(provide gcd-euclidean)
 
+;; Alternative implementations kept for reference (commented out) --
+;; gcd-euclidean below is the active implementation (modulo-based, correct for negatives).
+#|
 ;; Euclidean algorithm: gcd(a, b) = gcd(b, r) where r = a mod b
 (define (gcd-custom a b)
   (if (zero? b)
       a
       (gcd-custom b (remainder a b))))
+|#
 
 ;; Alternative using modulo
 (define (gcd-euclidean a b)
@@ -18,6 +21,7 @@
       a
       (gcd-euclidean b (modulo a b))))
 
+#|
 ;; using recursion and remainder version 1
 (define (gcd-v1 a b)
    (if (zero? b)
@@ -36,3 +40,4 @@
       (min a b)
       (gcd-v3 (min a b)
               (modulo (max a b) (min a b)))))
+|#

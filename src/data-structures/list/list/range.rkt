@@ -2,9 +2,10 @@
 
 #lang racket
 
-(provide range-v1 range-v2)
+(provide range-exclusive-end range-inclusive-end)
 
-(define (range-v1 start end)
+;; range not including the end value
+(define (range-exclusive-end start end)
   (define (range-iter start rlst)
     (cond ((> start end) '())
           ((= start end) rlst)
@@ -12,8 +13,8 @@
                             (cons start rlst)))))
   (reverse (range-iter start '())))
 
-;; gets a last element in the list also which range-v1 doesn't version 2
-(define (range-v2 start end)
+;; range including the end value (unlike range-exclusive-end)
+(define (range-inclusive-end start end)
   (define (range-iter start end rlst)
     (cond ((> start end) '())
           ((= start end) rlst)

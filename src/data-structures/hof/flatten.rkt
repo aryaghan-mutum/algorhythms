@@ -2,13 +2,11 @@
 
 #lang racket
 (require rackunit)
-(provide flatten-v1 
-          flatten-v2 
-          flatten-v3 
-          flatten-v4)
+(provide flatten-v4)
 
-;; =================
-
+;; Alternative implementations kept for reference (commented out) --
+;; flatten-v4 below is the active implementation (already relied on by flatmap).
+#|
 ;; iterative process version 1
 ;; (flatten-v1 '((a) b (c (d) . e) ())) => returns '(a b c d . e))
 ;; but it must return '(a b c d e))
@@ -21,8 +19,6 @@
            (flatten-iter (cdr lst) (flatten-iter (car lst) rlst)))))
   (reverse (flatten-iter lst '())))
 
-;; =================
-
 ;; append and recursive process version 2
 ;; (flatten-v2 '((a) b (c (d) . e) ())) => returns '(a b c d . e))
 ;; but it must return '(a b c d e))
@@ -33,16 +29,13 @@
           (else
            (append (cons (car lst) '()) (flatten-v2 (cdr lst))))))
 
-;; =================
-
 ;; append version 3
 (define (flatten-v3 lst)
   (cond ((empty? lst) lst)
         ((not (pair? lst)) (list lst))
         (else
          (append (flatten-v3 (car lst)) (flatten-v3 (cdr lst))))))
-
-;; =================
+|#
 
 ;; easiest way: append version 4
 (define (flatten-v4 lst)
@@ -51,8 +44,6 @@
          (append (flatten-v4 (car lst))
                  (flatten-v4 (cdr lst))))
         (else (list lst))))
-
-;; =================
 
 ;; flatmap: flatten nested lists
 (define (flatmap lst)

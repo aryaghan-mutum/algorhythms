@@ -48,11 +48,11 @@
   constantly       ; constant function
 
   ;; Predicate utilities
-  complement-v1 complement-v2 complement-v3 ; negate a predicate
+  complement       ; negate a predicate
   identity         ; return argument unchanged
 
   ;; Stateful counters
-  counter-v1 counter-v2 counter-v3 ; closure-based counter factories
+  make-counter     ; create a new independent counter starting at 0
 
   ;; Re-export flatten
   (all-from-out "flatten.rkt"))

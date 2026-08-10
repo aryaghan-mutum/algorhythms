@@ -1,21 +1,24 @@
 ;; Author: Anurag Muthyam
 
 #lang racket
-(provide copy-tree-v1 copy-tree-v2)
+(provide copy-tree)
 
 ;; =================
 
-;; recurisve process using atom? version 1
+;; recursive process
+(define (copy-tree tr)
+  (if (not (pair? tr))
+      tr
+      (cons (copy-tree (car tr))
+            (copy-tree (cdr tr)))))
+
+;; Alternative implementation kept for reference (commented out) --
+;; copy-tree above is the active implementation (no unnecessary local helper).
+#|
 (define (copy-tree-v1 tr)
   (define (atom? x) (not (pair? x)))
   (if (atom? tr)
       tr
       (cons (copy-tree-v1 (car tr))
             (copy-tree-v1 (cdr tr)))))
-
-;; recurisve process using atom? version 2
-(define (copy-tree-v2 tr)
-  (if (not (pair? tr))
-      tr
-      (cons (copy-tree-v2 (car tr))
-            (copy-tree-v2 (cdr tr)))))
+|#

@@ -3,10 +3,11 @@
 #lang racket
 
 (require math racket/trace rackunit threading)
-(provide prime-factors-v1 prime-factors-v2 prime-factors prime-factorization)
+(provide prime-factors prime-factorization)
 
-;; Reference: https://rosettacode.org/wiki/Prime_decomposition
-
+;; Alternative implementations kept for reference (commented out) --
+;; prime-factors below (used by prime-factorization) is the active implementation.
+#|
 ;; using append-map and factorize version 1
 (define (prime-factors-v1 n)
   (append-map (lambda (x) (make-list (second x) (car x))) (factorize n)))
@@ -19,6 +20,7 @@
             ((zero? r) (cons i (prime-factors-aux q i)))
             (else (prime-factors-aux n (add1 i))))))
   (prime-factors-aux n 2))
+|#
 
 
 ;;;;;;;;;;;;

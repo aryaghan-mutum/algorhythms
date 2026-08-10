@@ -11,5 +11,5 @@
 (define categories '("algorithms" "data-structures"))
 
 ;; Exclude folders from compilation and tests
-(define compile-omit-paths '("_others" "doc" "examples" "bin"))
-(define test-omit-paths '("_others" "doc" "examples" "scribblings" "bin"))
+(define compile-omit-paths '("src/_others" "doc" "examples" "bin"))
+(define test-omit-paths '("src/_others" "doc" "examples" "scribblings" "bin"))

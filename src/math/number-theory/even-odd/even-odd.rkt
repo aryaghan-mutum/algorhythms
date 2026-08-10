@@ -2,15 +2,8 @@
 
 #lang racket
 
-(require threading racket/trace rackunit)
 (provide even-v1?
-         odd-v1?
-         even-v2?
-         odd-v2?
-         even-v3?
-         odd-v3?
-         even-v4?
-         odd-v4?)
+         odd-v1?)
 
 ;; checks if a number is even (easiest way!) version 1
 (define (even-v1? n)
@@ -20,6 +13,9 @@
 (define (odd-v1? n)
   (not (zero? (remainder n 2))))
 
+;; Alternative implementations kept for reference (commented out) --
+;; even-v1?/odd-v1? above are the active implementations (simplest, correct for negatives).
+#|
 ;; checks if a number is even version 2
 (define (even-v2? n)
   (if (= (remainder n 2) 0) #t #f))
@@ -47,6 +43,7 @@
 (define (odd-v4? n)
   (and (not (zero? n))
       (even-v4? (sub1 n))))
+|#
 
 ;; get even nnumbers list
 (define (even-lst lst)
