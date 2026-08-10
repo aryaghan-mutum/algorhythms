@@ -15,7 +15,6 @@
          "../../src/math/number-theory/numerical-predicates.rkt"
          "../../src/math/number-theory/palindrome-num.rkt"
          "../../src/math/number-theory/pythagorean-triplets.rkt"
-         "../../src/math/number-theory/even-odd/even-odd.rkt"
          "../../src/math/number-theory/even-odd/even-nums-list.rkt"
          "../../src/math/number-theory/even-odd/numbers-list.rkt"
          "../../src/math/number-theory/divisibility/factors.rkt"
@@ -132,10 +131,10 @@
 
    (test-suite
     "even-odd - valid"
-    (test-case "even-v1? of 4" (check-true (even-v1? 4)))
-    (test-case "odd-v1? of 3" (check-true (odd-v1? 3)))
-    (test-case "even-nums-lst-v2 in range 1..10"
-      (check-equal? (even-nums-lst-v2 1 10) '(2 4 6 8 10)))
+    (test-case "even-num? of 4" (check-true (even-num? 4)))
+    (test-case "odd-num? of 3" (check-true (odd-num? 3)))
+    (test-case "even-numbers-in-range in 1..10"
+      (check-equal? (even-numbers-in-range 1 10) '(2 4 6 8 10)))
     (test-case "even-list filters, preserving original order"
       (check-equal? (even-list '(5 2 8 3 4)) '(2 8 4)))
     (test-case "odd-list filters, preserving original order"
@@ -143,14 +142,14 @@
 
    (test-suite
     "even-odd - edge"
-    (test-case "even-v1? of 0" (check-true (even-v1? 0)))
-    (test-case "even-nums-lst-v2 with no evens in range"
-      (check-equal? (even-nums-lst-v2 1 1) '())))
+    (test-case "even-num? of 0" (check-true (even-num? 0)))
+    (test-case "even-numbers-in-range with no evens in range"
+      (check-equal? (even-numbers-in-range 1 1) '())))
 
    (test-suite
     "divisibility - valid"
-    (test-case "factors-v4 of 12 is its prime factorization with repetition"
-      (check-equal? (factors-v4 12) '(2 2 3)))
+    (test-case "factors of 12 is its prime factorization with repetition"
+      (check-equal? (factors 12) '(2 2 3)))
     (test-case "safe-div computes normally for non-zero divisor"
       (check-equal? ((safe-div 10 2) (lambda (r) r) (lambda (e) e)) 5)))
 

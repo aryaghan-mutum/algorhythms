@@ -5,10 +5,13 @@ description: >
   doc comments) for this Racket (algorhythms) package, after adding a new
   .rkt function, after moving/renaming/reorganizing files under src/math/,
   src/data-structures/, or src/encoding/, or when asked to "make sure
-  everything has tests", "close coverage gaps", or "write test cases from
-  the dev code". Scans every provided function, ensures a real (non-mock)
-  rackunit test and a one-line contract doc comment exist for it, writes
-  whatever is missing, and rechecks everything already written.
+  everything has tests", "close coverage gaps", "write test cases from
+  the dev code", "remove -v1/-v2 function names", or "no tests inside src".
+  Scans every provided function, ensures a real (non-mock) rackunit test
+  lives in tests/ (never in src/) and a one-line contract doc comment exists
+  for it, enforces a single professionally-named function per concept (no
+  -v1/-v2/-vN survivors), writes whatever is missing, and rechecks
+  everything already written.
 ---
 
 # Racket Test Coverage
@@ -47,6 +50,25 @@ These are established conventions for this repository — do not deviate:
    (`check-within`) only for floating-point/approximation functions
    (trigonometry, sqrt, pi-approximation); use exact `check-equal?`
    everywhere else.
+5. **Tests never live in `src/`.** Any `check-equal?`/`check-true`/etc. call
+   found at the top level of a file under `src/` is a violation — move it
+   into the corresponding `tests/` file (merge into the existing suite,
+   don't create a new one) and delete it from source. `src/` files may
+   `(require rackunit)` only if they use contracts, never to run assertions.
+6. **One canonical function per concept — no `-v1`/`-v2`/`-vN` survivors.**
+   When a file has multiple implementations of the same behavior (same
+   inputs → same outputs, just different style/algorithm), pick the best one
+   (most idiomatic/efficient/correct), give it a clean professional name with
+   no version suffix, and wrap the rest in a `#|CODE|#` block with a comment
+   explaining which one is active and why. If two "versions" actually behave
+   differently (different arity, different edge-case handling, different
+   semantics) they are NOT duplicates — keep both under distinct descriptive
+   names (e.g. `range-exclusive-end` / `range-inclusive-end`), never force
+   them into one.
+7. **File names must be professional too**, not exercise/scratch-style
+   (e.g. prefer `find-shortest-list.rkt` over `prob3.rkt`). Rename files
+   (via `git mv`) when the name doesn't describe what the module does, and
+   update every `require` that points at the old path.
 5. **Valid / edge / invalid categorization per function:**
    - *Valid*: at least one representative, correct-input case.
    - *Edge*: boundary values relevant to the function (0, empty list,
@@ -57,7 +79,7 @@ These are established conventions for this repository — do not deviate:
 6. **Test file location:** `tests/<mirrored-path>-test.rkt`, e.g.
    `src/math/geometry/*` → `tests/math/geometry-test.rkt`;
    `src/data-structures/hof/*` → `tests/data-structures/hof-test.rkt`.
-7. **Doc comments on the source function itself, not just the test.** Every
+8. **Doc comments on the source function itself, not just the test.** Every
    provided function should have a one-line contract comment directly
    above its `define`, matching this repo's existing convention (see
    `src/math/arithmetic/square.rkt`):

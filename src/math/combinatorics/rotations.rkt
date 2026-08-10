@@ -37,6 +37,3 @@
                                 (cons (car lst) rlst)))
         (else (rotations-for-num-aux (cdr lst)
                                      rlst))))
-
-
-(check-equal? (rotations '(1 2 3)) '((1 2 3) (2 3 1) (3 1 2)))

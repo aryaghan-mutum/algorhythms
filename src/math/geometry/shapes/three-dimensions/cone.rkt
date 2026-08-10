@@ -15,7 +15,3 @@
 (define cone-volume
   (lambda (b h)
     (/ (* b h) 3)))
-
-;; Tests
-(check-= (cone-area 3 5) (* pi 3 5) 0.001)
-(check-equal? (cone-volume 9 6) 18)

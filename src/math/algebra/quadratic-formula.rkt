@@ -3,10 +3,10 @@
 
 #lang racket
 (require rackunit racket/trace threading)
-(provide quadratic-formula-v1)
+(provide quadratic-formula)
 
 ;; using let*
-(define (quadratic-formula-v1 a b c)
+(define (quadratic-formula a b c)
   (let* ((minusb (- 0 b))
          (radical (sqrt (- (sqr b) (* 4 (* a c)))))
          (divisor (* 2 a))

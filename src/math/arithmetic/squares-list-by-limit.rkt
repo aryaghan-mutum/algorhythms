@@ -2,13 +2,13 @@
 
 #lang racket
 (require racket/trace rackunit threading)
-(provide squares-list-v1 squares-list-v4)
+(provide squares-list squares-list-range)
 
 ;; generates a list of squares
 ;; only works for n >= 0. Doesn't work when n < 0
 
-;; using map version 1
-(define (squares-list-v1 n)
+;; using map
+(define (squares-list n)
   (~> (build-list n values)
       (map sqr _)))
 
@@ -33,8 +33,8 @@
     (squares-list-recur 0))
 |#
 
-;; using iterative process and range. Allows negative numbers also version 3
-(define (squares-list-v4 start end)
+;; using iterative process and range. Allows negative numbers also
+(define (squares-list-range start end)
   (define (squares-list-iter lst rlst)
     (cond ((empty? lst) rlst)
           (else

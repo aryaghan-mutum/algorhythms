@@ -116,11 +116,11 @@
    (test-suite
     "pi approximation - valid"
     (test-case "pi-value approximates pi closely" (check-within (pi-value) pi 0.001))
-    (test-case "area-of-polygon-v2 approximates pi for a large n"
-      (check-within (area-of-polygon-v2 10000) pi 0.01)))
+    (test-case "area-of-polygon approximates pi for a large n"
+      (check-within (area-of-polygon 10000) pi 0.01)))
 
    (test-suite
     "pi approximation - edge"
-    (test-case "area-of-polygon-v2 returns a real number" (check-pred real? (area-of-polygon-v2 100))))))
+    (test-case "area-of-polygon returns a real number" (check-pred real? (area-of-polygon 100))))))
 
 (run-tests geometry-tests)

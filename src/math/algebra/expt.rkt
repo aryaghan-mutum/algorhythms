@@ -23,13 +23,13 @@
 
 #lang racket
 (require racket/trace rackunit)
-(provide fast-expt-v8
+(provide fast-expt
          expt-log
          half-exponential
          log-reach-to-num)
 
 ;; Alternative implementations kept for reference (commented out).
-;; fast-expt-v8 below is the active implementation: O(log n), iterative, no bugs.
+;; fast-expt below is the active implementation: O(log n), iterative, no bugs.
 #|
 ;; note: won't work when pow is negative number
 ;; recursive process version 1
@@ -88,8 +88,8 @@
         (else (* b (fast-expt-v7 b (- n 1))))))
 |#
 
-;; iterative process fast-expt version 8
-(define (fast-expt-v8 b n)
+;; iterative process, O(log n)
+(define (fast-expt b n)
   (define (fast-expt-aux a b n)
       (cond ((= n 0) a)
             ((even? n) (fast-expt-aux a (sqr b) (/ n 2)))
@@ -133,13 +133,3 @@
                      ex
                      (add1 count)
                      (log count)))))
-
-(check-eqv? (fast-expt-v8 2 0) 1)
-(check-eqv? (fast-expt-v8 2 1) 2)
-(check-eqv? (fast-expt-v8 2 3) 8)
-
-(check-eqv? (expt-log 0) 0)
-(check-eqv? (expt-log 1) 1)
-(check-eqv? (expt-log 2) 1)
-
-(check-eqv? (half-exponential 20) 1)

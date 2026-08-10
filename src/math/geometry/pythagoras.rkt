@@ -10,5 +10,3 @@
 ;; baudhayana/pythagoras formula
 (define (pythagoras x y)
   (sqrt (+ (sqr x) (sqr y))))
-
-(check-eqv? (pythagoras 5 12) 13)

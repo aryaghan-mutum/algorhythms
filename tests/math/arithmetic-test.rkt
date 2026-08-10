@@ -109,14 +109,14 @@
    (test-suite
     "sum - valid"
     (test-case "sum(5, 0) is 1+2+3+4+5" (check-equal? (sum 5 0) 15))
-    (test-case "sum-list-v6 sums a non-empty list"
-      (check-equal? (sum-list-v6 '(1 2 3 4)) 10)))
+    (test-case "sum-list sums a non-empty list"
+      (check-equal? (sum-list '(1 2 3 4)) 10)))
 
    (test-suite
     "sum - edge"
     (test-case "sum(0, 0) is 0" (check-equal? (sum 0 0) 0))
-    (test-case "sum-list-v6 of an empty list is 0"
-      (check-equal? (sum-list-v6 '()) 0)))
+    (test-case "sum-list of an empty list is 0"
+      (check-equal? (sum-list '()) 0)))
 
    (test-suite
     "rational-nums - valid"
@@ -163,16 +163,16 @@
 
    (test-suite
     "squares-list variants - valid"
-    (test-case "squares-list-v1 for n=5"
-      (check-equal? (squares-list-v1 5) '(0 1 4 9 16)))
-    (test-case "squares-list-v4 supports an arbitrary start"
-      (check-equal? (squares-list-v4 2 5) '(4 9 16)))
-    (test-case "squares (generate-list-of-squares) matches squares-list-v1"
-      (check-equal? (squares 5) (squares-list-v1 5))))
+    (test-case "squares-list for n=5"
+      (check-equal? (squares-list 5) '(0 1 4 9 16)))
+    (test-case "squares-list-range supports an arbitrary start"
+      (check-equal? (squares-list-range 2 5) '(4 9 16)))
+    (test-case "squares (generate-list-of-squares) matches squares-list"
+      (check-equal? (squares 5) (squares-list 5))))
 
    (test-suite
     "squares-list variants - edge"
-    (test-case "squares-list-v1 of 0 is empty" (check-equal? (squares-list-v1 0) '()))
+    (test-case "squares-list of 0 is empty" (check-equal? (squares-list 0) '()))
     (test-case "squares (generate-list-of-squares) of 0 is empty" (check-equal? (squares 0) '())))
 
    (test-suite

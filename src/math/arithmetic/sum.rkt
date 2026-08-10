@@ -4,7 +4,7 @@
 
 #lang racket
 
-(provide sum-list-v6
+(provide sum-list
          sum)
 
 (define (sum n s)
@@ -38,6 +38,6 @@
   (foldr + 0 lst))
 |#
 
-(define (sum-list-v6 lst)
+(define (sum-list lst)
   (apply + lst))
 

@@ -2,20 +2,17 @@
 
 #lang racket
 
-(provide even-v1?
-         odd-v1?)
+(provide)
 
-;; checks if a number is even (easiest way!) version 1
+;; This entire module is retired: it duplicates numerical-predicates.rkt's
+;; even-num?/odd-num?, which are the canonical implementations used everywhere.
+#|
 (define (even-v1? n)
   (zero? (remainder n 2)))
 
-;; checks if a number is odd (easiest way!) version 1
 (define (odd-v1? n)
   (not (zero? (remainder n 2))))
 
-;; Alternative implementations kept for reference (commented out) --
-;; even-v1?/odd-v1? above are the active implementations (simplest, correct for negatives).
-#|
 ;; checks if a number is even version 2
 (define (even-v2? n)
   (if (= (remainder n 2) 0) #t #f))

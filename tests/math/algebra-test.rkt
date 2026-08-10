@@ -15,11 +15,11 @@
 
    (test-suite
     "expt variants - valid"
-    (test-case "fast-expt-v8(2,10) is 1024" (check-equal? (fast-expt-v8 2 10) 1024)))
+    (test-case "fast-expt(2,10) is 1024" (check-equal? (fast-expt 2 10) 1024)))
 
    (test-suite
     "expt variants - edge"
-    (test-case "fast-expt-v8(b,0) is 1" (check-equal? (fast-expt-v8 5 0) 1)))
+    (test-case "fast-expt(b,0) is 1" (check-equal? (fast-expt 5 0) 1)))
 
    (test-suite
     "expt-log/half-exponential/log-reach-to-num - edge"
@@ -32,13 +32,13 @@
 
    (test-suite
     "quadratic-formula - valid"
-    (test-case "quadratic-formula-v1 solves x^2-3x+2=0 (roots 1,2)"
-      (check-equal? (quadratic-formula-v1 1 -3 2) (cons 2 1))))
+    (test-case "quadratic-formula solves x^2-3x+2=0 (roots 1,2)"
+      (check-equal? (quadratic-formula 1 -3 2) (cons 2 1))))
 
    (test-suite
     "quadratic-formula - edge"
     (test-case "a perfect-square discriminant gives a repeated root"
-      (check-equal? (quadratic-formula-v1 1 -2 1) (cons 1 1))))
+      (check-equal? (quadratic-formula 1 -2 1) (cons 1 1))))
 
    (test-suite
     "matrices - valid"

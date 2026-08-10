@@ -3,10 +3,10 @@
 #lang racket
 
 (require threading)
-(provide even-nums-lst-v2)
+(provide even-numbers-in-range)
 
 ;; Alternative implementation kept for reference (commented out) --
-;; even-nums-lst-v2 below is the active implementation (idiomatic filter+even?).
+;; even-numbers-in-range below is the active implementation (idiomatic filter+even?).
 #|
 ;; get a list of even numbers using iterative process
 (define (even-nums-lst-v1 start end)
@@ -20,6 +20,6 @@
 |#
 
 ;; get a list of even numbers using filter and threading
-(define (even-nums-lst-v2 start end)
+(define (even-numbers-in-range start end)
   (define lst (range start (add1 end)))
   (~> lst (filter even? _)))
