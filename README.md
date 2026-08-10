@@ -88,22 +88,23 @@ raco test tests/
 Racket 9.2 does not include a built-in HTML reporter. Use the included PowerShell script:
 
 ```powershell
-# Generate test-report.html in the project root and open it in the browser
-.\bin\test-report.ps1
+# Generate reports/test-report.html and open it in the browser
+.\scripts\test-report.ps1
 
 # Custom output path
-.\bin\test-report.ps1 -OutputFile my-report.html
+.\scripts\test-report.ps1 -OutputFile reports/my-report.html
 
 # Run against a specific subdirectory
-.\bin\test-report.ps1 -TestDir tests/math/
+.\scripts\test-report.ps1 -TestDir tests/math/
 ```
 
-The script runs `raco test -v`, parses the per-file pass/fail counts, and writes a self-contained HTML file.
+The report is written to **`reports/test-report.html`** (the `reports/` folder is created automatically).
+The `reports/` folder is tracked in git via `.gitkeep`; generated HTML/TXT files inside it are gitignored.
 The report opens automatically in your default browser after generation.
 
 **Plain text alternative** (no extra files):
 ```powershell
-raco test tests/ 2>&1 | Tee-Object test-results.txt
+raco test tests/ 2>&1 | Tee-Object reports/test-results.txt
 ```
 Each test file prints `N success(es) 0 failure(s) 0 error(s)`.
 Failures are listed inline with the test-case name and the failing `check-*` call.

@@ -1,11 +1,17 @@
 #!/usr/bin/env pwsh
-# Runs raco test -v and generates a self-contained HTML report.
-# Usage:  .\bin\test-report.ps1 [-TestDir tests/] [-OutputFile test-report.html]
+# Runs raco test and generates a self-contained HTML report.
+# Usage:  .\scripts\test-report.ps1 [-TestDir tests/] [-OutputFile reports/test-report.html]
 
 param(
     [string]$TestDir    = "tests/",
-    [string]$OutputFile = "test-report.html"
+    [string]$OutputFile = "reports/test-report.html"
 )
+
+# Ensure the output directory exists
+$outDir = Split-Path $OutputFile -Parent
+if ($outDir -and -not (Test-Path $outDir)) {
+    New-Item -ItemType Directory -Path $outDir -Force | Out-Null
+}
 
 Write-Host "Running: raco test $TestDir ..." -ForegroundColor Cyan
 # Force every output object (including stderr ErrorRecords) to plain strings
@@ -13,12 +19,12 @@ $rawOutput = (& raco test $TestDir 2>&1) | ForEach-Object { $_.ToString() }
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 
 # ── Parse output ───────────────────────────────────────────────────────────────
-$suites      = [System.Collections.Generic.List[hashtable]]::new()
-$currentFile = "(unknown)"
-$lastFileSeen = "(unknown)"
+$suites         = [System.Collections.Generic.List[hashtable]]::new()
+$currentFile    = "(unknown)"
+$lastFileSeen   = "(unknown)"
 $fileHasSummary = $false
-$failures    = [System.Collections.Generic.List[string]]::new()
-$totalPass   = 0; $totalFail = 0; $totalError = 0
+$failures       = [System.Collections.Generic.List[string]]::new()
+$totalPass      = 0; $totalFail = 0; $totalError = 0
 
 function Flush-File {
     # If a file produced no standard summary line, add it as pass with unknown count
@@ -32,8 +38,8 @@ foreach ($line in $rawOutput) {
     if ($text -match 'raco test: \(file "(.+?)"\)') {
         Flush-File
         # Normalise: replace backslashes, strip leading ./, collapse double slashes
-        $currentFile   = ($Matches[1].Replace('\','/') -replace '^\./', '') -replace '//', '/'
-        $lastFileSeen  = $currentFile
+        $currentFile    = ($Matches[1].Replace('\','/') -replace '^\./', '') -replace '//', '/'
+        $lastFileSeen   = $currentFile
         $fileHasSummary = $false
     }
     elseif ($text -match '(\d+) success.es. (\d+) failure.s. (\d+) error.s.') {
