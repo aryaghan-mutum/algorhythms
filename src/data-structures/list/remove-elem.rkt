@@ -3,7 +3,6 @@
 ;; https://github.com/aryaghan-mutum
 
 #lang racket
-(require rackunit racket/trace threading)
 (provide remove-v4)
 ;; =================
 
@@ -43,7 +42,3 @@
     (remove-aux lst null)))
 
 ;; =================
-
-(check-equal? (remove-v4 100 '()) '())
-(check-equal? (remove-v4 100 '(1 2 3)) '(1 2 3))
-(check-equal? (remove-v4 -9 '(7 59 -9 a 4)) '(7 59 a 4))

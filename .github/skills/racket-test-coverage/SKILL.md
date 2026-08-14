@@ -6,12 +6,16 @@ description: >
   .rkt function, after moving/renaming/reorganizing files under src/math/,
   src/data-structures/, or src/encoding/, or when asked to "make sure
   everything has tests", "close coverage gaps", "write test cases from
-  the dev code", "remove -v1/-v2 function names", or "no tests inside src".
+  the dev code", "remove -v1/-v2 function names", "no tests inside src",
+  "merge these files into one", "arrange/reorganize methods by single
+  responsibility principle", "put commented-out code at the bottom of the
+  file", or "add extreme/edge assertions (negative, decimal, etc.) to tests".
   Scans every provided function, ensures a real (non-mock) rackunit test
   lives in tests/ (never in src/) and a one-line contract doc comment exists
   for it, enforces a single professionally-named function per concept (no
-  -v1/-v2/-vN survivors), writes whatever is missing, and rechecks
-  everything already written.
+  -v1/-v2/-vN survivors), keeps live code before retired/commented code in
+  every file, writes whatever is missing (including extreme-input test
+  cases), and rechecks everything already written.
 ---
 
 # Racket Test Coverage
@@ -24,6 +28,10 @@ description: >
   "sliding around" must not silently drop coverage.
 - Before a release, or when asked to verify/enforce 100% function coverage.
 - When wiring a previously-orphaned file into a `main.rkt` aggregator.
+- When asked to merge/split files for Single Responsibility Principle, or
+  to rename files/functions professionally within a topic tree.
+- When asked to add extreme/edge-case assertions (negative, zero, decimal)
+  to existing tests.
 
 ## Non-negotiable project conventions
 
@@ -78,6 +86,47 @@ These are established conventions for this repository — do not deviate:
    (e.g. prefer `find-shortest-list.rkt` over `prob3.rkt`). Rename files
    (via `git mv`) when the name doesn't describe what the module does, and
    update every `require` that points at the old path.
+9. **Live code first, retired code last, in every file.** Every active
+   (non-commented) `define` must appear before any `#|...|#` block in that
+   file — never interleave a comment block between live definitions. If a
+   file has scattered `#|...|#` blocks (a common leftover pattern in this
+   codebase), consolidate them into one block at the very bottom the next
+   time you touch that file.
+10. **Collapse a lone-file "subfolder" back to a top-level file.** Subfolders
+    (`primes/`, `divisibility/`, etc.) exist only while a topic has *multiple*
+    small files. If merging or retiring functions leaves a subfolder holding
+    exactly one file, promote that file to a plain top-level file in the
+    parent topic directory and delete the now-empty subfolder — don't keep a
+    directory around for a single file (this is what "make these into one
+    file if possible" should resolve to when three small files collapse
+    into one).
+11. **Duplicate concepts across files/folders count too.** Rule 7 isn't
+    limited to one file: if two functions in *different* files/folders
+    produce the same output for the same input (e.g. a "divisors" helper
+    duplicating a "prime factors" helper, or a trial-division `primes-up-to`
+    duplicating a sieve-based one), that's the same violation. Pick one
+    canonical home, retire or clearly cross-reference the other, and name
+    both distinctly and professionally if you keep both for a legitimate
+    reason (e.g. one is asymptotically better for bulk generation).
+12. **Extreme/edge test inputs are mandatory.** Every test suite you write
+    or touch must include, per function where meaningful: a negative-number
+    case, a zero/boundary case, and a non-integer/decimal case — categorized
+    under `- edge` or `- invalid` per the rule below. The expected outcome
+    (a specific value, or `check-exn`) must come from actually running the
+    function (see Instructions #4), never guessed. If a negative or decimal
+    input hangs forever (infinite loop) or silently gives a wrong answer,
+    that's a bug in the source, not an acceptable test outcome — add a
+    guard/contract to the function so it fails fast and clearly instead
+    (flag the fix in your summary; see Instructions #5).
+13. **Never shadow a built-in with a reduced-capability version.** If a
+    custom function reimplements something Racket already provides (e.g.
+    `min`/`max`, `sqrt`, `gcd`), give the custom version its own name
+    (`min-custom`, `sqrt-root`, `gcd-euclidean`) and separately re-`provide`
+    the built-in — don't `(define min ...)` a fixed-2-argument version that
+    replaces the built-in's real (often variadic) contract for anyone who
+    `(require)`s the module. This is a silent, easy-to-miss regression:
+    check for it specifically whenever a function's name matches a Racket
+    built-in.
 5. **Valid / edge / invalid categorization per function:**
    - *Valid*: at least one representative, correct-input case.
    - *Edge*: boundary values relevant to the function (0, empty list,
@@ -123,14 +172,27 @@ These are established conventions for this repository — do not deviate:
    built-in equivalent (e.g. compare a custom `sine` against `(sin x)`
    with `check-within`) for anything approximate/iterative. If a function's
    correctness can't be confidently determined by reading it, say so rather
-   than writing a test with a guessed value.
+   than writing a test with a guessed value. This applies doubly to
+   extreme/edge inputs (convention #12): run the function yourself (a
+   throwaway `racket -e`/scratch script, deleted afterward) with negative,
+   zero, and decimal inputs before asserting what it does — a stale code
+   comment claiming a specific behavior (e.g. "n=40 is not prime") can
+   itself be wrong; verify, don't trust prose. Guard any exploratory call
+   that might not terminate (e.g. with a `thread`/`sync/timeout`) so a
+   genuine infinite loop doesn't hang your session — a case that never
+   returns is itself the bug to report/fix (see convention #12).
 5. **If gaps or bugs are found:**
    - Missing tests → add them directly (this is safe/reversible; no need
      to ask).
    - Actual bugs in source (wrong formula, crash, swapped
-     names/arguments) → **flag and ask before fixing.** These are public
-     API behavior changes, not test additions. List them concisely with
-     the offending code and proposed fix; wait for confirmation.
+     names/arguments, or an extreme input that hangs forever) → for a
+     narrowly-scoped reorg/coverage pass, flag and ask before fixing since
+     these are public API behavior changes. If the user has already granted
+     broad authority to rename/restructure/delete in the same request
+     (e.g. "you may delete existing files, up to you"), fixing the bug
+     (typically: add a guard/contract for the invalid domain) is in scope —
+     still call it out explicitly in your final summary so it's never a
+     silent behavior change.
    - Orphaned files with real, correct, unique functionality → propose
      wiring them into the appropriate `main.rkt` (ask if it's ambiguous
      which module they belong in).
@@ -166,9 +228,14 @@ change. Don't claim tests pass without having actually run one of these.
     "factorial - valid"
     (test-case "5! is 120" (check-equal? (factorial 5) 120)))
    (test-suite
+    "factorial - edge"
+    (test-case "0! is 1 (base case)" (check-equal? (factorial 0) 1)))
+   (test-suite
     "factorial - invalid"
     (test-case "negative input violates the natural-number contract"
-      (check-exn exn:fail:contract? (lambda () (factorial -1)))))))
+      (check-exn exn:fail:contract? (lambda () (factorial -1))))
+    (test-case "decimal input violates the natural-number contract"
+      (check-exn exn:fail:contract? (lambda () (factorial 4.5)))))))
 
 (run-tests combinatorics-tests)
 ```

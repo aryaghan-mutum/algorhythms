@@ -31,6 +31,23 @@
    (test-suite
     "interest/time-value - edge"
     (test-case "simple-interest with 0 rate returns the principal" (check-equal? (simple-interest 500 3 0) 500))
-    (test-case "compound-interest with 0 time returns the principal" (check-equal? (compound-interest 500 0 0.05) 500)))))
+    (test-case "compound-interest with 0 time returns the principal" (check-equal? (compound-interest 500 0 0.05) 500))
+    (test-case "simple-interest with negative time (past-dated)" (check-equal? (simple-interest 1000 -2 0.05) 900.0))
+    (test-case "compound-interest with negative time (discounting)"
+      (check-within (compound-interest 1000 -2 0.05) 907.0294784580498 0.0001))
+    (test-case "emi at 0% interest splits the principal evenly" (check-equal? (emi 120000 0 12) 10000))
+    (test-case "roi with a negative gain (a loss)" (check-equal? (roi -100 200) -3/2)))
+
+   (test-suite
+    "interest/time-value - invalid"
+    (test-case "roi errors when cost is 0" (check-exn exn:fail? (lambda () (roi 100 0))))
+    (test-case "present-value errors at rate = -1 (total loss, 0 denominator)"
+      (check-exn exn:fail? (lambda () (present-value 1000 -1 2)))))
+
+   (test-suite
+    "npv/irr - edge"
+    (test-case "npv of an empty cashflow series is 0" (check-equal? (npv 0.1 '()) 0))
+    (test-case "irr degrades gracefully (bounded iterations, no hang) when cashflows never change sign"
+      (check-equal? (irr '(100 200 300)) 10.0)))))
 
 (run-tests financial-tests)

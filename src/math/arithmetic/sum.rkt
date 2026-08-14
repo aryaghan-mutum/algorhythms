@@ -5,15 +5,26 @@
 #lang racket
 
 (provide sum-list
-         sum)
+         sum-to-n)
 
-(define (sum n s)
+;; sum of the integers from 1 to n; only exact non-negative integers ever reach the
+;; zero base case by repeated sub1, so anything else is rejected instead of looping forever
+;; sum-to-n : exact-nonnegative-integer? -> exact-nonnegative-integer?
+(define (sum-to-n n)
+  (unless (exact-nonnegative-integer? n)
+    (error 'sum-to-n "expects a non-negative integer, given ~a" n))
+  (sum-to-n-aux n 0))
+
+(define (sum-to-n-aux n acc)
   (if (zero? n)
-      s
-      (sum (sub1 n) (+ s n))))
+      acc
+      (sum-to-n-aux (sub1 n) (+ acc n))))
+
+(define (sum-list lst)
+  (apply + lst))
 
 ;; Alternative implementations kept for reference (commented out) --
-;; sum-list-v6 below is the active implementation (idiomatic, uses the built-in +).
+;; sum-list above is the active implementation (idiomatic, uses the built-in +).
 #|
 (define (sum-list-v1 lst)
   (cond ((empty? lst) 0)
@@ -37,7 +48,4 @@
 (define (sum-list-v5 lst)
   (foldr + 0 lst))
 |#
-
-(define (sum-list lst)
-  (apply + lst))
 

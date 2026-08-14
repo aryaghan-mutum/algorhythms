@@ -22,14 +22,59 @@
 ;; b^0 = 1
 
 #lang racket
-(require racket/trace rackunit)
 (provide fast-expt
          expt-log
          half-exponential
          log-reach-to-num)
 
-;; Alternative implementations kept for reference (commented out).
-;; fast-expt below is the active implementation: O(log n), iterative, no bugs.
+;; iterative process, O(log n); repeated halving/decrementing of a negative n never
+;; reaches the n=0 base case, so negative n is rejected instead of looping forever
+;; fast-expt : number? exact-nonnegative-integer? -> number?
+(define (fast-expt b n)
+  (unless (exact-nonnegative-integer? n)
+    (error 'fast-expt "expects a non-negative integer exponent, given ~a" n))
+  (define (fast-expt-aux a b n)
+      (cond ((= n 0) a)
+            ((even? n) (fast-expt-aux a (sqr b) (/ n 2)))
+            (else (fast-expt-aux (* a b) b (- n 1)))))
+  (fast-expt-aux 1 b n))
+
+;; problem : 2^n and log(n) process comparison -- counts down from n to its 0/1 base case
+(define (expt-log n)
+  (if (or (= n 0) (= n 1)) n (expt-log (sub1 n))))
+
+;; half the exponent: exponential problem -- repeatedly halves 2^n until reaching 1;
+;; a negative n makes 2^n a fraction that only shrinks further with each halving,
+;; so it would never reach exactly 1 -- rejected instead of looping forever
+(define (half-exponential n)
+  (cond ((not (integer? n)) (write (format "~a isn't an integer" n)))
+        ((negative? n) (error 'half-exponential "expects a non-negative integer, given ~a" n))
+        (else (he-iter (expt 2 n)))))
+
+(define (he-iter expo)
+  (if (= expo 1)
+      expo
+      (he-iter (/ expo 2))))
+
+;; log reach to number problem
+(define (log-reach-to-num n)
+  (let ((ex (expt 2 n)))
+    (lrton-iter n ex 1 1)))
+
+(define (lrton-iter n ex count result)
+  (cond ((> result ex)
+         (print (format "Takes: ~a steps to reach 2^(~a): ~a" count n ex))
+         (newline)
+         count)
+        (else
+         (lrton-iter n
+                     ex
+                     (add1 count)
+                     (log count)))))
+
+;; Alternative implementations kept for reference (commented out) --
+;; fast-expt above is the active implementation: O(log n), iterative, no bugs
+;; (aside from the negative-exponent guard added above).
 #|
 ;; note: won't work when pow is negative number
 ;; recursive process version 1
@@ -87,49 +132,3 @@
         ((even? n) (sqr (fast-expt-v7 b (/ n 2))))
         (else (* b (fast-expt-v7 b (- n 1))))))
 |#
-
-;; iterative process, O(log n)
-(define (fast-expt b n)
-  (define (fast-expt-aux a b n)
-      (cond ((= n 0) a)
-            ((even? n) (fast-expt-aux a (sqr b) (/ n 2)))
-            (else (fast-expt-aux (* a b) b (- n 1)))))
-  (fast-expt-aux 1 b n))
-
-;; problem :
-;; 2^n and log(n) process comparison
-(define (expt-log n)
-  (define (expt-log-aux n expo logo)
-    (cond ((or (= n 0) (= n 1)) n)
-          (else (expt-log-aux (sub1 n)
-                              (expt 2 n)
-                              (log n)))))
-  (expt-log-aux n 1 1))
-
-;; half the exponent: exponential problem
-(define (half-exponential n)
-  (if (integer? n)
-      (let ((expo (expt 2 n)))
-        (he-iter expo))
-      (write (format "~a isn't an integer" n))))
-
-(define (he-iter expo)
-  (if (= expo 1)
-      expo
-      (he-iter (/ expo 2))))
-
-;; log reach to number problem
-(define (log-reach-to-num n)
-  (let ((ex (expt 2 n)))
-    (lrton-iter n ex 1 1)))
-
-(define (lrton-iter n ex count result)
-  (cond ((> result ex)
-         (print (format "Takes: ~a steps to reach 2^(~a): ~a" count n ex))
-         (newline)
-         count)
-        (else
-         (lrton-iter n
-                     ex
-                     (add1 count)
-                     (log count)))))

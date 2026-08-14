@@ -6,23 +6,22 @@
 (provide gcd-euclidean
          gcd)
 
+;; Euclidean algorithm using modulo (correct for negative operands too)
+;; gcd-euclidean : integer? integer? -> integer?
+(define (gcd-euclidean a b)
+  (if (zero? b)
+      a
+      (gcd-euclidean b (modulo a b))))
+
 ;; Alternative implementations kept for reference (commented out) --
-;; gcd-euclidean below is the active implementation (modulo-based, correct for negatives).
+;; gcd-euclidean above is the active implementation (modulo-based, correct for negatives).
 #|
 ;; Euclidean algorithm: gcd(a, b) = gcd(b, r) where r = a mod b
 (define (gcd-custom a b)
   (if (zero? b)
       a
       (gcd-custom b (remainder a b))))
-|#
 
-;; Alternative using modulo
-(define (gcd-euclidean a b)
-  (if (zero? b)
-      a
-      (gcd-euclidean b (modulo a b))))
-
-#|
 ;; using recursion and remainder version 1
 (define (gcd-v1 a b)
    (if (zero? b)

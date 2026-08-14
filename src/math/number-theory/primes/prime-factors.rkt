@@ -2,11 +2,38 @@
 
 #lang racket
 
-(require math racket/trace rackunit threading)
 (provide prime-factors prime-factorization)
 
+;; Returns list of prime factors (with repetition)
+;; prime-factors : natural? -> (listof natural?)
+(define (prime-factors n)
+  (prime-factors-helper n 2 '()))
+
+(define (prime-factors-helper n divisor acc)
+  (cond [(<= n 1) (reverse acc)]
+        [(zero? (remainder n divisor))
+         (prime-factors-helper (/ n divisor) divisor (cons divisor acc))]
+        [else
+         (prime-factors-helper n (+ divisor 1) acc)]))
+
+;; Returns prime factorization as list of (prime . exponent) pairs
+;; prime-factorization : natural? -> (listof (cons/c natural? natural?))
+(define (prime-factorization n)
+  (define factors (prime-factors n))
+  (if (null? factors)
+      '()
+      (group-factors factors)))
+
+(define (group-factors lst)
+  (if (null? lst)
+      '()
+      (let ([first-factor (car lst)])
+        (define-values (same rest) (partition (lambda (x) (= x first-factor)) lst))
+        (cons (cons first-factor (length same))
+              (group-factors rest)))))
+
 ;; Alternative implementations kept for reference (commented out) --
-;; prime-factors below (used by prime-factorization) is the active implementation.
+;; prime-factors above (used by prime-factorization) is the active implementation.
 #|
 ;; using append-map and factorize version 1
 (define (prime-factors-v1 n)
@@ -21,33 +48,4 @@
             (else (prime-factors-aux n (add1 i))))))
   (prime-factors-aux n 2))
 |#
-
-
-;;;;;;;;;;;;
-
-;; Returns list of prime factors (with repetition)
-(define (prime-factors n)
-  (prime-factors-helper n 2 '()))
-
-(define (prime-factors-helper n divisor acc)
-  (cond [(<= n 1) (reverse acc)]
-        [(zero? (remainder n divisor))
-         (prime-factors-helper (/ n divisor) divisor (cons divisor acc))]
-        [else
-         (prime-factors-helper n (+ divisor 1) acc)]))
-
-;; Returns prime factorization as list of (prime . exponent) pairs
-(define (prime-factorization n)
-  (define factors (prime-factors n))
-  (if (null? factors)
-      '()
-      (group-factors factors)))
-
-(define (group-factors lst)
-  (if (null? lst)
-      '()
-      (let ([first-factor (car lst)])
-        (define-values (same rest) (partition (lambda (x) (= x first-factor)) lst))
-        (cons (cons first-factor (length same))
-              (group-factors rest)))))
 

@@ -3,7 +3,6 @@
 ;; https://github.com/aryaghan-mutum
 
 #lang racket
-(require rackunit)
 (provide occurences)
 
 ;; Alternative implementations kept for reference (commented out) --
@@ -44,13 +43,3 @@
           ((equal? (car lst) n) (occurences-aux n (cdr lst) (add1 count)))
           (else (occurences-aux n (cdr lst) count))))
   (occurences-aux n lst 0))
-
-(define lst '(1 2 3 3 3 3 2 2 4 3 4))
-
-(check-eqv? (occurences 1 '()) 0)
-(check-eqv? (occurences 99 lst) 0)
-(check-eqv? (occurences 1 lst) 1)
-(check-eqv? (occurences 2 lst) 3)
-(check-eqv? (occurences 3 lst) 5)
-(check-eqv? (occurences 4 lst) 2)
-(check-eqv? (occurences 4 lst) 2)

@@ -4,16 +4,18 @@
 
 (provide pascal-triangle)
 
-(define (reduce fn lst)
-  (and (not (empty? lst)) (foldl fn (first lst) (rest lst))))
-
 ;; sliding window function
 (define (sliding n lst)
   (if (< (length lst) n)
       '()
       (cons (take lst n) (sliding n (cdr lst)))))
 
+;; row n (1-indexed) of Pascal's triangle; n<=0 or a non-integer would never hit the
+;; n=0 base case by repeated sub1, so it is rejected instead of looping forever
+;; pascal-triangle : exact-positive-integer? -> (listof (listof exact-positive-integer?))
 (define (pascal-triangle n)
+  (unless (exact-positive-integer? n)
+    (error 'pascal-triangle "expects a positive integer, given ~a" n))
   (if (= n 1)
       '(1)
       (pt-iter '((1 1)

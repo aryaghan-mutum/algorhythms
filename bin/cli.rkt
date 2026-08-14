@@ -5,7 +5,8 @@
 ;; Usage: racket cli.rkt <command> [args...]
 
 (require racket/cmdline
-         racket/string
+         racket/match
+         (except-in racket/string string-find)
          racket/format
          "../algorhythms.rkt")
 
@@ -83,10 +84,10 @@
      (define numbers (parse-numbers nums))
      (if (andmap number? numbers)
          (let ([sorted (case algorithm
-                         [("bubble") (bubble-sort numbers)]
-                         [("insertion") (insertion-sort numbers)]
-                         [("quick") (quick-sort numbers)]
-                         [("selection") (selection-sort numbers)]
+                         [("bubble") (bubble-sort-v1 numbers <)]
+                         [("insertion") (insert-sort-v1 numbers)]
+                         [("quick") (quick-sort-v1 numbers <)]
+                         [("selection") (selection-sort-v1 numbers)]
                          [else #f])])
            (if sorted
                (displayln (string-join (map ~a sorted) " "))
