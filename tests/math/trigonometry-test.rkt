@@ -39,7 +39,11 @@
    (test-suite
     "core functions - edge"
     (test-case "sine of 0 is exactly 0" (check-equal? (sine 0) 0))
-    (test-case "cosine of 0 approximates 1" (check-within (cosine 0) 1.0 TOL)))
+    (test-case "cosine of 0 approximates 1" (check-within (cosine 0) 1.0 TOL))
+    (test-case "cosine of 1 approximates the real cos(1) (regression: this used to be hardcoded to 0)"
+      (check-within (cosine 1) (cos 1) TOL))
+    (test-case "sine of a negative angle approximates the real sin" (check-within (sine (- x)) (sin (- x)) TOL))
+    (test-case "cosine of a negative angle approximates the real cos" (check-within (cosine (- x)) (cos (- x)) TOL)))
 
    (test-suite
     "double-angle identities - valid"
@@ -97,6 +101,9 @@
     (test-case "atan-deg(1)" (check-within (atan-deg 1) 45.0 TOL))
     (test-case "degrees->radians(180) is pi" (check-within (degrees->radians 180) pi TOL))
     (test-case "radians->degrees(pi) is 180" (check-within (radians->degrees pi) 180.0 TOL))
-    (test-case "hypotenuse of a 3-4-5 triangle" (check-equal? (hypotenuse 3 4) 5)))))
+    (test-case "hypotenuse of a 3-4-5 triangle" (check-equal? (hypotenuse 3 4) 5))
+    (test-case "hypotenuse with decimal legs" (check-within (hypotenuse 1.5 2.0) 2.5 TOL))
+    (test-case "sin-deg of a negative angle" (check-within (sin-deg -30) -0.5 TOL))
+    (test-case "degrees->radians of 0 is 0" (check-equal? (degrees->radians 0) 0)))))
 
 (run-tests trigonometry-tests)

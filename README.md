@@ -52,6 +52,21 @@ raco pkg install --link .
 
 ## Development Commands
 
+### Avoid scattered compiled/ folders
+
+By default, `raco` writes a `compiled/` bytecode cache next to every file it touches. Set `PLTCOMPILEDROOTS` once per shell session (or add it to your PowerShell profile) to redirect all of it to one external cache directory instead:
+
+```powershell
+# Windows (PowerShell)
+$env:PLTCOMPILEDROOTS = "$env:LOCALAPPDATA/racket-compiled-cache/@(version)/"
+```
+```bash
+# macOS/Linux (bash/zsh)
+export PLTCOMPILEDROOTS="$HOME/.cache/racket-compiled/@(version)/"
+```
+
+`scripts/test-report.ps1` already sets this automatically, so running it never leaves `compiled/` behind.
+
 ### Setup & Build
 ```bash
 # Verify Racket installation

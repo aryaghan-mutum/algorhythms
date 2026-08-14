@@ -1,5 +1,8 @@
 ﻿;; Author: Anurag Muthyam
 ;; Double Angle Identities
+;; Note: y is accepted but unused in every identity below -- these are single-angle
+;; formulas (2x in terms of x alone). Kept for API-shape consistency with the sibling
+;; identity files here that do need both x and y; not changed to avoid an arity break.
 
 #lang racket
 

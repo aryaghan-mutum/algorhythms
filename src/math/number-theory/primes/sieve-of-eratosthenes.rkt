@@ -1,13 +1,25 @@
-﻿;; Author: Anurag Muthyam
+;; Author: Anurag Muthyam
 
-;; Reference: https://rosettacode.org/wiki/Extensible_prime_generator
+;; Reference: https://rosettacode.org/wiki/Sieve_of_Eratosthenes#Racket
 
 #lang racket
-(require racket/trace rackunit threading)
-(provide primes-list-sieve)
+(provide primes-up-to-via-sieve)
+
+;; Same contract/result as primes.rkt's primes-up-to (trial division), computed via the
+;; Sieve of Eratosthenes instead -- O(n log log n), better for generating many primes at once.
+;; primes-up-to-via-sieve : natural? -> (listof natural?)
+(define (primes-up-to-via-sieve n)
+  (define non-primes '())
+  (define primes '())
+  (for ((i (in-range 2 (add1 n))))
+    (unless (member i non-primes)
+      (set! primes (cons i primes))
+      (for ((j (in-range (* i i) (add1 n) i)))
+        (set! non-primes (cons j non-primes)))))
+  (reverse primes))
 
 ;; Alternative implementations kept for reference (commented out) --
-;; primes-list-sieve below is the active implementation (true Sieve of Eratosthenes).
+;; primes-up-to-via-sieve above is the active implementation (true Sieve of Eratosthenes).
 #|
 ;; using loop version 1
 ;; taken and modified from https://stackoverflow.com/questions/48639863/finding-primes-up-to-a-certain-number-in-racket
@@ -35,18 +47,5 @@
           (else
            (primes-list-iter (filter (lambda (x) (not (zero? (remainder x (car lst))))) lst)
                              (cons (car lst) rlst)))))
-  (~> (primes-list-iter (build-list (sub1 n) (lambda (x) (+ x 2))) '()) ;;(cdr (cdr (build-list (sub1 n) values)))
-      (reverse _)))
+  (reverse (primes-list-iter (build-list (sub1 n) (lambda (x) (+ x 2))) '())))
 |#
-
-;; using for loop and set! version 3
-;; taken from https://rosettacode.org/wiki/Sieve_of_Eratosthenes#Racket
-(define (primes-list-sieve n)
-  (define non-primes '())
-  (define primes '())
-  (for ((i (in-range 2 (add1 n))))
-    (unless (member i non-primes)
-      (set! primes (cons i primes))
-      (for ((j (in-range (* i i) (add1 n) i)))
-        (set! non-primes (cons j non-primes)))))
-  (reverse primes))

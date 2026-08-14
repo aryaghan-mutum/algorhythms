@@ -33,7 +33,11 @@
     (test-case "single element returns that element"
       (check-equal? (find-avg-excluding-first-and-last '(9)) 9))
     (test-case "two elements returns their average"
-      (check-equal? (find-avg-excluding-first-and-last '(4 2)) 3)))
+      (check-equal? (find-avg-excluding-first-and-last '(4 2)) 3))
+    (test-case "5 elements averages the 3 middle values correctly (regression: used to divide by a hardcoded 2)"
+      (check-equal? (find-avg-excluding-first-and-last '(1 2 3 4 5)) 3.0))
+    (test-case "6 elements averages the 4 middle values correctly (regression: used to divide by a hardcoded 2)"
+      (check-equal? (find-avg-excluding-first-and-last '(1 2 3 4 5 6)) 3.5)))
 
    (test-suite
     "central-tendency/dispersion/extremes/percentile - valid"
@@ -52,6 +56,19 @@
    (test-suite
     "central-tendency/dispersion/extremes/percentile - edge"
     (test-case "median of a single-element list is that element" (check-equal? (median '(9)) 9))
-    (test-case "range of a single-element list is 0" (check-equal? (range '(4)) 0)))))
+    (test-case "range of a single-element list is 0" (check-equal? (range '(4)) 0))
+    (test-case "mean of negative and decimal values" (check-equal? (mean '(-1.5 2.5)) 0.5))
+    (test-case "minimum/maximum/range with negative values"
+      (check-equal? (minimum '(-5 -2 -8)) -8)
+      (check-equal? (maximum '(-5 -2 -8)) -2)
+      (check-equal? (range '(-5 -2 -8)) 6))
+    (test-case "percentile of a single-element list is that element regardless of p"
+      (check-equal? (percentile '(5) 50) 5)))
+
+   (test-suite
+    "central-tendency/dispersion/extremes/percentile - invalid"
+    (test-case "minimum of an empty list errors" (check-exn exn:fail? (lambda () (minimum '()))))
+    (test-case "variance of an empty list errors (mean of an empty list divides by zero)"
+      (check-exn exn:fail? (lambda () (variance '())))))))
 
 (run-tests statistics-tests)

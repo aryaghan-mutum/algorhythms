@@ -2,7 +2,6 @@
 ;; Email: anu.drumcoder@gmail.com
 
 #lang racket
-(require rackunit)
 (provide empty-lst? 
          atom?
          pair-custom?
@@ -83,32 +82,3 @@
   (cond ((empty-lst? lst) #f)
         ((fn (car lst)) #t)
         (else (any? fn (cdr lst)))))
-
-;; Tests
-(check-true (empty-lst? '()))
-(check-true (empty-lst? ""))
-(check-false (empty-lst? '(1)))
-
-(check-true (atom? 5))
-(check-false (atom? '(1 2)))
-
-(check-true (pair-custom? '(1 2)))
-(check-false (pair-custom? 5))
-
-(check-true (member-custom? 2 '(1 2 3)))
-(check-false (member-custom? 5 '(1 2 3)))
-
-(check-true (positive-list? '(1 2 3)))
-(check-false (positive-list? '(1 -2 3)))
-
-(check-true (zero-list? '(0 0 0)))
-(check-false (zero-list? '(0 1 0)))
-
-(check-true (palindrome-lst? '(1 2 1)))
-(check-false (palindrome-lst? '(1 2 3)))
-
-(check-true (all? even? '(2 4 6)))
-(check-false (all? even? '(2 3 6)))
-
-(check-true (any? even? '(1 2 3)))
-(check-false (any? even? '(1 3 5)))

@@ -21,9 +21,7 @@
 
 ;; cos θ = Adjacent Side/Hypotenuse
 (define (cosine x)
-  (if (= x 1)
-      0
-      (sine (- (/ pi 2) x))))
+  (sine (- (/ pi 2) x)))
 
 ;; tan θ = Opposite Side/Adjacent Side
 (define (tangent x)

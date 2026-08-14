@@ -3,26 +3,16 @@
 ;; https://github.com/aryaghan-mutum/
 
 #lang racket
-(require rackunit threading)
-(provide palindrome-num? int->list-helper list->int-helper
+(require threading "digit-conversion.rkt")
+(provide palindrome-num?
          (rename-out [palindrome-num? palindrome-number?]))
 
-;; Helper: convert integer to list of digits
-(define (int->list-helper n)
-  (define (aux n lst)
-    (cond ((zero? n) lst)
-          (else (aux (quotient n 10) (cons (remainder n 10) lst)))))
-  (if (zero? n) '(0) (aux n '())))
-
-;; Helper: convert list of digits to integer
-(define (list->int-helper lst)
-  (foldl (lambda (digit acc) (+ digit (* acc 10))) 0 lst))
-
 ;; Check if number is palindrome
+;; palindrome-num? : integer? -> boolean?
 (define (palindrome-num? x)
   (cond ((negative? x) #f)
         (else
-         (define y (~> (int->list-helper x)
+         (define y (~> (integer->digit-list x)
                        (reverse _)
-                       (list->int-helper _)))
+                       (digit-list->integer _)))
          (equal? x y))))

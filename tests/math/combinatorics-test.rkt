@@ -29,7 +29,9 @@
    (test-suite
     "factorial - invalid"
     (test-case "negative input violates the natural-number contract"
-      (check-exn exn:fail:contract? (lambda () (factorial -1)))))
+      (check-exn exn:fail:contract? (lambda () (factorial -1))))
+    (test-case "decimal input violates the natural-number contract"
+      (check-exn exn:fail:contract? (lambda () (factorial 4.5)))))
 
    (test-suite
     "rotations - valid"
@@ -45,7 +47,16 @@
     (test-case "rotations of an empty list"
       (check-equal? (rotations '()) '()))
     (test-case "rotations-for-num with no prime rotations"
-      (check-equal? (rotations-for-num 4) '())))
+      (check-equal? (rotations-for-num 4) '()))
+    (test-case "rotations-for-num(0) has no prime rotations"
+      (check-equal? (rotations-for-num 0) '())))
+
+   (test-suite
+    "rotations - invalid"
+    (test-case "rotations-for-num of a negative number yields no matches (documented, not an error)"
+      (check-equal? (rotations-for-num -13) '()))
+    (test-case "rotations-for-num errors on a non-integer decimal input"
+      (check-exn exn:fail:contract? (lambda () (rotations-for-num 13.5)))))
 
    (test-suite
     "permutations - valid"
@@ -70,7 +81,11 @@
    (test-suite
     "permutations - invalid"
     (test-case "valid-rpn? rejects two operand tokens in a row"
-      (check-false (valid-rpn? '(1 1)))))
+      (check-false (valid-rpn? '(1 1))))
+    (test-case "valid-rpn? currently rejects a plain operand-operand-operator run too (FLAGGED as likely inconsistent with real RPN semantics -- see permutations.rkt; this documents actual behavior, not an endorsed correctness spec)"
+      (check-false (valid-rpn? '(1 1 -1))))
+    (test-case "valid-rpn? currently rejects make-rpn's own output -- see the same flag"
+      (check-false (valid-rpn? (make-rpn '(5 6))))))
 
    (test-suite
     "pascal-triangle - valid"
@@ -84,7 +99,16 @@
    (test-suite
     "pascal-triangle - edge"
     (test-case "row 2 is the minimal two-row triangle"
-      (check-equal? (pascal-triangle 2) '((1) (1 1)))))))
+      (check-equal? (pascal-triangle 2) '((1) (1 1)))))
+
+   (test-suite
+    "pascal-triangle - invalid"
+    (test-case "pascal-triangle errors instead of looping forever on row 0"
+      (check-exn exn:fail? (lambda () (pascal-triangle 0))))
+    (test-case "pascal-triangle errors instead of looping forever on a negative row"
+      (check-exn exn:fail? (lambda () (pascal-triangle -1))))
+    (test-case "pascal-triangle errors instead of looping forever on a decimal row"
+      (check-exn exn:fail? (lambda () (pascal-triangle 2.5)))))))
 
 (run-tests combinatorics-tests)
 
