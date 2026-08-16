@@ -1,7 +1,8 @@
 #lang racket
 
-;; Number Theory Module
-;; Re-exports all number theory functions
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
+;; Number Theory module: re-exports all number-theory functions.
 
 (require "primes/primes.rkt"
          "primes/prime-factors.rkt"
@@ -18,6 +19,8 @@
          "lcm.rkt"
          "pythagorean-triplets.rkt"
          "even-odd-lists.rkt"
+         "collatz.rkt"
+         "leap-year.rkt"
          "divisibility/divisors.rkt"
          "divisibility/safe-div.rkt")
 
@@ -36,5 +39,7 @@
          (all-from-out "lcm.rkt")
          (all-from-out "pythagorean-triplets.rkt")
          (all-from-out "even-odd-lists.rkt")
+         (all-from-out "collatz.rkt")
+         (all-from-out "leap-year.rkt")
          (all-from-out "divisibility/divisors.rkt")
          (all-from-out "divisibility/safe-div.rkt"))

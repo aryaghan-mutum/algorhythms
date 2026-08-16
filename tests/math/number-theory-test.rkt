@@ -20,6 +20,8 @@
          "../../src/math/number-theory/reverse-number.rkt"
          "../../src/math/number-theory/pythagorean-triplets.rkt"
          "../../src/math/number-theory/even-odd-lists.rkt"
+         "../../src/math/number-theory/collatz.rkt"
+         "../../src/math/number-theory/leap-year.rkt"
          "../../src/math/number-theory/divisibility/divisors.rkt"
          "../../src/math/number-theory/divisibility/safe-div.rkt")
 
@@ -283,7 +285,33 @@
     (test-case "reverse-number of a negative number reverses the magnitude"
       (check-equal? (reverse-number -123) 321))
     (test-case "reverse-number errors on a non-integer decimal input"
-      (check-exn exn:fail:contract? (lambda () (reverse-number 4.5)))))))
+      (check-exn exn:fail:contract? (lambda () (reverse-number 4.5)))))
+
+   (test-suite
+    "collatz-steps - valid"
+    (test-case "n=1 base case is 1 step" (check-equal? (collatz-steps 1) 1))
+    (test-case "n=2 takes 2 steps" (check-equal? (collatz-steps 2) 2))
+    (test-case "n=6 takes 9 steps" (check-equal? (collatz-steps 6) 9))
+    (test-case "n=27 (long chain) takes 112 steps" (check-equal? (collatz-steps 27) 112)))
+
+   (test-suite
+    "collatz-steps - invalid"
+    (test-case "zero raises"
+      (check-exn exn:fail? (lambda () (collatz-steps 0))))
+    (test-case "negative raises"
+      (check-exn exn:fail? (lambda () (collatz-steps -5)))))
+
+   (test-suite
+    "leap-year? - valid"
+    (test-case "2000 is a leap year (div by 400)" (check-true (leap-year? 2000)))
+    (test-case "2020 is a leap year (div by 4, not 100)" (check-true (leap-year? 2020)))
+    (test-case "2100 is NOT a leap year (div by 100, not 400)" (check-false (leap-year? 2100)))
+    (test-case "2019 is not a leap year" (check-false (leap-year? 2019))))
+
+   (test-suite
+    "leap-year? - edge"
+    (test-case "year 0 is a leap year (divisible by 400)" (check-true (leap-year? 0)))
+    (test-case "negative year 4 is treated as leap" (check-true (leap-year? -4))))))
 
 (run-tests number-theory-tests)
 

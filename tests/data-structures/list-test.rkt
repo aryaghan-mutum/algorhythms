@@ -16,7 +16,10 @@
          "../../src/data-structures/list/append.rkt"
          "../../src/data-structures/list/copy-list.rkt"
          "../../src/data-structures/list/copy-tree.rkt"
-         "../../src/data-structures/list/range.rkt")
+         "../../src/data-structures/list/range.rkt"
+         "../../src/data-structures/list/alternative-elems.rkt"
+         "../../src/data-structures/list/pack.rkt"
+         "../../src/data-structures/list/encode.rkt")
 
 (define list-tests
   (test-suite
@@ -174,6 +177,42 @@
       (test-case "1..1" (check-equal? (range-1-to-n 1) '(1))))
     (test-suite "- edge"
       (test-case "n=0 gives empty" (check-equal? (range-1-to-n 0) '()))
-      (test-case "negative n gives empty" (check-equal? (range-1-to-n -3) '()))))))
+      (test-case "negative n gives empty" (check-equal? (range-1-to-n -3) '()))))
+
+   (test-suite
+    "alternative-elems"
+    (test-suite "- valid"
+      (test-case "odd-indexed elements"
+        (check-equal? (alternative-elems '(1 2 3 4 5)) '(1 3 5)))
+      (test-case "four elements"
+        (check-equal? (alternative-elems '(1 2 3 4)) '(1 3))))
+    (test-suite "- edge"
+      (test-case "empty" (check-equal? (alternative-elems '()) '()))
+      (test-case "singleton" (check-equal? (alternative-elems '(x)) '(x)))
+      (test-case "two elements returns first only"
+        (check-equal? (alternative-elems '(a b)) '(a)))))
+
+   (test-suite
+    "pack"
+    (test-suite "- valid"
+      (test-case "consecutive duplicates grouped"
+        (check-equal? (pack '(a a b c c a b a a)) '((a a) (b) (c c) (a) (b) (a a))))
+      (test-case "long runs"
+        (check-equal? (pack '(a a a a b c c a a d e e e e))
+                      '((a a a a) (b) (c c) (a a) (d) (e e e e)))))
+    (test-suite "- edge"
+      (test-case "empty" (check-equal? (pack '()) '()))
+      (test-case "singleton" (check-equal? (pack '(x)) '((x))))
+      (test-case "all same" (check-equal? (pack '(y y y)) '((y y y))))))
+
+   (test-suite
+    "encode (run-length)"
+    (test-suite "- valid"
+      (test-case "mixed runs"
+        (check-equal? (encode '(a a a a b c c a a d e e e e))
+                      '((4 a) (1 b) (2 c) (2 a) (1 d) (4 e)))))
+    (test-suite "- edge"
+      (test-case "empty" (check-equal? (encode '()) '()))
+      (test-case "all same" (check-equal? (encode '(x x x)) '((3 x))))))))
 
 (run-tests list-tests)

@@ -168,7 +168,34 @@
       (check-equal? (c) 1))
     (let ([c1 (make-counter)] [c2 (make-counter)])
       (c1) (c1)
-      (check-equal? (c2) 0 "independent counters do not share state")))))
+      (check-equal? (c2) 0 "independent counters do not share state")))
+
+   ;; ========== lazy tests ==========
+   (test-suite
+    "lazy"
+    (test-case "returns thunk result on first call"
+      (let ([l (lazy (lambda () 42))])
+        (check-equal? (l) 42)))
+    (test-case "thunk is evaluated exactly once (memoized)"
+      (let* ([calls 0]
+             [l (lazy (lambda () (set! calls (add1 calls)) 'ok))])
+        (l) (l) (l)
+        (check-equal? calls 1))))
+
+   ;; ========== memoize tests ==========
+   (test-suite
+    "memoize"
+    (test-case "returns same result as underlying fn"
+      (let ([mf (memoize (lambda (x) (* x x)))])
+        (check-equal? (mf 4) 16)
+        (check-equal? (mf 5) 25)))
+    (test-case "underlying fn is called once per argument"
+      (let* ([calls 0]
+             [mf (memoize (lambda (x) (set! calls (add1 calls)) (* x 2)))])
+        (mf 3) (mf 3) (mf 3)
+        (check-equal? calls 1)
+        (mf 4)
+        (check-equal? calls 2))))))
 
 ;; Run tests
 (run-tests hof-tests 'verbose)

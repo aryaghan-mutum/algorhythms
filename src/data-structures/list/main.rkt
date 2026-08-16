@@ -15,7 +15,10 @@
          "remove-elem.rkt"
          "occurrences.rkt"
          "nth.rkt"
-         "switch-elems.rkt")
+         "switch-elems.rkt"
+         "alternative-elems.rkt"
+         "pack.rkt"
+         "encode.rkt")
 
 (provide (all-from-out "length.rkt")
          (all-from-out "last.rkt")
@@ -28,4 +31,7 @@
          (all-from-out "remove-elem.rkt")
          (all-from-out "occurrences.rkt")
          (all-from-out "nth.rkt")
-         (all-from-out "switch-elems.rkt"))
+         (all-from-out "switch-elems.rkt")
+         (all-from-out "alternative-elems.rkt")
+         (all-from-out "pack.rkt")
+         (all-from-out "encode.rkt"))

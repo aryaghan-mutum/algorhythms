@@ -15,5 +15,5 @@
 (define racket-launcher-libraries '("bin/cli.rkt"))
 
 ;; Exclude folders from compilation and tests; bin/ is compiled so the launcher above can run
-(define compile-omit-paths '("src/_others" "doc" "examples"))
-(define test-omit-paths '("src/_others" "doc" "examples" "scribblings" "bin"))
+(define compile-omit-paths '("doc" "examples"))
+(define test-omit-paths '("doc" "examples" "scribblings" "bin"))

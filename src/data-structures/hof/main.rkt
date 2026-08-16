@@ -21,7 +21,9 @@
          "scan.rkt"
          "complement.rkt"
          "identity.rkt"
-         "counter.rkt")
+         "counter.rkt"
+         "lazy.rkt"
+         "memoize.rkt")
 
 (provide
   mapper
@@ -45,4 +47,6 @@
   constantly
   complement
   identity
-  make-counter)
+  make-counter
+  lazy
+  memoize)
