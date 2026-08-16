@@ -270,7 +270,7 @@ $fileDetailSections = ($suites | ForEach-Object {
   <details class="file-detail"$openAttr>
     <summary>$file &nbsp;<span class="muted">($($entries.Count) test case$(if ($entries.Count -ne 1) { 's' }))</span></summary>
     <table class="case-table">
-      <thead><tr><th>Test Case</th><th>Method</th><th>Description</th><th>Status</th><th>Detail</th></tr></thead>
+      <thead><tr><th>Test Case</th><th>Method Name</th><th>Description</th><th>Status</th><th>Detail</th></tr></thead>
       <tbody>
 $caseRows
       </tbody>
