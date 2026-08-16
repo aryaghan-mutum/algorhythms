@@ -46,6 +46,12 @@ These are established conventions for this repository — do not deviate:
    doesn't scale and creates a second, parallel structure to the existing
    subfolders. When a brand-new topic needs adding (no existing subfolder),
    create a new subfolder following this same pattern, not a flat file.
+   **Corollary: never nest one topic subfolder inside another** (e.g. a
+   `list/list/` directory holding exercise variants of the parent `list/`
+   files). If you find one, treat every file inside it as either a
+   duplicate (delete) or a genuinely different implementation that belongs
+   in the parent folder under a distinct professional name (move up, then
+   delete the nested directory).
 2. **One test file per module, not per function.** Test files mirror the
    `main.rkt` aggregation boundary (e.g. all of `src/math/combinatorics/*.rkt`
    is covered by a single `tests/math/combinatorics-test.rkt`). Never create
@@ -127,6 +133,28 @@ These are established conventions for this repository — do not deviate:
     `(require)`s the module. This is a silent, easy-to-miss regression:
     check for it specifically whenever a function's name matches a Racket
     built-in.
+14. **Scratch-folder disposition follows one process, always.** When a
+    "junk drawer" folder appears in `src/` (e.g. `src/_others/`, an
+    `exercises/` tree, or a "lambda-prob*.rkt" scratchpad), do not skim
+    it. Do an explicit **inventory → migrate → prune** pass:
+    (a) list every function and cross-check each against the production
+        trees (`src/math/`, `src/data-structures/`, `src/encoding/`) — is
+        this a duplicate of something already exported?
+    (b) for anything genuinely unique with real reuse value (e.g. `lazy`,
+        `memoize`, `leap-year?`, `collatz-steps` — the four items found in
+        `src/_others/` during the 2026 clean-code pass), migrate it into
+        the correct production folder with a professional name, a two-line
+        doc comment, valid/edge/invalid tests, and a `require` line in the
+        matching `main.rkt`; then delete the source in the scratch folder;
+    (c) delete everything else in the scratch tree (broken code, exact
+        duplicates, pure lecture notes, side-effecting demos that run on
+        load) — do not leave it behind as `#|...|#` blocks or as an
+        omit-path in `info.rkt`;
+    (d) once the folder is empty, drop the `compile-omit-paths` /
+        `test-omit-paths` entries in `info.rkt` that referenced it.
+    User approval is required at step (a) — get a decision on which
+    items to migrate before deleting the rest. This is the standard
+    playbook for any future `_others`-style folder.
 5. **Valid / edge / invalid categorization per function:**
    - *Valid*: at least one representative, correct-input case.
    - *Edge*: boundary values relevant to the function (0, empty list,
