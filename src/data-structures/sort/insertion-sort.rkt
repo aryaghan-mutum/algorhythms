@@ -1,22 +1,21 @@
-;; Author: Anurag Muthyam
-
 #lang racket
+
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
+
 (require racket/contract)
 
 (provide
   (contract-out
-    [insert-sort-v1 (-> list? list?)]))
+    [insertion-sort (-> (listof real?) (listof real?))]))
 
-;; insertion sort version 1
-(define (insert-sort-v1 lst)
+;; Insertion sort using `<=`; produces ascending order for a list of numbers.
+;; insertion-sort : (listof real?) -> (listof real?)
+(define (insertion-sort lst)
+  (define (insert n sorted)
+    (cond ((empty? sorted) (list n))
+          ((<= n (car sorted)) (cons n sorted))
+          (else (cons (car sorted) (insert n (cdr sorted))))))
   (if (empty? lst)
       '()
-      (insert-sort-v1-helper (car lst)
-                             (insert-sort-v1 (cdr lst)))))
-
-(define (insert-sort-v1-helper n lst)
-  (if (empty? lst)
-      (cons n '())
-      (if (<= n (car lst))
-          (cons n lst)
-          (cons (car lst) (insert-sort-v1-helper n (cdr lst))))))
+      (insert (car lst) (insertion-sort (cdr lst)))))

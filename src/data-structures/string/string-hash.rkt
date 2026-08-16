@@ -1,26 +1,19 @@
-;; Author: Anurag Muthyam
-
 #lang racket
-(require racket/trace)
-(provide string-hash-v2)
 
-;; Alternative implementation kept for reference (commented out) --
-;; string-hash-v2 below is the active implementation (compact named-let form).
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
+
+(provide string-hash-custom)
+
+;; Compute a DJB-style hash of `str`: h = 31 * h + code(char) for each char.
+;; string-hash-custom : string? -> exact-nonnegative-integer?
+(define (string-hash-custom str)
+  (let loop ((chars (string->list str)) (result 0))
+    (cond ((empty? chars) result)
+          (else (loop (cdr chars)
+                      (+ (* 31 result) (char->integer (car chars))))))))
+
 #|
-;; iterative process version 1
-(define (string-hash-v1 str)
-  (define (string-hash-iter lst result)
-    (cond ((empty? lst) result)
-          (else
-           (string-hash-iter (cdr lst)
-                             (+ (* 31 result) (char->integer (car lst)))))))
-  (string-hash-iter (string->list str) 0))
+;; Retired: earlier iterative variant using a named helper; the named-let
+;; version above is more compact for the same behavior.
 |#
-
-;; let version 2
-(define (string-hash-v2 str)
-  (let loop ((lst (string->list str)) (result 0))
-    (cond ((empty? lst) result)
-          (else
-           (loop (cdr lst)
-                 (+ (* 31 result) (char->integer (car lst))))))))

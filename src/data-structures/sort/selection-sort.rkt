@@ -1,26 +1,25 @@
-;; Author: Anurag Muthyam
-
 #lang racket
+
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
+
 (require racket/contract)
 
 (provide
   (contract-out
-    [selection-sort-v1 (-> list? list?)]))
+    [selection-sort (-> (listof real?) (listof real?))]))
 
-;; selection sort version 1
-(define (selection-sort-v1 lst)
-  (define (selection-sort-helper rsf lst)
-    (cond ((empty? lst) rsf)
-          (else (define minimum (smallest lst))
-                (selection-sort-helper (cons minimum rsf)
-                                       (remove minimum lst)))))
-  (selection-sort-helper '() lst))
-
-(define (smallest lst)
-  (define (smallest-helper frst lst)
-    (if (empty? lst)
-        frst
-        (if (> frst (car lst))
-            (smallest-helper frst (cdr lst))
-            (smallest-helper (car lst) (cdr lst)))))
-  (smallest-helper (car lst) (cdr lst)))
+;; Selection sort producing ascending order for a list of numbers.
+;; selection-sort : (listof real?) -> (listof real?)
+(define (selection-sort lst)
+  (define (smallest lst)
+    (define (loop current lst)
+      (cond ((empty? lst) current)
+            ((< (car lst) current) (loop (car lst) (cdr lst)))
+            (else (loop current (cdr lst)))))
+    (loop (car lst) (cdr lst)))
+  (define (loop acc lst)
+    (cond ((empty? lst) (reverse acc))
+          (else (let ((m (smallest lst)))
+                  (loop (cons m acc) (remove m lst))))))
+  (loop '() lst))

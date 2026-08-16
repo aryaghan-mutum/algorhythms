@@ -5,8 +5,8 @@
 
 (provide flatmap)
 
-;; Flatten nested lists into a single flat list
-;; (flatmap '(1 (2 3) ((4 5) 6))) => '(1 2 3 4 5 6)
+;; Flatten nested lists into a single flat list (iterative accumulator).
+;; flatmap : list? -> list?
 (define (flatmap lst)
   (define (helper lst acc)
     (cond ((empty? lst) acc)

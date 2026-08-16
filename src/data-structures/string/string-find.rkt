@@ -1,13 +1,14 @@
-;; Author: Anurag Muthyam
-
-;; gets the starting position of a pattern in a string,
-;; or #f if the string does not contain the pattern; it uses the Knuth-Morris-Pratt string search algorithm:
-
 #lang racket
-(require threading racket/trace)
+
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
+
 (provide string-find)
 
-(define (string-find pat str . s)
+;; Return the starting index of `pat` inside `str` using Knuth-Morris-Pratt;
+;; returns #f when the pattern is absent. Optional 3rd arg is start offset.
+;; string-find : string? string? [exact-nonnegative-integer?] -> (or/c exact-nonnegative-integer? #f)
+(define (string-find pat str . start)
   (let* ((plen (string-length pat))
          (slen (string-length str))
          (skip (make-vector plen 0)))
@@ -19,7 +20,7 @@
             ((< 0 j) (loop i (vector-ref skip (- j 1))))
             (else (vector-set! skip i 0)
                   (loop (+ i 1) j))))
-    (let loop ((p 0) (s (if (null? s) 0 (car s))))
+    (let loop ((p 0) (s (if (null? start) 0 (car start))))
       (cond ((= s slen) #f)
             ((char=? (string-ref pat p) (string-ref str s))
              (if (= p (- plen 1))

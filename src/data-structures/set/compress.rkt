@@ -1,11 +1,12 @@
-;; Author: Anurag Muthyam
-
 #lang racket
-(require rackunit)
+
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
+
 (provide compress)
 
-;; compress: get unique elements from a list using append
-;; the order of the elements mustn't be changed.
+;; Collapse consecutive equal elements to a single occurrence (like Unix `uniq`).
+;; compress : list? -> list?
 (define (compress lst [acc '()])
   (if (>= (length lst) 2)
       (if (equal? (car lst) (cadr lst))

@@ -5,8 +5,8 @@
 
 (provide scan)
 
-;; Scan - returns list of all intermediate accumulator values
-;; (scan + 0 '(1 2 3 4)) => '(0 1 3 6 10)
+;; Left-fold that keeps every intermediate accumulator value, including init.
+;; scan : (any/c any/c -> any/c) any/c list? -> list?
 (define (scan fn init lst)
   (let loop ((acc init) (lst lst) (result (list init)))
     (if (empty? lst)

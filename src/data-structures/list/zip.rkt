@@ -1,31 +1,20 @@
+#lang racket
+
 ;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 
-#lang racket
-(provide zip-v1 zip-v2 zip-v3)
+(provide zip)
 
-;; =================
+;; Transpose several lists into a list of tuples, truncating to the shortest input.
+;; zip : list? ... -> (listof list?)
+(define (zip . lsts)
+  (cond ((null? lsts) '())
+        ((ormap empty? lsts) '())
+        (else (cons (map car lsts)
+                    (apply zip (map cdr lsts))))))
 
-;; apply version 1
-(define (zip-v1 . lst)
-  (apply map list lst))
-
-;; =================
-
-;; iterative process version 2
-(define (zip-v2 lst)
-  (define (zip-aux lst rlst)
-    (cond ((empty? lst) rlst)
-          (else (zip-aux (cdr lst)
-                         (cons (list (car lst)) rlst)))))
-  (reverse (zip-aux lst '())))
-
-;; =================
-
-;; loop version 3
-(define (zip-v3 lst)
-  (let loop ((lst lst) (rlst '()))
-    (cond ((empty? lst) (reverse rlst))
-          (else
-           (loop (cdr lst)
-                 (cons (list (car lst)) rlst))))))
+#|
+;; Retired: two earlier single-argument variants (iterative accumulator and
+;; named-let), both wrapped each element in a one-element list rather than
+;; transposing multiple lists — not a real zip.
+|#

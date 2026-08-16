@@ -5,8 +5,8 @@
 
 (provide foreach)
 
-;; Apply fn to each element and return new list
-;; (foreach add1 '(1 2 3)) => '(2 3 4)
+;; Apply fn to each element, returning the new list (non-mutating).
+;; foreach : (any/c -> any/c) list? -> list?
 (define (foreach fn lst)
   (if (empty? lst)
       '()
