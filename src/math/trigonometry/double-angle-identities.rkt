@@ -1,36 +1,33 @@
-﻿;; Author: Anurag Muthyam
-;; Double Angle Identities
-;; Note: y is accepted but unused in every identity below -- these are single-angle
-;; formulas (2x in terms of x alone). Kept for API-shape consistency with the sibling
-;; identity files here that do need both x and y; not changed to avoid an arity break.
+﻿#lang racket
 
-#lang racket
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
 
 (require "./trigonometry.rkt")
+
 (provide sin2x
          tan2x
          sec2x
          cosec2x)
 
-;; double angle identity for sin(2x)
-(define sin2x
-  (lambda (x y)
-    (* 2 (sine x) (cosine x))))
+;; Double-angle identity: sin(2x) = 2 sin(x) cos(x).
+;; sin2x : real? -> real?
+(define (sin2x x)
+  (* 2 (sine x) (cosine x)))
 
-;; double angle identity for tan(2x)
-(define tan2x
-  (lambda (x y)
-    (/ (* 2 (tangent x))
-       (- 1 (sqr (tangent x))))))
+;; Double-angle identity: tan(2x) = 2 tan(x) / (1 - tan^2(x)).
+;; tan2x : real? -> real?
+(define (tan2x x)
+  (/ (* 2 (tangent x))
+     (- 1 (sqr (tangent x)))))
 
-;; double angle identity for sec(2x)
-(define sec2x
-  (lambda (x y)
-    (/ (sqr (secant x))
-       (- 2 (sqr (secant x))))))
+;; Double-angle identity: sec(2x) = sec^2(x) / (2 - sec^2(x)).
+;; sec2x : real? -> real?
+(define (sec2x x)
+  (/ (sqr (secant x))
+     (- 2 (sqr (secant x)))))
 
-;; double angle identity for cosec(2x)
-(define cosec2x
-  (lambda (x y)
-    (/ (* (secant x)
-          (cosecant x)) 2)))
+;; Double-angle identity: cosec(2x) = sec(x) cosec(x) / 2.
+;; cosec2x : real? -> real?
+(define (cosec2x x)
+  (/ (* (secant x) (cosecant x)) 2))

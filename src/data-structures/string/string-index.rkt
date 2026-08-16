@@ -1,24 +1,19 @@
-;; Author: Anurag Muthyam
-
 #lang racket
-(require threading racket/trace)
-(provide string-index-v2)
 
-;; Alternative implementation kept for reference (commented out) --
-;; string-index-v2 below is the active implementation (compact named-let form).
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
+
+(provide string-index-of-char)
+
+;; Return the 0-based index of the first `ch` in `str`, or #f if absent.
+;; string-index-of-char : char? string? -> (or/c exact-nonnegative-integer? #f)
+(define (string-index-of-char ch str)
+  (let loop ((chars (string->list str)) (index 0))
+    (cond ((empty? chars) #f)
+          ((char=? (car chars) ch) index)
+          (else (loop (cdr chars) (add1 index))))))
+
 #|
-;; iterative process version 1
-(define (string-index-v1 c str)
-  (define (string-index-iter lst index)
-    (cond ((empty? lst) #f)
-          ((char=? (car lst) c) index)
-          (else (string-index-iter (cdr lst) (add1 index)))))
-  (string-index-iter (string->list str) 0))
+;; Retired: earlier iterative variant using a named helper; the named-let
+;; version above is more compact for the same behavior.
 |#
-
-;; let version 2
-(define (string-index-v2 c str)
-  (let loop ((lst (string->list str)) (index 0))
-    (cond ((empty? lst) #f)
-          ((char=? (car lst) c) index)
-          (else (loop (cdr lst) (add1 index))))))

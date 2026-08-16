@@ -1,8 +1,9 @@
+#lang racket
+
 ;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
 
-#lang racket
-(provide empty-lst? 
+(provide empty-lst?
          atom?
          pair-custom?
          list-custom?
@@ -13,71 +14,82 @@
          even-all?
          odd-all?
          palindrome-lst?
-         all? 
+         all?
          any?)
 
-;; check if a list is null and a string is empty
+;; Return #t when `x` is null or an empty string.
+;; empty-lst? : any/c -> boolean?
 (define (empty-lst? x)
   (or (null? x)
       (and (string? x) (string=? x ""))))
 
-;; check if x is an atom
+;; Return #t when `x` is not a pair (an atom in the Lisp sense).
+;; atom? : any/c -> boolean?
 (define (atom? x)
   (not (pair? x)))
 
-;; check if x is a pair
+;; Return #t when `x` is a cons pair (custom-named to avoid shadowing racket/base).
+;; pair-custom? : any/c -> boolean?
 (define (pair-custom? x)
   (not (atom? x)))
 
-;; check is a list is empty
+;; Return #t when `lst` is a proper list (custom, avoids shadowing racket/base list?).
+;; list-custom? : any/c -> boolean?
 (define (list-custom? lst)
   (or (empty-lst? lst)
       (and (pair? lst)
            (list-custom? (cdr lst)))))
 
-;; check if a number is present in a list
-(define (member-custom? n lst)
-    (cond ((empty-lst? lst) #f)
-          ((eq? n (car lst)) #t)
-          (else (member-custom? n (cdr lst)))))
+;; Return #t if `item` is present in `lst` (custom eq? scan, avoids shadowing member).
+;; member-custom? : any/c list? -> boolean?
+(define (member-custom? item lst)
+  (cond ((empty-lst? lst) #f)
+        ((eq? item (car lst)) #t)
+        (else (member-custom? item (cdr lst)))))
 
-;; checks if all elements in a list are positive
+;; Return #t when every element in `lst` is >= 0.
+;; positive-list? : (listof number?) -> boolean?
 (define (positive-list? lst)
   (cond ((empty-lst? lst) #t)
         ((< (car lst) 0) #f)
         (else (positive-list? (cdr lst)))))
 
-;; checks if any element in a list is negative
+;; Return #t when at least one element in `lst` is negative.
+;; negative-list? : (listof number?) -> boolean?
 (define (negative-list? lst)
   (not (positive-list? lst)))
 
-;; check if all the elements in a list are zero
+;; Return #t when every element of `lst` is 0.
+;; zero-list? : (listof number?) -> boolean?
 (define (zero-list? lst)
   (cond ((empty-lst? lst) #t)
         ((not (= (car lst) 0)) #f)
-        (else (zero-list? (cdr lst)))))      
+        (else (zero-list? (cdr lst)))))
 
-;; check each and every element in a list of even boolean expression
+;; Return a list of booleans indicating even? for each element.
+;; even-all? : (listof exact-integer?) -> (listof boolean?)
 (define (even-all? lst)
   (map even? lst))
 
-;; check each and every element in a list of odd boolean expression
-(define (odd-all? lst) 
+;; Return a list of booleans indicating odd? for each element.
+;; odd-all? : (listof exact-integer?) -> (listof boolean?)
+(define (odd-all? lst)
   (map odd? lst))
 
-;; check if a list is palindrome 
+;; Return #t when `lst` reads the same forward and backward.
+;; palindrome-lst? : list? -> boolean?
 (define (palindrome-lst? lst)
   (equal? lst (reverse lst)))
 
-;; - returns #t if the list is empty
-;; - returns #f if atleast one of the elems is #f for (fn (car lst))
+;; Return #t when `fn` holds for every element of `lst` (vacuously true for '()).
+;; all? : (any/c -> boolean?) list? -> boolean?
 (define (all? fn lst)
   (cond ((empty-lst? lst) #t)
         ((fn (car lst)) (all? fn (cdr lst)))
         (else #f)))
 
-;; - returns #f if the list is empty
-;; - returns #t if atleast one of the elems is #t
+;; Return #t when `fn` holds for at least one element of `lst`.
+;; any? : (any/c -> boolean?) list? -> boolean?
 (define (any? fn lst)
   (cond ((empty-lst? lst) #f)
         ((fn (car lst)) #t)

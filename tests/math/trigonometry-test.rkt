@@ -47,19 +47,19 @@
 
    (test-suite
     "double-angle identities - valid"
-    (test-case "sin2x approximates sin(2x)" (check-within (sin2x x y) (sin (* 2 x)) TOL))
-    (test-case "tan2x approximates tan(2x)" (check-within (tan2x x y) (tan (* 2 x)) TOL))
-    (test-case "sec2x approximates 1/cos(2x)" (check-within (sec2x x y) (/ 1 (cos (* 2 x))) TOL))
-    (test-case "cosec2x approximates 1/sin(2x)" (check-within (cosec2x x y) (/ 1 (sin (* 2 x))) TOL)))
+    (test-case "sin2x approximates sin(2x)" (check-within (sin2x x) (sin (* 2 x)) TOL))
+    (test-case "tan2x approximates tan(2x)" (check-within (tan2x x) (tan (* 2 x)) TOL))
+    (test-case "sec2x approximates 1/cos(2x)" (check-within (sec2x x) (/ 1 (cos (* 2 x))) TOL))
+    (test-case "cosec2x approximates 1/sin(2x)" (check-within (cosec2x x) (/ 1 (sin (* 2 x))) TOL)))
 
    (test-suite
-    "reciprocal-trigonometry - valid (documents actual reciprocal behavior, not true arc-functions)"
-    (test-case "reciprocal-sin matches -(1/sin(x))" (check-within (reciprocal-sin x) (- (/ 1 (sin x))) TOL))
-    (test-case "reciprocal-cos matches pi - 1/sin(x)" (check-within (reciprocal-cos x) (- pi (/ 1 (sin x))) TOL))
-    (test-case "reciprocal-tan matches -(1/tan(x))" (check-within (reciprocal-tan x) (- (/ 1 (tan x))) TOL))
-    (test-case "reciprocal-sec matches -(1/sec(x))" (check-within (reciprocal-sec x) (- (cos x)) TOL))
-    (test-case "reciprocal-cot matches pi - 1/cot(x)" (check-within (reciprocal-cot x) (- pi (tan x)) TOL))
-    (test-case "reciprocal-cosec matches -(1/cosec(x))" (check-within (reciprocal-cosec x) (- (sin x)) TOL)))
+    "reciprocal-trigonometry - valid (true reciprocals: 1/fn(x))"
+    (test-case "reciprocal-sin matches 1/sin(x)" (check-within (reciprocal-sin x) (/ 1 (sin x)) TOL))
+    (test-case "reciprocal-cos matches 1/cos(x)" (check-within (reciprocal-cos x) (/ 1 (cos x)) TOL))
+    (test-case "reciprocal-tan matches 1/tan(x)" (check-within (reciprocal-tan x) (/ 1 (tan x)) TOL))
+    (test-case "reciprocal-sec matches cos(x)" (check-within (reciprocal-sec x) (cos x) TOL))
+    (test-case "reciprocal-cot matches tan(x)" (check-within (reciprocal-cot x) (tan x) TOL))
+    (test-case "reciprocal-cosec matches sin(x)" (check-within (reciprocal-cosec x) (sin x) TOL)))
 
    (test-suite
     "sum-and-difference identities - valid"

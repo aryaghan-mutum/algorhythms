@@ -1,34 +1,24 @@
+#lang racket
+
 ;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum
 
-#lang racket
-(require rackunit)
 (provide pack)
 
-;; Algorithm:
-;; Pack consecutive duplicates of list elements into sublists.
-;; if a list contains repeated elements they should be placed in separate sublists.
-;; taken from 99-racket-problems online
+;; Group consecutive equal elements of `lst` into sublists (a.k.a. "run" grouping).
+;; From the "99 Racket problems" series.
+;; pack : list? -> (listof list?)
+(define (pack lst)
+  (cond ((empty? lst) '())
+        (else
+         (define-values (run rest) (split-run lst))
+         (cons run (pack rest)))))
 
-(define (pack lst [acc '()])
-  (cond ((empty? lst) acc)
-        ((empty? acc) (pack (cdr lst)
-                            (list (list (car lst)))))
-        ((equal? (car lst) (car (last acc))) (pack (cdr lst)
-                                                   (add-to-end acc (car lst))))
-        (else (pack (cdr lst)
-                    (append acc (list (list (car lst))))))))
-
-(define (add-to-end lst x)
-  (append (neck lst)
-          (list (append (last lst) (list x)))))
-
-(define (neck lst [acc '()])
-  (if (< (length lst) 2)
-      acc
-      (neck (cdr lst)
-            (append acc (list (car lst))))))
-
-(check-equal? (pack '(a a b c c a b a a)) '((a a) (b) (c c) (a) (b) (a a)))
-(check-equal? (pack '(a a a a b c c a a d e e e e)) '((a a a a) (b) (c c) (a a) (d) (e e e e)))
+;; Split `lst` at the boundary of the first run of equal elements.
+;; split-run : (and/c list? (not/c empty?)) -> (values list? list?)
+(define (split-run lst)
+  (define head (car lst))
+  (let loop ((rest (cdr lst)) (run (list head)))
+    (cond ((empty? rest) (values (reverse run) '()))
+          ((equal? (car rest) head) (loop (cdr rest) (cons (car rest) run)))
+          (else (values (reverse run) rest)))))

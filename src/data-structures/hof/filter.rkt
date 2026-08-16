@@ -5,8 +5,8 @@
 
 (provide filter-custom)
 
-;; Filter elements that satisfy predicate fn
-;; (filter-custom even? '(1 2 3 4 5 6)) => '(2 4 6)
+;; Keep only elements of lst that satisfy predicate fn.
+;; filter-custom : (any/c -> boolean?) list? -> list?
 (define (filter-custom fn lst)
   (cond ((empty? lst) '())
         ((fn (car lst)) (cons (car lst) (filter-custom fn (cdr lst))))

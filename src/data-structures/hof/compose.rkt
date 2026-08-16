@@ -6,13 +6,13 @@
 (provide compose-fns
          pipe)
 
-;; Compose multiple functions (right to left)
-;; ((compose-fns add1 sqr sub1) 4) => (add1 (sqr (sub1 4))) = 10
+;; Right-to-left function composition; the last argument is applied first.
+;; compose-fns : (any/c -> any/c) ... -> (any/c -> any/c)
 (define (compose-fns . fns)
   (lambda (x)
     (foldr (lambda (fn acc) (fn acc)) x fns)))
 
-;; Pipe functions (left to right) - opposite of compose
-;; ((pipe sub1 sqr add1) 4) => (add1 (sqr (sub1 4))) = 10
+;; Left-to-right function composition; the first argument is applied first.
+;; pipe : (any/c -> any/c) ... -> (any/c -> any/c)
 (define (pipe . fns)
   (apply compose-fns (reverse fns)))

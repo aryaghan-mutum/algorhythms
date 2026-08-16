@@ -1,18 +1,22 @@
-;; Author: Anurag Muthyam
-
 #lang racket
+
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
+
 (require racket/contract)
 
 (provide
   (contract-out
-    [quick-sort-v1 (-> list? procedure? list?)]))
+    [quick-sort (-> list? (-> any/c any/c any/c) list?)]))
 
-;; quicksort using match, curry and let-values version 1
-(define (quick-sort-v1 lst fn)
+;; Quicksort using comparator `less?`; (less? a b) => #t means a precedes b.
+;; Passing `<` yields ascending order for numbers.
+;; quick-sort : list? (any/c any/c -> boolean?) -> list?
+(define (quick-sort lst less?)
   (match lst
     ('() '())
-    ((cons x xs)
-     (let-values (((xs-gte xs-lt) (partition (curry fn x) xs)))
-       (append (quick-sort-v1 xs-lt fn)
-               (list x)
-               (quick-sort-v1 xs-gte fn))))))
+    ((cons pivot rest)
+     (let-values (((geq lt) (partition (curry less? pivot) rest)))
+       (append (quick-sort lt less?)
+               (list pivot)
+               (quick-sort geq less?))))))

@@ -1,27 +1,25 @@
-;; Author: Anurag Muthyam
-
 #lang racket
+
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
 
 (provide duplicates-by-elem
          duplicates-by-fn)
 
-;; get a list of duplicate elements based on the element in the list
+;; Return every occurrence of `e` inside `lst` as a list (order reversed).
+;; duplicates-by-elem : list? any/c -> list?
 (define (duplicates-by-elem lst e)
-  (define (duplicate-elems-aux lst rlst e)
-    (cond ((empty? lst) rlst)
-          ((equal? (not (equal? e (car lst))) #f)
-           (duplicate-elems-aux (cdr lst)
-                                (cons (car lst) rlst)
-                                e))
-          (else (duplicate-elems-aux (cdr lst) rlst e))))
-  (duplicate-elems-aux lst '() e))
+  (define (loop lst acc)
+    (cond ((empty? lst) acc)
+          ((equal? e (car lst)) (loop (cdr lst) (cons (car lst) acc)))
+          (else (loop (cdr lst) acc))))
+  (loop lst '()))
 
-
-;; get duplciates based on a function
+;; Return every element of `lst` for which `fn` is truthy (like filter, reversed).
+;; duplicates-by-fn : (any/c -> boolean?) list? -> list?
 (define (duplicates-by-fn fn lst)
-  (define (duplicates-aux fn lst rlst)
-    (cond ((empty? lst) rlst)
-          ((fn (car lst))
-           (duplicates-aux fn (cdr lst) (cons (car lst) rlst)))
-          (else (duplicates-aux fn (cdr lst) rlst))))
-  (duplicates-aux fn lst '()))
+  (define (loop lst acc)
+    (cond ((empty? lst) acc)
+          ((fn (car lst)) (loop (cdr lst) (cons (car lst) acc)))
+          (else (loop (cdr lst) acc))))
+  (loop lst '()))

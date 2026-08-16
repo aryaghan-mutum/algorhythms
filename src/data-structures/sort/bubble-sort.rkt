@@ -1,21 +1,25 @@
-;; Author: Anurag Muthyam
-
 #lang racket
+
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
+
 (require racket/contract)
 
 (provide
   (contract-out
-    [bubble-sort-v1 (-> (and/c list? (not/c empty?)) procedure? list?)]))
+    [bubble-sort (-> list? (-> any/c any/c any/c) list?)]))
 
-(define (bubble-sort-v1 lst fn)
-
-  (define (bubble-sort-aux lst)
-    (cond ((empty? (cdr lst)) lst)
-          ((fn (car lst) (cadr lst))
-           (cons (cadr lst) (bubble-sort-aux (cons (car lst) (cddr lst)))))
-          (else (cons (car lst) (bubble-sort-aux (cdr lst))))))
-
-  (let ((nlst (bubble-sort-aux lst)))
-    (if (equal? lst nlst)
+;; Bubble sort using comparator `less?`: (less? a b) => #t means a comes before b.
+;; Passing `<` yields ascending order for numbers.
+;; bubble-sort : list? (any/c any/c -> boolean?) -> list?
+(define (bubble-sort lst less?)
+  (define (one-pass lst)
+    (cond ((or (empty? lst) (empty? (cdr lst))) lst)
+          ((less? (car lst) (cadr lst))
+           (cons (car lst) (one-pass (cdr lst))))
+          (else
+           (cons (cadr lst) (one-pass (cons (car lst) (cddr lst)))))))
+  (let ((next (one-pass lst)))
+    (if (equal? lst next)
         lst
-        (bubble-sort-v1 nlst fn))))
+        (bubble-sort next less?))))

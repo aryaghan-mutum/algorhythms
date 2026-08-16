@@ -1,44 +1,22 @@
-﻿;; Author: Anurag Muthyam
+﻿#lang racket
+
+;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum
 
-#lang racket
-(provide remove-v4)
-;; =================
+(provide remove-element)
 
-;; Alternative implementations kept for reference (commented out) --
-;; remove-v4 below is the active implementation (uses equal?, most general).
+;; Return `lst` with every element equal? to `item` removed, preserving order.
+;; remove-element : any/c list? -> list?
+(define (remove-element item lst)
+  (letrec ((loop
+            (lambda (lst acc)
+              (cond ((empty? lst) (reverse acc))
+                    ((equal? item (car lst)) (loop (cdr lst) acc))
+                    (else (loop (cdr lst) (cons (car lst) acc)))))))
+    (loop lst null)))
+
 #|
-;; iterative process version 1
-(define (remove-v1 n lst)
-  (define (remove-iter lst rlst)
-    (cond ((empty? lst) rlst)
-          ((eqv? n (car lst)) (remove-iter (cdr lst) rlst))
-          (else (remove-iter (cdr lst) (cons (car lst) rlst)))))
-  (reverse (remove-iter lst null)))
-
-;; let version 2
-(define (remove-v2 n lst)
-  (let loop ((lst lst) (rlst null))
-    (cond ((empty? lst) (reverse rlst))
-          ((eqv? n (car lst)) (loop (cdr lst) rlst))
-          (else (loop (cdr lst) (cons (car lst) rlst))))))
-
-;; reursive process version 3
-(define (remove-v3 item lst)
-  (cond ((empty? lst) '())
-        ((eq? item (car lst)) (remove-v3 item (cdr lst)))
-        (else
-         (cons (car lst) (remove-v3 item (cdr lst))))))
+;; Retired: iterative, named-let, and recursive-process variants that used
+;; eqv?/eq? and therefore only worked for numbers/symbols; the letrec version
+;; above uses equal? so it handles any element type.
 |#
-
-;; letrec version 4
-(define (remove-v4 n lst)
-  (letrec ((remove-aux
-            (lambda (lst rlst)
-              (cond ((empty? lst) (reverse rlst))
-                    ((equal? n (car lst)) (remove-aux (cdr lst) rlst))
-                    (else (remove-aux (cdr lst) (cons (car lst) rlst)))))))
-    (remove-aux lst null)))
-
-;; =================

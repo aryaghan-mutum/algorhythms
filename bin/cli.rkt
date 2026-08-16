@@ -24,13 +24,20 @@
   (displayln "  morse decode <morse>   Decode Morse code to text")
   (displayln "  sort <algorithm> <nums...>  Sort numbers")
   (displayln "    algorithms: bubble, insertion, quick, selection")
+  (displayln "  calc add <nums...>     Sum a list of numbers")
+  (displayln "  calc sub <nums...>     Left-to-right subtraction")
+  (displayln "  calc mul <nums...>     Product of a list of numbers")
+  (displayln "  calc div <nums...>     Left-to-right division")
+  (displayln "  calc mod <a> <b>       a modulo b (integers)")
+  (displayln "  calc pow <base> <n>    base raised to integer n")
   (displayln "  help                   Show this help message")
   (displayln "")
   (displayln "Examples:")
   (displayln "  racket cli.rkt factorial 10")
   (displayln "  racket cli.rkt prime? 17")
   (displayln "  racket cli.rkt morse encode \"SOS\"")
-  (displayln "  racket cli.rkt sort quick 5 2 8 1 9"))
+  (displayln "  racket cli.rkt sort quick 5 2 8 1 9")
+  (displayln "  racket cli.rkt calc add 1 2 3 4 5"))
 
 (define (parse-numbers args)
   (map string->number args))
@@ -84,10 +91,10 @@
      (define numbers (parse-numbers nums))
      (if (andmap number? numbers)
          (let ([sorted (case algorithm
-                         [("bubble") (bubble-sort-v1 numbers <)]
-                         [("insertion") (insert-sort-v1 numbers)]
-                         [("quick") (quick-sort-v1 numbers <)]
-                         [("selection") (selection-sort-v1 numbers)]
+                         [("bubble") (bubble-sort numbers <)]
+                         [("insertion") (insertion-sort numbers)]
+                         [("quick") (quick-sort numbers <)]
+                         [("selection") (selection-sort numbers)]
                          [else #f])])
            (if sorted
                (displayln (string-join (map ~a sorted) " "))
@@ -107,7 +114,30 @@
      (if num
          (displayln (cube num))
          (displayln "Error: Invalid number"))]
-    
+
+    ;; Calculator: variadic add/sub/mul/div
+    [(list* "calc" op nums)
+     (define numbers (parse-numbers nums))
+     (cond
+       [(not (andmap number? numbers))
+        (displayln "Error: Invalid numbers")]
+       [else
+        (with-handlers ([exn:fail? (lambda (e) (displayln (~a "Error: " (exn-message e))))])
+          (define result
+            (case op
+              [("add") (apply add numbers)]
+              [("sub") (apply subtract numbers)]
+              [("mul") (apply multiply numbers)]
+              [("div") (apply divide numbers)]
+              [("mod") (match numbers
+                         [(list a b) (modulus a b)]
+                         [_ (error 'calc "mod requires exactly two integers")])]
+              [("pow") (match numbers
+                         [(list b n) (power-of b n)]
+                         [_ (error 'calc "pow requires base and integer exponent")])]
+              [else (error 'calc "unknown op: ~a (use add|sub|mul|div|mod|pow)" op)]))
+          (displayln result))])]
+
     ;; Unknown command
     [else
      (displayln (~a "Unknown command: " (car args)))

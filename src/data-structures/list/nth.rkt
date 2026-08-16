@@ -1,33 +1,15 @@
 #lang racket
 
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
+
 (provide nth)
 
-;; Get nth element from a list (1-indexed)
+;; Get the element at 1-indexed position `pos` in `lst`; error if out of range.
+;; nth : list? exact-positive-integer? -> any/c
 (define (nth lst pos)
-  (nth-helper lst 0 1 pos))
-
-(define (nth-helper lst frst count pos)
-  (cond ((empty? lst) (error 'nth "index out of bounds"))
-        ((= (length lst) 1) (car lst))
-        ((= count pos) (car lst))
-        (else (nth-helper (cdr lst)
-                          (car lst)
-                          (add1 count)
-                          pos))))
-
-;; problem 2:
-
-;; simplify the algorithm. There is a lot of redudant things such as lsty, etc
-(define (nth2 lst pos)
-  (nth-helper2 lst lst 0 1 pos))
-
-(define (nth-helper2 lst lsty frst count pos)
-  (cond ((empty? lst) (error 'nth "index out of bounds"))
-        ((> pos (length lsty)) (error 'nth "index out of bounds"))
-        ((= (length lst) 1) (car lst))
-        ((= count pos) (car lst))
-        (else (nth-helper2 (cdr lst)
-                          lsty
-                          (car lst)
-                          (add1 count)
-                          pos))))
+  (define (loop lst count)
+    (cond ((empty? lst) (error 'nth "index out of bounds"))
+          ((= count pos) (car lst))
+          (else (loop (cdr lst) (add1 count)))))
+  (loop lst 1))

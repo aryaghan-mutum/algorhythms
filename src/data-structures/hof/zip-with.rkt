@@ -5,8 +5,8 @@
 
 (provide zip-with)
 
-;; Combine two lists element-wise using a function
-;; (zip-with + '(1 2 3) '(4 5 6)) => '(5 7 9)
+;; Combine two lists element-wise using fn; stops at the shorter list.
+;; zip-with : (any/c any/c -> any/c) list? list? -> list?
 (define (zip-with fn lst1 lst2)
   (cond ((or (empty? lst1) (empty? lst2)) '())
         (else (cons (fn (car lst1) (car lst2))

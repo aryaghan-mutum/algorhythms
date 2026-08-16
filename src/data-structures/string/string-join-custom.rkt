@@ -1,16 +1,14 @@
-;; Author: Anurag Muthyam
-
 #lang racket
-(require threading racket/trace)
+
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
+
 (provide string-join-custom)
 
-(define (string-join-custom c lst)
-
-  (define (f frst lst)
-    (string-append frst (string c) lst))
-
+;; Join a non-empty list of strings using single-character separator `sep`.
+;; string-join-custom : char? (listof string?) -> string?
+(define (string-join-custom sep lst)
   (define (join lst)
     (cond ((empty? (cdr lst)) (car lst))
-          (else (f (car lst) (join (cdr lst))))))
-
+          (else (string-append (car lst) (string sep) (join (cdr lst))))))
   (if (empty? lst) "" (join lst)))

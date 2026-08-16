@@ -1,27 +1,24 @@
 ﻿#lang racket
 
 ;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
 
 (provide area-of-triangle
          heron
          perimeter-triangle
          (rename-out [area-of-triangle area-triangle]))
 
-;; area of a triangle
-(define area-of-triangle
-  (lambda (base height)
-    (* 0.5 base height)))
+;; Area of a triangle given base and perpendicular height.
+;; area-of-triangle : real? real? -> real?
+(define (area-of-triangle base height)
+  (* 0.5 base height))
 
-;; perimeter of a triangle given its three side lengths
+;; Perimeter of a triangle from its three side lengths.
+;; perimeter-triangle : real? real? real? -> real?
 (define (perimeter-triangle a b c) (+ a b c))
 
-;; if all three sides are known, use Heron's formula:
-;; Area = sqrt [ s(s - a)(s - b)(s - c) ] , where s = (a + b + c)/2
-(define heron
-  (lambda (a b c)
-    (let ((s (/ (+ a b c) 2.0)))
-      (sqrt (* s
-            (- s a)
-            (- s b)
-            (- s c))))))
-
+;; Area of a triangle from side lengths a, b, c (Heron's formula).
+;; heron : real? real? real? -> real?
+(define (heron a b c)
+  (let ((s (/ (+ a b c) 2.0)))
+    (sqrt (* s (- s a) (- s b) (- s c)))))

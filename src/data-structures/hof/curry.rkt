@@ -6,15 +6,15 @@
 (provide curry2
          partial)
 
-;; Curry a 2-argument function
-;; ((curry2 +) 1) returns a function that adds 1
+;; Curry a 2-argument function into two nested single-argument functions.
+;; curry2 : (any/c any/c -> any/c) -> (any/c -> (any/c -> any/c))
 (define (curry2 fn)
   (lambda (x)
     (lambda (y)
       (fn x y))))
 
-;; Partial application - fix some arguments
-;; ((partial + 1 2) 3 4) => (+ 1 2 3 4) = 10
+;; Partially apply fn, fixing the leading args and returning a new function.
+;; partial : procedure? any/c ... -> procedure?
 (define (partial fn . args)
   (lambda rest
     (apply fn (append args rest))))

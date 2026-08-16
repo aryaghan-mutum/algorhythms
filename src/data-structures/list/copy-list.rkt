@@ -1,29 +1,15 @@
-;; Author: Anurag Muthyam
-
 #lang racket
+
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
 
 (provide copy-list)
 
-;; get the copied list using iterative process
+;; Return a fresh list with the same elements as `lst` (structure-preserving, flat).
+;; copy-list : list? -> list?
 (define (copy-list lst)
-  (define (copy-list-iter lst rlst)
+  (define (loop lst acc)
     (if (empty? lst)
-        (reverse rlst)
-        (copy-list-iter (cdr lst)
-                        (cons (car lst) rlst))))
-  (copy-list-iter lst '()))
-
-;; Alternative implementations kept for reference (commented out) --
-;; copy-list above is the active implementation (iterative, avoids deep recursion).
-#|
-(define (copy-list-v2 lst)
-  (if (empty? lst)
-      lst
-      (cons (car lst) (copy-list-v2 (cdr lst)))))
-
-(define (copy-list-v3 lst)
-  (define (atom? x) (not (pair? x)))
-  (if (atom? lst)
-      lst
-      (cons (car lst) (copy-list-v3 (cdr lst)))))
-|#
+        (reverse acc)
+        (loop (cdr lst) (cons (car lst) acc))))
+  (loop lst '()))

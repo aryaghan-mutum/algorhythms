@@ -15,14 +15,12 @@
   (append (list 1 1) l (list -1)))
 
 ;; Check if a token sequence is a valid RPN expression (1 = operand, -1 = operator).
-;; FLAGGED: the else-branch update `(- 1 s)` does not match real RPN stack semantics
-;; (push +1 / binary-op -1 would normally be `(- s 1)`), and valid-rpn? rejects its
-;; own make-rpn's output (e.g. (valid-rpn? (make-rpn '(5 6))) is #f) and also rejects
-;; a plainly-valid "operand operand operator" sequence like '(1 1 -1). Kept as-is
-;; (behavior-preserving) since the existing tests were written against this exact
-;; formula; confirm the intended semantics before changing it.
+;; The running counter `s` tracks stack depth: every 1-token increments it, every
+;; other token (treated as a binary operator) decrements it. A well-formed run
+;; ends with exactly one value on the stack (s = 1) and never goes negative.
 ;; valid-rpn? : (listof integer?) [integer?] -> boolean?
 (define (valid-rpn? e [s 0])
-  (cond ((null? e) (= s 1))
-        ((= (car e) 1) (valid-rpn? (cdr e) (+ 1 s)))
-        (else (valid-rpn? (cdr e) (- 1 s)))))
+  (cond ((negative? s) #f)
+        ((null? e) (= s 1))
+        ((= (car e) 1) (valid-rpn? (cdr e) (+ s 1)))
+        (else (valid-rpn? (cdr e) (- s 1)))))

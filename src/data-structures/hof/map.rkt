@@ -5,8 +5,8 @@
 
 (provide mapper)
 
-;; Apply fn to each element and return new list
-;; (mapper sqr '(1 2 3 4)) => '(1 4 9 16)
+;; Apply fn to each element and return new list.
+;; mapper : (any/c -> any/c) list? -> list?
 (define (mapper fn lst)
   (if (empty? lst)
       '()

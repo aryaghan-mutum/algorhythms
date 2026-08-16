@@ -34,6 +34,8 @@
   (for/hash ([k (in-hash-keys morse-code-table)])
     (values (hash-ref morse-code-table k) k)))
 
+;; #t when `str` is the empty string. Internal helper (not exported).
+;; string-empty? : string? -> boolean?
 (define (string-empty? str)
   (= (string-length str) 0))
 

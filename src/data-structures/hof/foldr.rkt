@@ -5,9 +5,8 @@
 
 (provide foldr-custom)
 
-;; Right fold - processes list from right to left
-;; (foldr-custom - 0 '(1 2 3)) => 1 - (2 - (3 - 0)) = 2
-;; (foldr-custom cons '() '(1 2 3)) => '(1 2 3)
+;; Right fold: reduce lst right-to-left threading the accumulator through fn.
+;; foldr-custom : (any/c any/c -> any/c) any/c list? -> any/c
 (define (foldr-custom fn init lst)
   (if (empty? lst)
       init

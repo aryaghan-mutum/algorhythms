@@ -5,9 +5,8 @@
 
 (provide foldl-custom)
 
-;; Left fold - processes list from left to right, accumulating result
-;; (foldl-custom + 0 '(1 2 3)) => ((0 + 1) + 2) + 3 = 6
-;; (foldl-custom - 0 '(1 2 3)) => ((0 - 1) - 2) - 3 = -6
+;; Left fold: reduce lst left-to-right threading the accumulator through fn.
+;; foldl-custom : (any/c any/c -> any/c) any/c list? -> any/c
 (define (foldl-custom fn init lst)
   (if (empty? lst)
       init

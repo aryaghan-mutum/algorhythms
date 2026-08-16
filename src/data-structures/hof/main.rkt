@@ -1,7 +1,8 @@
 #lang racket
 
-;; Higher-Order Functions Module
-;; Re-exports all HOF implementations
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
+;; Higher-Order Functions module: re-exports all HOF implementations.
 
 (require "map.rkt"
          "filter.rkt"
@@ -20,39 +21,32 @@
          "scan.rkt"
          "complement.rkt"
          "identity.rkt"
-         "counter.rkt")
+         "counter.rkt"
+         "lazy.rkt"
+         "memoize.rkt")
 
-(provide 
-  ;; Core HOFs
-  mapper           ; map function over list
-  filter-custom    ; filter list by predicate
-  reduce           ; reduce list to single value
-  foldl-custom     ; left fold
-  foldr-custom     ; right fold
-  foreach          ; apply function to each element
-  flatmap          ; flatten nested lists
-  
-  ;; List transformations
-  take-while       ; take while predicate true
-  drop-while       ; drop while predicate true
-  partition-list   ; split list by predicate
-  zip-with         ; combine two lists with function
-  scan             ; intermediate accumulator values
-  
-  ;; Function utilities
-  compose-fns      ; compose functions (right to left)
-  pipe             ; pipe functions (left to right)
-  curry2           ; curry 2-arg function
-  partial          ; partial application
-  flip             ; flip argument order
-  constantly       ; constant function
-
-  ;; Predicate utilities
-  complement       ; negate a predicate
-  identity         ; return argument unchanged
-
-  ;; Stateful counters
-  make-counter     ; create a new independent counter starting at 0
-
-  ;; Re-export flatten
-  (all-from-out "flatten.rkt"))
+(provide
+  mapper
+  filter-custom
+  reduce
+  foldl-custom
+  foldr-custom
+  foreach
+  flatmap
+  flatten-list
+  take-while
+  drop-while
+  partition-list
+  zip-with
+  scan
+  compose-fns
+  pipe
+  curry2
+  partial
+  flip
+  constantly
+  complement
+  identity
+  make-counter
+  lazy
+  memoize)

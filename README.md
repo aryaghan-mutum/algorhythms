@@ -9,6 +9,21 @@
 
 A Racket library of algorithms and data structures.
 
+## Documentation & Resources
+
+| Resource | Link |
+|----------|------|
+| Racket Docs (Algorhythms) | [Algorhythms](https://docs.racket-lang.org/algorhythms/index.html#%28part._top%29) |
+| Package Catalog | [pkgs.racket-lang.org — algorhythms](https://pkgs.racket-lang.org/package/algorhythms) |
+| GitHub Source | [aryaghan-mutum/algorhythms](https://github.com/aryaghan-mutum/algorhythms) |
+| CI Workflows | [GitHub Actions](https://github.com/aryaghan-mutum/algorhythms/actions) |
+| Code Coverage | [Codecov](https://codecov.io/gh/aryaghan-mutum/algorhythms) |
+| Releases | [GitHub Releases](https://github.com/aryaghan-mutum/algorhythms/releases) |
+| Racket Language | [racket-lang.org](https://racket-lang.org) |
+| Rackunit Test Framework | [Rackunit Docs](https://docs.racket-lang.org/rackunit/index.html) |
+| Raco Cover (Coverage Tool) | [raco cover](https://docs.racket-lang.org/cover/index.html) |
+| Scribble (Doc Format) | [Scribble Docs](https://docs.racket-lang.org/scribble/index.html) |
+
 📦 **Package**: [Racket Package Catalog](https://pkgs.racket-lang.org/package/algorhythms)
 
 📖 **Source**: [GitHub Repository](https://github.com/aryaghan-mutum/algorhythms)
@@ -65,7 +80,7 @@ $env:PLTCOMPILEDROOTS = "$env:LOCALAPPDATA/racket-compiled-cache/@(version)/"
 export PLTCOMPILEDROOTS="$HOME/.cache/racket-compiled/@(version)/"
 ```
 
-`scripts/test-report.ps1` already sets this automatically, so running it never leaves `compiled/` behind.
+`scripts/unit-test-report.ps1` already sets this automatically, so running it never leaves `compiled/` behind.
 
 ### Setup & Build
 ```bash
@@ -98,24 +113,36 @@ raco test tests/encoding/morse-code-test.rkt
 raco test tests/
 ```
 
-#### HTML Test Report
+#### HTML Test Report + Code Coverage
 
 Racket 9.2 does not include a built-in HTML reporter. Use the included PowerShell script:
 
 ```powershell
-# Generate reports/test-report.html and open it in the browser
-.\scripts\test-report.ps1
+# One-time: install the code-coverage tool
+raco pkg install cover
+
+# Generate reports/unit-test-report.html + reports/coverage/index.html and open the report
+.\scripts\unit-test-report.ps1
 
 # Custom output path
-.\scripts\test-report.ps1 -OutputFile reports/my-report.html
+.\scripts\unit-test-report.ps1 -OutputFile reports/my-report.html
 
 # Run against a specific subdirectory
-.\scripts\test-report.ps1 -TestDir tests/math/
+.\scripts\unit-test-report.ps1 -TestDir tests/math/
+
+# Skip the coverage pass (faster)
+.\scripts\unit-test-report.ps1 -SkipCoverage
 ```
 
-The report is written to **`reports/test-report.html`** (the `reports/` folder is created automatically).
-The `reports/` folder is tracked in git via `.gitkeep`; generated HTML/TXT files inside it are gitignored.
-The report opens automatically in your default browser after generation.
+The main report is written to **`reports/unit-test-report.html`** — includes an overall
+pass/fail badge, a coverage-percentage card that links to the full raco-cover HTML tree,
+a doughnut chart of pass/fail/error distribution, a stacked bar chart of tests per file,
+and per-test-case drill-down with inline failure detail. The `reports/` folder is
+tracked in git via `.gitkeep`; generated HTML/TXT files (and the `reports/coverage/`
+subdirectory) are gitignored.
+
+The raco-cover HTML tree lives at **`reports/coverage/index.html`** — click any source
+file to see line-by-line covered/uncovered highlighting.
 
 **Plain text alternative** (no extra files):
 ```powershell

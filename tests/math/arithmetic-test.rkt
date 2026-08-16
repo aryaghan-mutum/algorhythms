@@ -12,7 +12,7 @@
          "../../src/math/arithmetic/double.rkt"
          "../../src/math/arithmetic/half.rkt"
          "../../src/math/arithmetic/min-max.rkt"
-         "../../src/math/arithmetic/operators.rkt"
+         "../../src/math/arithmetic/calculator.rkt"
          "../../src/math/arithmetic/percentage.rkt"
          "../../src/math/arithmetic/power.rkt"
          "../../src/math/arithmetic/reciprocal.rkt"
@@ -265,7 +265,74 @@
     "operators/percentage/average - invalid"
     (test-case "divide by zero raises an error" (check-exn exn:fail? (lambda () (divide 5 0))))
     (test-case "percentage of a zero whole raises an error" (check-exn exn:fail? (lambda () (percentage 5 0))))
-    (test-case "average of an empty list raises an error" (check-exn exn:fail? (lambda () (average '())))))))
+    (test-case "average of an empty list raises an error" (check-exn exn:fail? (lambda () (average '())))))
+
+   (test-suite
+    "calculator - variadic add/subtract/multiply/divide - valid"
+    (test-case "add is variadic" (check-equal? (add 1 2 3 4 5) 15))
+    (test-case "subtract is left-to-right" (check-equal? (subtract 100 10 20 30) 40))
+    (test-case "multiply is variadic" (check-equal? (multiply 2 3 4) 24))
+    (test-case "divide is left-to-right" (check-equal? (divide 100 5 2) 10)))
+
+   (test-suite
+    "calculator - variadic add/subtract/multiply/divide - edge"
+    (test-case "add with no args returns 0" (check-equal? (add) 0))
+    (test-case "multiply with no args returns 1" (check-equal? (multiply) 1))
+    (test-case "subtract with one arg negates" (check-equal? (subtract 7) -7))
+    (test-case "divide with one arg returns reciprocal" (check-equal? (divide 4) 1/4))
+    (test-case "add with negative" (check-equal? (add -3 5 -2) 0))
+    (test-case "multiply with decimal and integer" (check-within (multiply 2.5 4 0.5) 5.0 0.0001))
+    (test-case "add with rationals" (check-equal? (add 1/2 1/3 1/6) 1))
+    (test-case "divide keeps exactness for exact operands" (check-equal? (divide 1 3) 1/3)))
+
+   (test-suite
+    "calculator - variadic add/subtract/multiply/divide - invalid"
+    (test-case "divide by zero raises" (check-exn exn:fail? (lambda () (divide 10 0))))
+    (test-case "divide by zero anywhere in chain raises"
+      (check-exn exn:fail? (lambda () (divide 10 5 0 2))))
+    (test-case "divide 1-arg with 0 raises"
+      (check-exn exn:fail? (lambda () (divide 0)))))
+
+   (test-suite
+    "calculator - from-scratch integer recursion - valid"
+    (test-case "add-integers-recursive positive+positive"
+      (check-equal? (add-integers-recursive 3 4) 7))
+    (test-case "add-integers-recursive positive+negative"
+      (check-equal? (add-integers-recursive 5 -3) 2))
+    (test-case "add-integers-recursive negative+negative"
+      (check-equal? (add-integers-recursive -4 -6) -10))
+    (test-case "subtract-integers-recursive"
+      (check-equal? (subtract-integers-recursive 10 3) 7))
+    (test-case "multiply-integers-recursive positive*positive"
+      (check-equal? (multiply-integers-recursive 4 5) 20))
+    (test-case "multiply-integers-recursive positive*negative"
+      (check-equal? (multiply-integers-recursive 4 -5) -20))
+    (test-case "multiply-integers-recursive negative*negative"
+      (check-equal? (multiply-integers-recursive -3 -4) 12))
+    (test-case "multiply-integers-loop matches recursive"
+      (check-equal? (multiply-integers-loop 6 7) 42))
+    (test-case "multiply-integers-loop with negatives"
+      (check-equal? (multiply-integers-loop -3 5) -15)))
+
+   (test-suite
+    "calculator - from-scratch integer recursion - edge"
+    (test-case "add-integers-recursive with 0"
+      (check-equal? (add-integers-recursive 0 0) 0))
+    (test-case "multiply-integers-recursive by 0"
+      (check-equal? (multiply-integers-recursive 100 0) 0))
+    (test-case "multiply-integers-loop by 0"
+      (check-equal? (multiply-integers-loop 100 0) 0)))
+
+   (test-suite
+    "calculator - power-of - valid"
+    (test-case "2^5 is 32" (check-equal? (power-of 2 5) 32))
+    (test-case "10^3 is 1000" (check-equal? (power-of 10 3) 1000)))
+
+   (test-suite
+    "calculator - power-of - edge"
+    (test-case "x^0 is 1" (check-equal? (power-of 7 0) 1))
+    (test-case "1^n is 1" (check-equal? (power-of 1 100) 1))
+    (test-case "0^positive is 0" (check-equal? (power-of 0 5) 0)))))
 
 (run-tests arithmetic-tests)
 

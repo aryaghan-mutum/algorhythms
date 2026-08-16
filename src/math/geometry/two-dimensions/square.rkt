@@ -1,6 +1,7 @@
 ﻿#lang racket
 
-;Author: Anurag Muthyam
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
 
 (provide sqr-area
          sqr-area-lst
@@ -9,18 +10,18 @@
          (rename-out [sqr-area area-square]
                      [sqr-perim perimeter-square]))
 
-;; area of square 
-(define sqr-area
-  (lambda (s) (* s s)))
+;; Area of a square with side length s.
+;; sqr-area : real? -> real?
+(define (sqr-area s) (* s s))
 
-;; area of square for each element in a list
-(define sqr-area-lst
-  (lambda (lst) (map sqr-area lst)))
+;; sqr-area mapped over a list of side lengths.
+;; sqr-area-lst : (listof real?) -> (listof real?)
+(define (sqr-area-lst lst) (map sqr-area lst))
 
-;; perimeter of a square 
-(define sqr-perim
-  (lambda (s) (* 4 s)))
+;; Perimeter of a square with side length s.
+;; sqr-perim : real? -> real?
+(define (sqr-perim s) (* 4 s))
 
-;; perimeter of square for each element in a list
-(define sqr-perim-lst
-  (lambda (lst) (map sqr-perim lst)))
+;; sqr-perim mapped over a list of side lengths.
+;; sqr-perim-lst : (listof real?) -> (listof real?)
+(define (sqr-perim-lst lst) (map sqr-perim lst))

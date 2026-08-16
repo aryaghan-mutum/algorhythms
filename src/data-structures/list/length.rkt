@@ -2,7 +2,6 @@
 
 ;; Author: Anurag Muthyam
 ;; Email: anu.drumcoder@gmail.com
-;; https://github.com/aryaghan-mutum/racket-lists
 
 (provide my-length
          length-by
@@ -10,16 +9,17 @@
          longer
          length-lst)
 
-;; get the length of a list
+;; Return the number of elements in `lst` (iterative accumulator).
+;; my-length : list? -> exact-nonnegative-integer?
 (define (my-length lst)
-  (define (length-iter lst result)
+  (define (loop lst acc)
     (if (empty? lst)
-      result
-      (length-iter (cdr lst)
-                   (add1 result))))
-  (length-iter lst 0))
+        acc
+        (loop (cdr lst) (add1 acc))))
+  (loop lst 0))
 
-;; get a length based on the function: < or >
+;; Return the length picked by comparison `fn` (`<` for shorter, `>` for longer).
+;; length-by : list? list? (exact-integer? exact-integer? -> boolean?) -> exact-nonnegative-integer?
 (define (length-by lst1 lst2 fn)
   (let ((lenx (my-length lst1))
         (leny (my-length lst2)))
@@ -27,7 +27,8 @@
           ((fn leny lenx) leny)
           (else lenx))))
 
-;; get a shorter list from two lists
+;; Return whichever of `lst1`/`lst2` is shorter (ties break to `lst1`).
+;; shorter : list? list? -> list?
 (define (shorter lst1 lst2)
   (let ((lenx (my-length lst1))
         (leny (my-length lst2)))
@@ -35,7 +36,8 @@
           ((< leny lenx) lst2)
           (else lst1))))
 
-;; get a longer list from two lists
+;; Return whichever of `lst1`/`lst2` is longer (ties break to `lst1`).
+;; longer : list? list? -> list?
 (define (longer lst1 lst2)
   (let ((lenx (my-length lst1))
         (leny (my-length lst2)))
@@ -43,7 +45,8 @@
           ((> leny lenx) lst2)
           (else lst1))))
 
-;; get a shorter or longer list based on the function: < or >
+;; Return the list picked by comparison `fn` (`<` for shorter, `>` for longer).
+;; length-lst : list? list? (exact-integer? exact-integer? -> boolean?) -> list?
 (define (length-lst lst1 lst2 fn)
   (let ((lenx (my-length lst1))
         (leny (my-length lst2)))

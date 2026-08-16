@@ -1,7 +1,10 @@
 #lang racket
 
-(provide en-vowels 
-         en-consonents 
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
+
+(provide en-vowels
+         en-consonents
          en-alphabets
          first-en-alphabet
          last-en-alphabet
@@ -16,53 +19,40 @@
 (define en-consonents '(b c d f g h j k l m n p q r s t v w x y z))
 
 (define en-alphabets
-    (let ((unsorted-alphabets (append en-vowels en-consonents)))
-      (sort unsorted-alphabets symbol<?)))
+  (sort (append en-vowels en-consonents) symbol<?))
 
-(define first-en-alphabet (lambda () (car en-alphabets)))
+;; The first English alphabet symbol (`'a`).
+;; first-en-alphabet : -> symbol?
+(define (first-en-alphabet) (car en-alphabets))
 
-(define last-en-alphabet (lambda () (last en-alphabets)))
+;; The last English alphabet symbol (`'z`).
+;; last-en-alphabet : -> symbol?
+(define (last-en-alphabet) (last en-alphabets))
 
-(define en-alphabets-length (lambda () (length en-alphabets)))
+;; Count of English alphabets (26).
+;; en-alphabets-length : -> exact-positive-integer?
+(define (en-alphabets-length) (length en-alphabets))
 
+;; #t if `letter` is one of the 5 English vowels.
+;; en-vowel? : symbol? -> boolean?
 (define (en-vowel? letter)
-  (define (vowel-helper letter lst)
-    (cond ((empty? lst) #f)
-          ((eq? letter (car lst)) #t)
-          (else (vowel-helper letter
-                              (cdr lst)))))
-  (vowel-helper letter en-vowels))
+  (and (memq letter en-vowels) #t))
 
+;; #t if `letter` is a non-vowel English consonant.
+;; en-consonent? : symbol? -> boolean?
 (define (en-consonent? letter)
-  (not (en-vowel? letter)))
+  (and (memq letter en-consonents) #t))
 
-;; taken from Simply Scheme
+;; #t if `x` is a word-like value (symbol/number/string) per Simply Scheme.
+;; word? : any/c -> boolean?
 (define (word? x)
-  (or (symbol? x)
-      (number? x)
-      (string? x)))
+  (or (symbol? x) (number? x) (string? x)))
 
-;; taken from Simply Scheme
+;; #t if `x` is a proper list of word-like values (Simply Scheme "sentence").
+;; sentence? : any/c -> boolean?
 (define (sentence? x)
   (define (list-of-words? l)
     (cond ((null? l) #t)
-          ((pair? l)
-           (and (word? (car l)) (list-of-words? (cdr l))))
+          ((pair? l) (and (word? (car l)) (list-of-words? (cdr l))))
           (else #f)))
   (list-of-words? x))
-    
-;; check if a given letter is a vowel
-(define (vowel? letter)
-  (let ((vlst '("a" "e" "i" "o" "u")))
-    (define (vowel-helper letter vlst)
-      (cond ((empty? vlst) #f)
-            ((equal? letter (car vlst)) #t)
-            (else (vowel-helper letter
-                                (cdr vlst)))))
-    (vowel-helper letter vlst)))
-
-;; check if a given letter is a consonant
-(define (consonant? letter)
-  (if (or (integer? letter) (boolean? letter) (symbol? letter))
-      #f
-      (not (vowel? letter))))

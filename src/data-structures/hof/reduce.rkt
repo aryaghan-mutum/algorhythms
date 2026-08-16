@@ -5,9 +5,8 @@
 
 (provide reduce)
 
-;; Reduce a list to a single value by applying fn cumulatively
-;; (reduce + '(1 2 3 4)) => 10
-;; (reduce * '(1 2 3 4)) => 24
+;; Reduce lst to a single value by applying fn cumulatively; returns #f on empty.
+;; reduce : (any/c any/c -> any/c) list? -> any/c
 (define (reduce fn lst)
   (if (empty? lst)
       #f
