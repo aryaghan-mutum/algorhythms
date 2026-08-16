@@ -112,7 +112,44 @@ foreach ($line in $rawOutput) {
 }
 Flush-File
 
-# Static-scan each test file for individual test-case names
+# Static-scan each test file for individual test-case names + the exact
+# function under test (parsed from the test-case body) and a plain-English
+# description of what each case verifies.
+
+# Skip these when heuristically picking the tested function out of a test-case
+# body: rackunit primitives, Racket syntactic forms, and generic list combinators
+# that are almost never the subject of a test-case.
+$skipCallees = @(
+    'test-case','test-suite',
+    'check-equal?','check-true','check-false','check-within','check-=',
+    'check-exn','check-eqv?','check-pred','check-not-equal?','check-not-eq?',
+    'check-not-false','check-eq?','check-regexp-match','check-not-exn',
+    'lambda','let','let*','letrec','letrec-values','let-values','define',
+    'cond','if','case','when','unless','begin','quote','unquote','and','or',
+    'not','set!','for','for/list','for/vector','for/hash','in-list','in-range',
+    'in-vector','in-hash','string-append','error','apply','values',
+    'delay','force')
+
+function Extract-Method([string]$body) {
+    # Strip double-quoted strings so identifiers appearing inside a test-case
+    # name (e.g. "(memoized)") don't leak into the extraction result.
+    $stripped = [regex]::Replace($body, '"[^"]*"', '""')
+    foreach ($m in [regex]::Matches($stripped, '\(([a-zA-Z][a-zA-Z0-9\-\?\!<>*/=+_.]*)')) {
+        $name = $m.Groups[1].Value
+        if ($skipCallees -notcontains $name) { return $name }
+    }
+    return "-"
+}
+
+function Describe-Case([string]$name, [string]$method) {
+    if ([string]::IsNullOrWhiteSpace($name)) { return "-" }
+    $lower = $name.Substring(0,1).ToLower() + $name.Substring(1)
+    if ($method -eq "-" -or [string]::IsNullOrWhiteSpace($method)) {
+        return "Verifies that $lower."
+    }
+    return "Verifies '$method' - $lower."
+}
+
 $testCaseMap = @{}
 foreach ($s in $suites) {
     $file = $s.File
@@ -120,11 +157,24 @@ foreach ($s in $suites) {
     $fullPath = Join-Path (Get-Location) $file
     if (-not (Test-Path -LiteralPath $fullPath)) { continue }
     $entries = [System.Collections.Generic.List[hashtable]]::new()
-    $lineNo  = 0
-    foreach ($srcLine in Get-Content -LiteralPath $fullPath) {
-        $lineNo++
+    $allLines = @(Get-Content -LiteralPath $fullPath)
+    for ($i = 0; $i -lt $allLines.Count; $i++) {
+        $srcLine = "$($allLines[$i])"
         if ($srcLine -match '\(test-case\s+"([^"]*)"') {
-            $entries.Add(@{ Line=$lineNo; Name=(HtmlEscape $Matches[1]); Status="PASS"; Detail=$null; Header=$null })
+            $name   = $Matches[1]
+            $endIdx = [Math]::Min($i + 5, $allLines.Count - 1)
+            $body   = ($allLines[$i..$endIdx] -join ' ')
+            $method = Extract-Method $body
+            $desc   = Describe-Case $name $method
+            $entries.Add(@{
+                Line        = $i + 1
+                Name        = (HtmlEscape $name)
+                Method      = (HtmlEscape $method)
+                Description = (HtmlEscape $desc)
+                Status      = "PASS"
+                Detail      = $null
+                Header      = $null
+            })
         }
     }
     if ($entries.Count -gt 0) { $testCaseMap[$file] = $entries }
@@ -213,13 +263,14 @@ $fileDetailSections = ($suites | ForEach-Object {
         $statusClass = switch ($_.Status) { "PASS" {"case-pass"} "FAILURE" {"case-fail"} "ERROR" {"case-error"} }
         $label       = switch ($_.Status) { "PASS" {"PASS"}     "FAILURE" {"FAIL"}       "ERROR" {"ERROR"} }
         $detailCell  = if ($_.Detail) { "<pre>$($_.Header)`n$($_.Detail)</pre>" } else { "" }
-        "<tr class='$statusClass'><td>$($_.Name)</td><td class='status'>$label</td><td>$detailCell</td></tr>"
+        $methodCell  = if ($_.Method -and $_.Method -ne "-") { "<code>$($_.Method)</code>" } else { "<span class='muted'>&mdash;</span>" }
+        "<tr class='$statusClass'><td>$($_.Name)</td><td class='method'>$methodCell</td><td class='desc'>$($_.Description)</td><td class='status'>$label</td><td>$detailCell</td></tr>"
     }) -join "`n"
     @"
   <details class="file-detail"$openAttr>
     <summary>$file &nbsp;<span class="muted">($($entries.Count) test case$(if ($entries.Count -ne 1) { 's' }))</span></summary>
     <table class="case-table">
-      <thead><tr><th>Test Case</th><th>Status</th><th>Detail</th></tr></thead>
+      <thead><tr><th>Test Case</th><th>Method</th><th>Description</th><th>Status</th><th>Detail</th></tr></thead>
       <tbody>
 $caseRows
       </tbody>
@@ -325,6 +376,9 @@ $html = @"
     details.file-detail > summary:hover { background:var(--bg-raised); }
     table.case-table { font-size:.84rem; }
     table.case-table th { background:transparent; border-bottom:1px solid var(--border); }
+    table.case-table td.method { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    table.case-table td.method code { background:transparent; color:var(--accent); padding:0; }
+    table.case-table td.desc { color:var(--text-dim); font-size:.82rem; max-width:340px; }
     tr.case-pass  td.status { color:var(--green); font-weight:700; }
     tr.case-fail  td.status { color:var(--red);   font-weight:700; }
     tr.case-error td.status { color:var(--amber); font-weight:700; }
