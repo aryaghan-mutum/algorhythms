@@ -27,11 +27,14 @@ Thumbs.db
 # VS Code
 .history/
 
-# Generated reports (run scripts/test-report.ps1 to regenerate)
+# Generated reports (run scripts/unit-test-report.ps1 to regenerate)
 reports/*.html
 reports/*.txt
 reports/*.xml
+reports/coverage/
+reports/coverage-raw/
 # Legacy: root-level report if script is run from a non-standard location
 test-report.html
+unit-test-report.html
 test-results.txt
 
