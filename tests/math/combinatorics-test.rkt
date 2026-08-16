@@ -68,8 +68,10 @@
       (check-equal? (make-rpn '(5 6)) '(1 1 5 6 -1)))
     (test-case "valid-rpn? accepts a single operand token"
       (check-true (valid-rpn? '(1))))
-    (test-case "valid-rpn? accepts this specific balanced token run"
-      (check-true (valid-rpn? '(1 -1 -1)))))
+    (test-case "valid-rpn? accepts operand-operand-operator"
+      (check-true (valid-rpn? '(1 1 -1))))
+    (test-case "valid-rpn? accepts three operands then two operators"
+      (check-true (valid-rpn? '(1 1 1 -1 -1)))))
 
    (test-suite
     "permutations - edge"
@@ -80,12 +82,12 @@
 
    (test-suite
     "permutations - invalid"
-    (test-case "valid-rpn? rejects two operand tokens in a row"
+    (test-case "valid-rpn? rejects two operand tokens with no operator"
       (check-false (valid-rpn? '(1 1))))
-    (test-case "valid-rpn? currently rejects a plain operand-operand-operator run too (FLAGGED as likely inconsistent with real RPN semantics -- see permutations.rkt; this documents actual behavior, not an endorsed correctness spec)"
-      (check-false (valid-rpn? '(1 1 -1))))
-    (test-case "valid-rpn? currently rejects make-rpn's own output -- see the same flag"
-      (check-false (valid-rpn? (make-rpn '(5 6))))))
+    (test-case "valid-rpn? rejects operator on empty stack"
+      (check-false (valid-rpn? '(-1))))
+    (test-case "valid-rpn? rejects unbalanced tail operator"
+      (check-false (valid-rpn? '(1 -1 -1)))))
 
    (test-suite
     "pascal-triangle - valid"

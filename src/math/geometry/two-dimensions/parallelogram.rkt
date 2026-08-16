@@ -1,25 +1,26 @@
 ﻿#lang racket
 
-;Author: Anurag Muthyam
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
 
 (provide parallelogram-area
          parallelogram-area-lst
          parallelogram-perim
          parallelogram-perim-lst)
 
-;; area of a parallelogram
-(define parallelogram-area
-  (lambda (base height) (* base height)))
+;; Area of a parallelogram: base * perpendicular height.
+;; parallelogram-area : real? real? -> real?
+(define (parallelogram-area base height) (* base height))
 
-;; area of a parallelogram for each element in a list
-(define parallelogram-area-lst
-  (lambda (lst) (map parallelogram-area lst)))
-         
-;; permiter of a perim-parallelogram
-(define parallelogram-perim
-  (lambda (base height)
-    (+ (* 2 base) (* 2 height))))
+;; parallelogram-area mapped over a list of (base height) pairs.
+;; parallelogram-area-lst : (listof (list real? real?)) -> (listof real?)
+(define (parallelogram-area-lst lst) (map parallelogram-area lst))
 
-;; permiter of a parallelogram for each element in a list
-(define parallelogram-perim-lst
-  (lambda (lst) (map parallelogram-perim lst)))
+;; Perimeter of a parallelogram: 2*(base + adjacent-side).
+;; parallelogram-perim : real? real? -> real?
+(define (parallelogram-perim base height)
+  (+ (* 2 base) (* 2 height)))
+
+;; parallelogram-perim mapped over a list of (base side) pairs.
+;; parallelogram-perim-lst : (listof (list real? real?)) -> (listof real?)
+(define (parallelogram-perim-lst lst) (map parallelogram-perim lst))

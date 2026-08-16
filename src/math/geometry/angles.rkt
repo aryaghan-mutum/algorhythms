@@ -1,26 +1,26 @@
 ﻿#lang racket
 
-;;; ;; Author: Anurag Muthyam
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
 
 (provide angle-to-degrees
          angle-to-radians
          angle-reflect)
 
-;; converts radians to degrees
-(define angle-to-degrees
-  (lambda (angle)
-    (/ (* angle 180) pi)))
+;; Convert radians to degrees.
+;; angle-to-degrees : real? -> real?
+(define (angle-to-degrees angle)
+  (/ (* angle 180) pi))
 
-;; converts degrees to radians
-(define angle-to-radians
-  (lambda (angle)
-    (* angle (/ pi 180))))
+;; Convert degrees to radians.
+;; angle-to-radians : real? -> real?
+(define (angle-to-radians angle)
+  (* angle (/ pi 180)))
 
-;; angle of reflection
-(define angle-reflect
-  (lambda (incidence-angle surface-angle)
-    (let ((a (- (* surface-angle 2) incidence-angle)))
-      (cond ((>= a 360) (- a 360))
-            ((< a 0) (+ a 360))
-            (else a)))))
-
+;; Angle of reflection off a surface, wrapped into the [0, 360) range.
+;; angle-reflect : real? real? -> real?
+(define (angle-reflect incidence-angle surface-angle)
+  (let ((a (- (* surface-angle 2) incidence-angle)))
+    (cond ((>= a 360) (- a 360))
+          ((< a 0) (+ a 360))
+          (else a))))

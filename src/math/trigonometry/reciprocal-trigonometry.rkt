@@ -1,10 +1,10 @@
-﻿;; Author: Anurag Muthyam
-;; Reciprocal Trigonometry
-;; Note: these compute 1/fn(x)-style reciprocals, not true inverse (arc-) functions
+﻿#lang racket
 
-#lang racket
+;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
 
 (require "./trigonometry.rkt")
+
 (provide reciprocal-sin
          reciprocal-cos
          reciprocal-tan
@@ -12,32 +12,26 @@
          reciprocal-sec
          reciprocal-cot)
 
-;; reciprocal of sin: -(1/sin(x))
-(define reciprocal-sin
-  (lambda (x)
-    (- (/ 1 (sine x)))))
+;; Reciprocal of sine: 1 / sin(x) (equals cosecant(x)).
+;; reciprocal-sin : real? -> real?
+(define (reciprocal-sin x) (/ 1 (sine x)))
 
-;; reciprocal of cos: π - (1/sin(x))
-(define reciprocal-cos
-  (lambda (x)
-    (- pi (/ 1 (sine x)))))
+;; Reciprocal of cosine: 1 / cos(x) (equals secant(x)).
+;; reciprocal-cos : real? -> real?
+(define (reciprocal-cos x) (/ 1 (cosine x)))
 
-;; reciprocal of tan: -(1/tan(x))
-(define reciprocal-tan
-  (lambda (x)
-    (- (/ 1 (tangent x)))))
+;; Reciprocal of tangent: 1 / tan(x) (equals cotangent(x)).
+;; reciprocal-tan : real? -> real?
+(define (reciprocal-tan x) (/ 1 (tangent x)))
 
-;; reciprocal of cosec: -(1/cosec(x))
-(define reciprocal-cosec
-  (lambda (x)
-    (- (/ 1 (cosecant x)))))
+;; Reciprocal of cosecant: 1 / cosec(x) (equals sin(x)).
+;; reciprocal-cosec : real? -> real?
+(define (reciprocal-cosec x) (/ 1 (cosecant x)))
 
-;; reciprocal of sec: -(1/sec(x))
-(define reciprocal-sec
-  (lambda (x)
-    (- (/ 1 (secant x)))))
+;; Reciprocal of secant: 1 / sec(x) (equals cos(x)).
+;; reciprocal-sec : real? -> real?
+(define (reciprocal-sec x) (/ 1 (secant x)))
 
-;; reciprocal of cot: π - (1/cot(x))
-(define reciprocal-cot
-  (lambda (x)
-    (- pi (/ 1 (cotangent x)))))
+;; Reciprocal of cotangent: 1 / cot(x) (equals tan(x)).
+;; reciprocal-cot : real? -> real?
+(define (reciprocal-cot x) (/ 1 (cotangent x)))

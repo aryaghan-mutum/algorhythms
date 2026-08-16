@@ -1,15 +1,16 @@
 ﻿#lang racket
 
 ;; Author: Anurag Muthyam
+;; Email: anu.drumcoder@gmail.com
 
-(provide rhombus-area 
+(provide rhombus-area
          rhombus-perimeter)
 
-;; area of rhombus
-(define rhombus-area
-  (lambda (large-diag small-diag)
-    (/ (* large-diag small-diag) 2)))
+;; Area of a rhombus from its two diagonals: (d1 * d2) / 2.
+;; rhombus-area : real? real? -> real?
+(define (rhombus-area large-diag small-diag)
+  (/ (* large-diag small-diag) 2))
 
-;; permiter of rhombus
-(define rhombus-perimeter
-  (lambda (s) (* 4 s)))
+;; Perimeter of a rhombus with side length s: 4 s.
+;; rhombus-perimeter : real? -> real?
+(define (rhombus-perimeter s) (* 4 s))
